@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.underworldstrack">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.UnderworldsTrack">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".Board" android:exported="false"/>
+        <activity android:name=".Bands" android:exported="false"/>
+        <activity android:name=".FactionBandsActivity" android:exported="false"/>
+        <activity android:name=".BandDetailActivity" android:exported="false"/>
+        <activity android:name=".DeckBuilderActivity" android:exported="false"/>
+        <activity android:name=".UserDecksActivity" android:exported="false"/>
+        <activity android:name=".UserDeckDetailActivity" android:exported="false"/>
+        <activity android:name=".DiceRollerActivity" android:exported="false"/>
+        <activity android:name=".RivalDecksListActivity" android:exported="false"/>
+        <activity android:name=".RivalDeckDetailActivity" android:exported="false"/>
+
+        <receiver android:name=".AlarmReciver" android:exported="false"/>
+
+        <service
+            android:name=".WifiService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false"/>
+
+    </application>
+</manifest>
