@@ -329,28 +329,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Kamandora (Líder)
         insertFighterInternal(db, (int)kamandoraBandId, "Kamandora", "kamandoras_blades_1");
-        // Uninspired
-        // Inspired
 
         // Throkk
         insertFighterInternal(db, (int)kamandoraBandId, "Throkk", "kamandoras_blades_2");
-        // Uninspired
-        // Inspired
 
         // Ghalista
         insertFighterInternal(db, (int)kamandoraBandId, "Ghalista", "kamandoras_blades_3");
-        // Uninspired
-        // Inspired
 
         // Antro Krast
         insertFighterInternal(db, (int)kamandoraBandId, "Antro Krast", "kamandoras_blades_4");
-        // Uninspired
-        // Inspired
 
         // Kannat
         insertFighterInternal(db, (int)kamandoraBandId, "Kannat", "kamandoras_blades_5");
-        // Uninspired
-        // Inspired
 
 
 
@@ -365,38 +355,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Briar Queen (Líder)
         insertFighterInternal(db, (int)thornsBandId, "Briar Queen", "thorns_of_the_briar_queen_1");
-        // Uninspired
-        // Inspired
 
         // Varclav
         insertFighterInternal(db, (int)thornsBandId, "Varclav", "thorns_of_the_briar_queen_2");
-        // Uninspired
-        // Inspired
 
         // The Ever-hanged
         insertFighterInternal(db, (int)thornsBandId, "The Ever-hanged", "thorns_of_the_briar_queen_3");
-        // Uninspired
-        // Inspired
 
         // The Ironwretch
         insertFighterInternal(db, (int)thornsBandId, "The Ironwretch", "thorns_of_the_briar_queen_4");
-        // Uninspired
-        // Inspired
 
         // The Exhumed
         insertFighterInternal(db, (int)thornsBandId, "The Exhumed", "thorns_of_the_briar_queen_5");
-        // Uninspired
-        // Inspired
 
         // The Silenced
         insertFighterInternal(db, (int)thornsBandId, "The Silenced", "thorns_of_the_briar_queen_6");
-        // Uninspired
-        // Inspired
 
         // The Uncrowned
         insertFighterInternal(db, (int)thornsBandId, "The Uncrowned", "thorns_of_the_briar_queen_7");
-        // Uninspired
-        // Inspired
 
         // --- Inserción de The Grymwatch (Band) ---
         long grymwatchBandId = insertBandInternal(db, "The Grymwatch",
@@ -410,38 +386,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Duke Crakmarrow (Líder)
         insertFighterInternal(db, (int)grymwatchBandId, "Duke Crakmarrow", "the_grymwatch_1");
-        // Uninspired
-        // Inspired
 
         // Gristlewel
         insertFighterInternal(db, (int)grymwatchBandId, "Gristlewel", "the_grymwatch_2");
-        // Uninspired
-        // Inspired
 
         // Valreek
         insertFighterInternal(db, (int)grymwatchBandId, "Valreek", "the_grymwatch_3");
-        // Uninspired
-        // Inspired
 
         // The Royal Butcher
         insertFighterInternal(db, (int)grymwatchBandId, "The Royal Butcher", "the_grymwatch_4");
-        // Uninspired
-        // Inspired
 
         // Master Talon
         insertFighterInternal(db, (int)grymwatchBandId, "Master Talon", "the_grymwatch_5");
-        // Uninspired
-        // Inspired
 
         // Night's Herald
         insertFighterInternal(db, (int)grymwatchBandId, "Night's Herald", "the_grymwatch_6");
-        // Uninspired
-        // Inspired
 
         // The Duke's Harriers
         insertFighterInternal(db, (int)grymwatchBandId, "The Duke's Harriers", "the_grymwatch_7");
-        // Uninspired
-        // Inspired
 
         // --- Inserción de The Crimson Court (Band) ---
         long crimsonBandId = insertBandInternal(db, "The Crimson Court",
@@ -457,23 +419,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Prince Duvalle (Líder)
         insertFighterInternal(db, (int)crimsonBandId, "Prince Duvalle", "the_crimson_court_1");
-        // Uninspired
-        // Inspired
 
         // Gorath the Enforcer
         insertFighterInternal(db, (int)crimsonBandId, "Gorath the Enforcer", "the_crimson_court_2");
-        // Uninspired
-        // Inspired
 
         // Vellas von Faine
         insertFighterInternal(db, (int)crimsonBandId, "Vellas von Faine", "the_crimson_court_3");
-        // Uninspired
-        // Inspired
 
         // Ennias Curse-born
         insertFighterInternal(db, (int)crimsonBandId, "Ennias Curse-born", "the_crimson_court_4");
-        // Uninspired
-        // Inspired
 
         // --- Inserción de The Exiled Dead (Band) ---
 
@@ -488,33 +442,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Deintalos (Líder)
         insertFighterInternal(db, (int)exiledBandId, "Deintalos", "the_exiled_dead_1");
-        // Uninspired
-        // Inspired
 
         // Marcov
         insertFighterInternal(db, (int)exiledBandId, "Marcov", "the_exiled_dead_2");
-        // Uninspired
-        // Inspired
 
         // Regulus
         insertFighterInternal(db, (int)exiledBandId, "Regulus", "the_exiled_dead_3");
-        // Uninspired (Starts Inspired)
 
         // Bault
         insertFighterInternal(db, (int)exiledBandId, "Bault", "the_exiled_dead_4");
-        // Uninspired (Starts Inspired)
 
         // Vlash
         insertFighterInternal(db, (int)exiledBandId, "Vlash", "the_exiled_dead_5");
-        // Uninspired (Starts Inspired)
 
         // Ione
         insertFighterInternal(db, (int)exiledBandId, "Ione", "the_exiled_dead_6");
-        // Uninspired (Starts Inspired)
 
         // Coyl
         insertFighterInternal(db, (int)exiledBandId, "Coyl", "the_exiled_dead_7");
-        // Uninspired (Starts Inspired)
 
 
 
@@ -944,7 +889,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCardInternal(db, "Shoulder Throw", "Gambit", "Ploy", 21, (int)emberstoneSentinelsDeckId, null, "Play this immediately after a friendly fighter's successful Attack if the target is adjacent. Remove the target from the battlefield, and then place them in a different empty hex adjacent to the attacker.", null, "card_es21");
         insertCardInternal(db, "By the Numbers", "Gambit", "Ploy", 22, (int)emberstoneSentinelsDeckId, null, "Draw a number of Power cards equal to the number of treasure tokens held by your warband.", null, "card_es22");
 
-        // --- Mejoras (Upgrades) de Emberstone Sentinels ---
         insertCardInternal(db, "Stubborn to the End", "Upgrade", null, 23, (int)emberstoneSentinelsDeckId, 1, "If this fighter is the target of an Attack, the attacker cannot use Overrun.", null, "card_es23");
         insertCardInternal(db, "Inviolate", "Upgrade", null, 24, (int)emberstoneSentinelsDeckId, 1, "This fighter cannot be Flanked or Surrounded while they hold a treasure token.", null, "card_es24");
         insertCardInternal(db, "Great Speed", "Upgrade", null, 25, (int)emberstoneSentinelsDeckId, 0, "This fighter has +1 Move.", null, "card_es25");
@@ -956,10 +900,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCardInternal(db, "Keen Eye", "Upgrade", null, 31, (int)emberstoneSentinelsDeckId, 2, "This fighter's melee weapons have +1 Attack dice.", null, "card_es31");
         insertCardInternal(db, "Great Strength", "Upgrade", null, 32, (int)emberstoneSentinelsDeckId, 2, "This fighter's melee weapons have Grievous.", null, "card_es32");
 
-        // --- Inserción de Pillage and Plunder Rivals Deck ---
         long pillageAndPlunderDeckId = insertRivalDeckInternal(db, "Pillage and Plunder Rivals Deck", "Mazo Universal", null, "UNIVERSAL", null);
-        // Objetivos, Ardides y Mejoras se añadirán a continuación
-        // --- Objetivos de Pillage and Plunder ---
         insertCardInternal(db, "Broken Prospects", "Objective", "End Phase", 1, (int)pillageAndPlunderDeckId, 2, "Score this in an end phase if 3 or more different treasure tokens were Delved by your warband this battle round or if a treasure token held by an enemy fighter at the start of the battle round was Delved by your warband this battle round.", null, "card_pl1");
         insertCardInternal(db, "Against the Odds", "Objective", "End Phase", 2, (int)pillageAndPlunderDeckId, 1, "Score this in an end phase if an odd-numbered treasure token was Delved by your warband this battle round.", null, "card_pl2");
         insertCardInternal(db, "Lost in the Depths", "Objective", "End Phase", 3, (int)pillageAndPlunderDeckId, 1, "Score this in an end phase if no friendly fighters are adjacent and any friendly fighters are not slain.", null, "card_pl3");
@@ -973,7 +914,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCardInternal(db, "Hostile Takeover", "Objective", "Surge", 11, (int)pillageAndPlunderDeckId, 1, "Score this immediately after the second or subsequent Attack made by your warband that was not part of a Charge.", null, "card_pl11");
         insertCardInternal(db, "Careful Survey", "Objective", "Surge", 12, (int)pillageAndPlunderDeckId, 1, "Score this immediately after an Action step if there is a friendly fighter in each territory.", null, "card_pl12");
 
-        // --- Ardides (Gambits) de Pillage and Plunder ---
         insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 13, (int)pillageAndPlunderDeckId, null, "Pick a friendly fighter. Push that fighter 1 hex.", null, "card_pl13");
         insertCardInternal(db, "Prideful Duellist", "Gambit", "Ploy", 14, (int)pillageAndPlunderDeckId, null, "Play this immediately after a friendly fighter's Attack if the attacker is in enemy territory. Heal the attacker.", null, "card_pl14");
         insertCardInternal(db, "Commanding Stride", "Gambit", "Ploy", 15, (int)pillageAndPlunderDeckId, null, "Push your leader up to 3 hexes. That push must end in a starting hex.", null, "card_pl15");
@@ -985,7 +925,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCardInternal(db, "Tunnelling Terror", "Gambit", "Ploy", 21, (int)pillageAndPlunderDeckId, null, "Pick a friendly fighter with no Move or Charge tokens. Remove that fighter from the battlefield, and then place that fighter in an empty stagger hex. Then, give that fighter a Charge token. If you are the underdog, you can give that fighter a Move token instead.", null, "card_pl21");
         insertCardInternal(db, "Trapped Cache", "Gambit", "Ploy", 22, (int)pillageAndPlunderDeckId, null, "Pick an undamaged enemy fighter within 1 hex of a treasure token. Inflict 1 damage on that fighter.", null, "card_pl22");
 
-        // --- Mejoras (Upgrades) de Pillage and Plunder ---
         insertCardInternal(db, "Great Speed", "Upgrade", null, 23, (int)pillageAndPlunderDeckId, 0, "This fighter has +1 Move.", null, "card_pl23");
         insertCardInternal(db, "Swift Step", "Upgrade", null, 24, (int)pillageAndPlunderDeckId, 1, "Quick: Immediately after this fighter has Charged, you can push this fighter 1 hex.", null, "card_pl24");
         insertCardInternal(db, "Burrowing Strike", "Upgrade", null, 25, (int)pillageAndPlunderDeckId, 1, "Melee Attack action. Range 2, 2 Dice, 2 Damage. This weapon has +1 Attack dice while this fighter has any Stagger tokens or is on a feature token.", null, "card_pl25");
@@ -998,7 +937,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertCardInternal(db, "Frenzy of Greed", "Upgrade", null, 32, (int)pillageAndPlunderDeckId, 2, "While this fighter is on a treasure token in enemy territory or is in a stagger hex, Save rolls for this fighter are not affected by Cleave and Ensnare and this fighter cannot be given Stagger tokens.", null, "card_pl32");
 
 
-        // --- Inserción de Zarbag's Gitz (Band) ---
         long zarbagBandId = insertBandInternal(db, "Zarbag's Gitz",
                 "Inspire: Each time you gain a sixth or subsequent Glory point, Inspire a friendly fighter. \n" +
                 "Squig Herder: After you deploy a friendly Drizgit, you must immediately place each friendly Squig in an empty hex adjacent to them that is not a starting hex and that does not contain a feature token. \n" +
@@ -1010,52 +948,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Make Some Noise!: In a Power step, push each friendly Squig up to 2 hexes. They cannot hold treasure or Delve this round (1/game).",
                 "Destruccion", "zarbags_gitz_0");
 
-        // Zarbag (Líder)
         insertFighterInternal(db, (int)zarbagBandId, "Zarbag", "zarbags_gitz_1");
-        // Uninspired
-        // Inspired
-
-        // Snirk Sourtongue
         insertFighterInternal(db, (int)zarbagBandId, "Snirk Sourtongue", "zarbags_gitz_2");
-        // Uninspired
-        // Inspired
-
-        // Drizgit Da Squig Herder
         insertFighterInternal(db, (int)zarbagBandId, "Drizgit", "zarbags_gitz_3");
-        // Uninspired
-        // Inspired
-
-        // Prog
         insertFighterInternal(db, (int)zarbagBandId, "Prog", "zarbags_gitz_4");
-        // Uninspired
-        // Inspired
-
-        // Stikkit
         insertFighterInternal(db, (int)zarbagBandId, "Stikkit", "zarbags_gitz_5");
-        // Uninspired
-        // Inspired
-
-        // Dibbz
         insertFighterInternal(db, (int)zarbagBandId, "Dibbz", "zarbags_gitz_6");
-        // Uninspired
-        // Inspired
-
-        // Redkap
         insertFighterInternal(db, (int)zarbagBandId, "Redkap", "zarbags_gitz_7");
-        // Uninspired
-        // Inspired
-
-        // Bonekrakka (Squig)
         insertFighterInternal(db, (int)zarbagBandId, "Bonekrakka", "zarbags_gitz_8");
-        // Uninspired
-        // Inspired
-
-        // Gobbaluk (Squig)
         insertFighterInternal(db, (int)zarbagBandId, "Gobbaluk", "zarbags_gitz_9");
-        // Uninspired
-        // Inspired
-
-        // --- Inserción de Blackpowder's Buccaneers (Band) ---
         long blackpowderBandId = insertBandInternal(db, "Blackpowder's Buccaneers",
                 "Inspire: Immediately after you resolve a 'The Captain's Treasure' Power card, Inspire Gorlok Blackpowder. After an enemy fighter is slain by Gorlok, Inspire each other friendly fighter. \n" +
                 "The Captain's Treasure: Start with 2 gold tokens. Gain 1 when an enemy is slain by Gorlok. \n" +
@@ -1067,32 +968,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Monkey Business: Kagey can move through enemy fighters.",
                 "Destruccion", "blackpowders_buccaneers_0");
 
-        // Gorlok Blackpowder (Líder)
         insertFighterInternal(db, (int)blackpowderBandId, "Gorlok Blackpowder", "blackpowders_buccaneers_1");
-        // Uninspired
-        // Inspired
-
-        // Kagey
         insertFighterInternal(db, (int)blackpowderBandId, "Kagey", "blackpowders_buccaneers_2");
-        // Uninspired
-        // Inspired
-
-        // Peggz
         insertFighterInternal(db, (int)blackpowderBandId, "Peggz", "blackpowders_buccaneers_3");
-        // Uninspired
-        // Inspired
-
-        // Mange
         insertFighterInternal(db, (int)blackpowderBandId, "Mange", "blackpowders_buccaneers_4");
-        // Uninspired
-        // Inspired
-
-        // Shreek
         insertFighterInternal(db, (int)blackpowderBandId, "Shreek", "blackpowders_buccaneers_5");
-        // Uninspired
-        // Inspired
-
-        // --- Inserción de Blood of the Bull (Band) ---
         long bloodBullBandId = insertBandInternal(db, "Blood of the Bull",
                 "Inspire: When you use a daemonforge dice in the Attack or Save roll for a friendly fighter, Inspire that fighter. \n" +
                 "Also, after an Attack by a friendly Chaos Duardin, if the target was adjacent to a friendly Grisk, Inspire that Grisk. \n" +
@@ -1103,30 +983,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Hobgrot Cunning: Hammer and Sword are successes for Chaos Duardin if target is adjacent to Grisk.",
                 "Caos", "blood_of_the_bull_0");
 
-        // Zuldrakka the Hateful (Líder)
         insertFighterInternal(db, (int)bloodBullBandId, "Zuldrakka the Hateful", "blood_of_the_bull_1");
-        // Uninspired
-        // Inspired
-
-        // Morudo
         insertFighterInternal(db, (int)bloodBullBandId, "Morudo", "blood_of_the_bull_2");
-        // Uninspired
-        // Inspired
-
-        // Imindrin
         insertFighterInternal(db, (int)bloodBullBandId, "Imindrin", "blood_of_the_bull_3");
-        // Uninspired
-        // Inspired
-
-        // Tokkor the Immolator
         insertFighterInternal(db, (int)bloodBullBandId, "Tokkor the Immolator", "blood_of_the_bull_4");
-        // Uninspired
-        // Inspired
 
         // Grisk Back-stabba
         insertFighterInternal(db, (int)bloodBullBandId, "Grisk Back-stabba", "blood_of_the_bull_5");
-        // Uninspired
-        // Inspired
 
         // --- Inserción de Brethren of the Bolt ---
         long brethrenBandId = insertBandInternal(db, "Brethren of the Bolt",
@@ -1585,38 +1448,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Sepulchral Warden
         insertFighterInternal(db, (int)sepulchralBandId, "Sepulchral Warden", "sepulchral_guard_1");
-        // Uninspired
-        // Inspired
 
         // Prince of Dust
         insertFighterInternal(db, (int)sepulchralBandId, "Prince of Dust", "sepulchral_guard_2");
-        // Uninspired
-        // Inspired
 
         // The Champion
         insertFighterInternal(db, (int)sepulchralBandId, "The Champion", "sepulchral_guard_3");
-        // Uninspired
-        // Inspired
 
         // The Harvester
         insertFighterInternal(db, (int)sepulchralBandId, "The Harvester", "sepulchral_guard_4");
-        // Uninspired
-        // Inspired
 
         // The Inevitable Petitioner
         insertFighterInternal(db, (int)sepulchralBandId, "The Inevitable Petitioner", "sepulchral_guard_5");
-        // Uninspired
-        // Inspired
 
         // The Zealous Petitioner
         insertFighterInternal(db, (int)sepulchralBandId, "The Zealous Petitioner", "sepulchral_guard_6");
-        // Uninspired
-        // Inspired
 
         // The Rising Petitioner
         insertFighterInternal(db, (int)sepulchralBandId, "The Rising Petitioner", "sepulchral_guard_7");
-        // Uninspired
-        // Inspired
 
         // --- Inserción de Sons of Velmorn ---
         long velmornBandId = insertBandInternal(db, "Sons of Velmorn",

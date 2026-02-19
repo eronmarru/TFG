@@ -37,18 +37,14 @@ public class RivalDeckAdapter extends RecyclerView.Adapter<RivalDeckAdapter.Riva
         holder.tvType.setText(deck.getType());
         holder.tvDescription.setText(deck.getDescription());
 
-        // Set icon based on deck name
-        // Example: "Countdown to Cataclysm Rivals Deck" -> "countdown_to_cataclysm_icon"
         String originalName = deck.getName().toLowerCase().trim();
         
-        // Remove "rivals deck" part
         if (originalName.endsWith(" rivals deck")) {
             originalName = originalName.substring(0, originalName.length() - 12);
         } else if (originalName.endsWith("rivals deck")) {
              originalName = originalName.substring(0, originalName.length() - 11);
         }
         
-        // Clean name: trim, replace spaces with underscores, replace hyphens with underscores
         String deckName = originalName.trim().replaceAll("\\s+", "_").replace("-", "_");
         
         String resourceName = deckName + "_icon";
@@ -58,20 +54,16 @@ public class RivalDeckAdapter extends RecyclerView.Adapter<RivalDeckAdapter.Riva
 
         if (resId != 0) {
             holder.ivIcon.setImageResource(resId);
-            holder.ivIcon.setBackground(null); // Remove debug background
+            holder.ivIcon.setBackground(null);
         } else {
-            // Try fallback without "_icon" suffix
              int resIdNoIcon = holder.itemView.getContext().getResources().getIdentifier(
                 deckName, "drawable", holder.itemView.getContext().getPackageName());
              
              if (resIdNoIcon != 0) {
                  holder.ivIcon.setImageResource(resIdNoIcon);
-                 holder.ivIcon.setBackground(null); // Remove debug background
+                 holder.ivIcon.setBackground(null);
              } else {
-                 // Placeholder
                  holder.ivIcon.setImageResource(android.R.drawable.ic_menu_help);
-                 // Keep debug background (gray) or set to red to indicate error
-                 // holder.ivIcon.setBackgroundColor(android.graphics.Color.RED); 
              }
         }
 

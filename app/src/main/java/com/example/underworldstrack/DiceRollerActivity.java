@@ -133,7 +133,6 @@ public class DiceRollerActivity extends AppCompatActivity implements SensorEvent
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Not used
     }
 
     private void rollDice() {
