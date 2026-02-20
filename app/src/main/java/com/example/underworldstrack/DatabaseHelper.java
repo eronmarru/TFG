@@ -213,10 +213,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Spiteclaw's Swarm (Band) ---
         long spiteclawId = insertBandInternal(db, "Spiteclaw's Swarm",
-                "Inspirar: Inmediatamente después de resolver una Ardid que eligió a un luchador amigo, Inspira a ese luchador. \n" +
-                "Enjambre: Elige un líder amigo para usar esta habilidad. Elige un esbirro amigo eliminado. Resucita a ese luchador y colócalo en un hexágono inicial vacío, luego dale una ficha de Resurrección. \n" +
-                "Manada Maquinadora: Las armas de los maquinadores amigos tienen Heridas Graves Críticas mientras el objetivo está Flanqueado o Rodeado. \n" +
-                "Promoción Inoportuna: Mientras Skritch amigo esté eliminado, Krrk es un líder.",
+                "Inspirar: Inmediatamente después de resolver una Ardid que eligió a un luchador amigo, Inspira a ese luchador. \n \n" +
+                "Enjambre: Elige un líder amigo para usar esta habilidad. Elige un esbirro amigo eliminado. Resucita a ese luchador y colócalo en un hexágono inicial vacío, luego dale una ficha de Resurrección. \n \n" +
+                "Manada Maquinadora: Las armas de los maquinadores amigos tienen critico doloroso mientras el objetivo está Flanqueado o Rodeado. \n \n" +
+                "Promoción Inoportuna: Mientras Skritch amigo esté eliminado, Krrk es un líder.\n\n"+
+                "Skitter (Una vez por partida): Usala inmediatamente despues de que un luchador amigo adyacente a otro luchador amigo sea seleccionado para usar una habilidad basica, Empuja a ese luchador 1 hexagono.\n\n" +
+                "Paranoia Justificada (Una vez por partida): Usala inmediatamente despues de que un luchador amigo adyacente a otro luchador amigo sea seleccionado para usar una habilidad basica, Dale a ese luchador un token de guardia. \n\n"+
+                "¡Fuera de mi camino, cosas necias! (Una vez por partida): Usala en tu paso de poder. Elige 2 luchadores amigos adyacentes",
                 "Caos", "spiteclaws_swarm_0");
 
         // Skritch (Líder)
@@ -234,26 +237,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Festering Skaven (Minion)
         insertFighterInternal(db, (int)spiteclawId, "Festering Skaven", "spiteclaws_swarm_5");
 
-        // --- FORMAS INSPIRADAS ---
-
-        // Skritch (Inspirado)
-
-        // Krrk (Inspirado)
-
-        // Lurking Skaven (Inspirado)
-
-        // Hungering Skaven (Inspirado)
-
-        // Festering Skaven (Inspirado)
-
         // --- Inserción de The Dread Pageant (Band) ---
         long dreadPageantId = insertBandInternal(db, "The Dread Pageant",
-                "Inspirar: Después de un paso de Acción, si todos los luchadores amigos están heridos, o si hay más luchadores heridos que ilesos, Inspira a cada luchador amigo. \n" +
-                "Velocidad de Slaanesh: Los luchadores amigos heridos e Inspirados tienen +1 al Movimiento mientras usan habilidades de Carga. \n" +
-                "Dolores Crueles: Usa esto en un paso de Poder. Elige un luchador que controle un objetivo. Inflige 1 daño a ese luchador. \n" +
-                "Rápido como el Deseo: Usa esto en un paso de Poder. Empuja a cada luchador amigo herido 1 hexágono. \n" +
-                "Ahogarse en Dolor: Usa esto en un paso de Poder. Dale a cada luchador amigo herido una ficha de Guardia. \n" +
-                "Arrogancia Burda: Usa esto inmediatamente después de hacer una tirada de Ataque para un luchador amigo herido si esa tirada no contiene éxitos. Puedes volver a tirar cualquier dado de Ataque de esa tirada.",
+                "Inspirar: Después de un paso de Acción, si todos los luchadores amigos están heridos, o si hay más luchadores heridos que itactos, Inspira a cada luchador amigo. \n\n" +
+                "Velocidad de Slaanesh: Los luchadores amigos heridos e Inspirados tienen +1 al Movimiento mientras usan habilidades de Carga. \n\n" +
+                "Dolores Crueles (Una vez por partida): Usa esto en un paso de Poder. Elige un luchador que controle un objetivo. Inflige 1 daño a ese luchador.\n\n" +
+                "Rápido como el Deseo (Una vez por partida): Usa esto en un paso de Poder. Empuja a cada luchador amigo herido 1 hexágono.\n\n" +
+                "Ahogarse en Dolor (Una vez por partida): Usa esto en un paso de Poder. Dale a cada luchador amigo herido un token de Guardia.\n\n" +
+                "Arrogancia Burda (Una vez por partida): Usa esto inmediatamente después de hacer una tirada de Ataque para un luchador amigo herido si esa tirada no contiene éxitos. Puedes volver a tirar cualquier dado de Ataque de esa tirada.",
                 "Caos", "the_dread_pageant_0");
 
         // Vasillac (Líder)
@@ -268,31 +259,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Hadzu
         insertFighterInternal(db, (int)dreadPageantId, "Hadzu", "the_dread_pageant_4");
 
-        // --- FORMAS INSPIRADAS ---
-
-        // Vasillac (Inspirado)
-
-        // Slakeslash (Inspirado)
-
-        // Glissete (Inspirado)
-
-        // Hadzu (Inspirado)
-
-
-
-
         // --- Inserción de The Gnarlspirit Pack (Band) ---
         long gnarlspiritBandId = insertBandInternal(db, "The Gnarlspirit Pack",
-                "Inspirar: Inmediatamente después de retirar una ficha de espíritu de un luchador amigo, Inspira a ese luchador. \n" +
-                "Desinspirar: Inmediatamente después de dar una ficha de espíritu a un luchador amigo Inspirado, Desinspira a ese luchador. \n" +
-                "Fichas de Espíritu: Inmediatamente después de elegir un luchador amigo para usar una habilidad Principal, puedes retirar las fichas de espíritu de ese luchador. Después de resolverla, puedes darle una ficha de espíritu. Los luchadores con fichas de espíritu no pueden Inspirarse ni controlar objetivos. \n" +
-                "Sarrakkar Desatado: +2 al Movimiento mientras tenga alguna ficha de espíritu. \n" +
-                "Gorl Desatado: +1 a la Defensa mientras tenga alguna ficha de espíritu. \n" +
-                "Kheira Desatada: Las armas cuerpo a cuerpo tienen +1 Dado de ataque mientras tenga alguna ficha de espíritu. \n" +
-                "Lupan Desatado: Las tiradas de Medio Apoyo cuentan como éxitos mientras tenga alguna ficha de espíritu. \n" +
-                "En Control (Una vez por partida): Paso de Poder. Si hay luchadores amigos Inspirados, empuja a cada luchador amigo No Inspirado hasta 1 hexágono. \n" +
-                "Autocontrol (Una vez por partida): Paso de Poder. Elige un luchador amigo No Inspirado. Retira sus fichas de espíritu y dale una ficha de Guardia. \n" +
-                "Instintos Aflorados (Una vez por partida): Paso de Poder. Elige un luchador amigo. Las tiradas de Defensa no pueden verse afectadas por Romper o Atrapares en el siguiente turno.",
+                "Inspirar: Inmediatamente después de retirar una ficha de espíritu de un luchador amigo, Inspira a ese luchador. \n\n" +
+                "Desinspirar: Inmediatamente después de dar una ficha de espíritu a un luchador amigo Inspirado, Desinspira a ese luchador. \n\n" +
+                "Fichas de Espíritu: Inmediatamente después de elegir un luchador amigo para usar una habilidad Basica, puedes retirar las fichas de espíritu de ese luchador. Después de resolverla, puedes darle una ficha de espíritu. Los luchadores con fichas de espíritu no pueden Inspirarse ni controlar objetivos. \n\n" +
+                "Sarrakkar Desatado: +2 al Movimiento mientras tenga alguna ficha de espíritu. \n\n" +
+                "Gorl Desatado: +1 a la Defensa mientras tenga alguna ficha de espíritu. \n\n" +
+                "Kheira Desatada: Las armas cuerpo a cuerpo (Excluyendo mejoras) tienen +1 Dado de ataque mientras tenga alguna ficha de espíritu. \n\n" +
+                "Lupan Desatado: Las tiradas de Rodeado cuentan como éxitos mientras tenga alguna ficha de espíritu. \n\n" +
+                "En Control (Una vez por partida): Usala en tu paso de Poder. Si hay luchadores amigos Inspirados, empuja a cada luchador amigo No Inspirado hasta 1 hexágono. \n\n" +
+                "Autocontrol (Una vez por partida): Usala en tu paso de Poder. Elige un luchador amigo No Inspirado. Retira sus fichas de espíritu y dale una ficha de Guardia. \n\n" +
+                "Instintos Aflorados (Una vez por partida): Usala en tu paso de Poder. Elige un luchador amigo. Las tiradas de Defensa no pueden verse afectadas por Romper o Apresar en el siguiente turno.",
                 "Caos", "gnarlspirit_pack_0");
 
         // Sarrakkar (Líder)
@@ -307,24 +285,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Lupan
         insertFighterInternal(db, (int)gnarlspiritBandId, "Lupan", "gnarlspirit_pack_4");
 
-        // --- FORMAS INSPIRADAS (The Gnarlspirit Pack) ---
-        // Sarrakkar (Inspirado)
-
-        // Gorl (Inspirado)
-
-        // Kheira (Inspirado)
-
-        // Lupan (Inspirado)
-
-
-
         // --- Inserción de Kamandora's Blades (Band) ---
         long kamandoraBandId = insertBandInternal(db, "Kamandora's Blades",
-                "Inspirar: Inmediatamente después de un paso de Poder, Inspira a cada luchador amigo adyacente a la calavera digna enemiga. Inmediatamente después de que la calavera digna enemiga sea eliminada por un luchador amigo, Inspira a ese luchador. \n" +
-                "Una Calavera Digna: Al inicio del primer paso de Acción de cada ronda, elige un luchador enemigo para ser la calavera digna hasta el final de la ronda. \n" +
-                "Peregrinaje Sangriento: Después de elegir la calavera digna, empuja a cada luchador amigo 1 hexágono más cerca de ella. \n" +
-                "¡Sangre para Khorne! (Tajo): Las armas con Tajo dan una ficha de sangrado al dañar. Si un enemigo con ficha de sangrado usa una habilidad Principal, inflige 1 daño y retira la ficha de sangrado. \n" +
-                "Llamar a la Persecución (Una vez por partida): Paso de Poder, en lugar de jugar carta, empuja a un esbirro amigo hasta 4 hexágonos para estar adyacente al líder.",
+                "Inspirar: Inmediatamente después de un paso de Poder, Inspira a cada luchador amigo adyacente a la calavera digna enemiga. Inmediatamente después de que la calavera digna enemiga sea eliminada por un luchador amigo, Inspira a ese luchador. \n\n" +
+                "Una Calavera Digna: Al inicio del primer paso de Acción de cada ronda, Si hay algun luchador enemigo en el campo, tienes que elegir un luchador enemigo para ser la calavera digna hasta el final de la ronda. \n\n" +
+                "Peregrinaje Sangriento: Después de elegir la calavera digna, tienes que empujar a cada luchador amigo 1 hexágono más cerca de ella. \n\n" +
+                "¡Sangre para Khorne! (Tajo): Cuando un arma con esta habilidad de arma inflinje daño a un luchador enemigo, dale al objetivo un token de sangrado. Si un enemigo con token de sangrado usa una habilidad Basica, inflige 1 daño despues de resolver la habilidad basica, entonces retira el marcador de sangrado del luchador, De otra manera, retira todos los tokens de sangrado de luchadores enemigos inmediatamente despues de ultima fase de poder del enemigo, o al final de la ronda de batalla \n\n" +
+                "Llamar a la Persecución (Una vez por partida): Usala en tu paso de poder en vez de jugar una carta. Elige un esbirro aliado. Empujalo hasta 4 hexágonos para estar adyacente al líder.",
                 "Caos", "kamandoras_blades_0");
 
         // Kamandora (Líder)
@@ -346,11 +313,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Thorns of the Briar Queen (Band) ---
         long thornsBandId = insertBandInternal(db, "Thorns of the Briar Queen",
-                "Inspire: At the start of your turn, Inspire each friendly fighter that is adjacent to any enemy fighters. \n" +
-                "Wave of Terror: If target is adjacent to another friendly fighter with a Charge token, target is Surrounded. \n" +
-                "Soul Warden: Pick Varclav to push up to 2 friendly minions up to 2 hexes. Then give them a Charge token (once per round). \n" +
-                "Mugged: After enemy is picked to be mugged, place a non-leader friendly fighter adjacent to them and give that fighter a Charge token. \n" +
-                "Paired Thugs / No Room at the Top / Reprisals / Leave Well Alone: Various conditions to pick an enemy to be mugged (once per game each).",
+                "Inspirar: Al principio de tu turno, Inspira cada luchador aliado que este adyacente a cualquier luchador enemigo. \n\n" +
+                "Oleada de terror: Si el objetivo del ataque de un luchador aliado esta adyacente a otro luchador aliado con un token de Carga, el objetivo esta rodeado para ese ataque. \n\n" +
+                "Guardián del alma (Acción basica): Elige un Varclav aliado para usar esta habilidad. Elige hasta 2 esbirros aliados. Empuja a cada uno de esos luchadores hasta 2 hexágonos. A continuación, puedes dar a cada uno de esos luchadores una ficha de Carga. Esta habilidad solo se puede usar una vez por ronda de combate. \n\n" +
+                "Asaltado: Inmediatamente después de elegir a un luchador enemigo para ser asaltado (véase a la derecha), elige a un luchador aliado que no sea tu líder. Retira a ese luchador del campo de batalla y colócalo en un hexágono vacío adyacente al luchador enemigo. A continuación, puedes darle a ese luchador aliado una ficha de carga. \n\n" +
+                "Matones emparejados (Una vez por partida): Úsala inmediatamente después de que un luchador aliado realice un movimiento. Elige un luchador enemigo adyacente a ese luchador para que sea asaltado.\n\n"+
+                "No hay sitio en la cima (Una vez por partida): Úsalo inmediatamente después de que un líder enemigo utilice una habilidad básica. Elige al luchador que quieres que sea asaltado.\n\n"+
+                "Represalias (Una vez por partida): Úsalo inmediatamente después de que un luchador enemigo haya realizado un ataque con éxito. Elige a ese luchador para que sea asaltado.\n\n"+
+                "Déjalo estar (Una vez por partida): Úsalo inmediatamente después de que un luchador enemigo se mueva si lleva una ficha de tesoro. Elige a ese luchador para que sea asaltado.",
                 "Muerte", "thorns_of_the_briar_queen_0");
 
         // Briar Queen (Líder)
@@ -376,12 +346,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Grymwatch (Band) ---
         long grymwatchBandId = insertBandInternal(db, "The Grymwatch",
-                "Inspire: After the last Action step in a round, Inspire X friendly fighters, where X is the combined Bounty of slain enemies and enemies in enemy/neutral territory. \n" +
-                "In the Name of the King!: Power step (leader on board). Either Inspire a friendly fighter or Raise a slain fighter to an empty edge hex. (Both if underdog). \n" +
-                "Delusions (Pick 1 per battle round): \n" +
-                "- Defenders of the Realm: Re-roll 1 Save dice in friendly territory. \n" +
-                "- The Royal Hunt: +1 Attack dice for melee weapons if target is damaged. \n" +
-                "- To the Walls!: Can use 'In the Name of the King!' twice this round.",
+                "Inspirar: Después del último paso de Acción en una ronda de batalla, elige hasta X combatientes aliados, donde X es la suma de las características de Recompensa de los combatientes enemigos muertos y los combatientes enemigos en territorio enemigo y neutral. Inspira a esos combatientes aliados. \n\n" +
+                "¡En el nombre del rey!: Una vez por ronda de combate, en una fase de poder, si tu líder está en el campo de batalla, puedes usar una de las siguientes habilidades:\n" + //
+                                        "• Elige un luchador aliado. Inspira a ese luchador.\n" + //
+                                        "• Elige un luchador aliado muerto. Resucítalo y colócalo en un hexágono vacío del borde.\n" + //
+                                        "\n" + //
+                                        "Si eres el underdog, puedes usar ambas habilidades. \n\n" +
+                "Al comienzo de cada ronda de batalla, puedes elegir una de las siguientes ilusiones para aplicar en esa ronda. Cada ilusión solo se puede elegir una vez por partida: \n" +
+                "- Defensores del reino: Cada vez que realices una tirada de salvación para un luchador aliado en territorio amigo, puedes volver a tirar 1 dado en esa tirada. \n\n" +
+                "- La caza real: Las armas cuerpo a cuerpo de los combatientes amigos tienen +1 dado de ataque si el objetivo del ataque estaba dañado previamente. \n\n" +
+                "- ¡A las murallas!: Puedes usar la habilidad «¡En nombre del rey!» dos veces en esta ronda de batalla en lugar de una.",
                 "Muerte", "the_grymwatch_0");
 
         // Duke Crakmarrow (Líder)
@@ -407,14 +381,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Crimson Court (Band) ---
         long crimsonBandId = insertBandInternal(db, "The Crimson Court",
-                "Inspire: At the end of each battle round, Inspire each friendly fighter that has no hunger tokens. \n" +
-                "The Curse: Start with 2 hunger tokens. Gain 1 at start of rounds 2 and 3. \n" +
-                "The Hunger: Successful attack removes 1 hunger token (all if target slain). \n" +
-                "Bloodthirst: While having 3+ hunger tokens, +1 Move but Guard tokens have no effect. \n" +
-                "Bestial Transformation (Once per game): Discard upgrades for +1 Attack dice (+1 Move if bloodthirsty) until end of round. \n" +
-                "Vampiric Might (Once per game): Bloodthirsty attack gets Cleave and Ensnare. \n" +
-                "Teneborous Form (Once per game): Inspired fighter being attacked has 3 Dodge for that attack. \n" +
-                "Dark Transfusion (Once per game): Inflict 1 damage to enemy within 1 hex (2 if inspired) and heal 1.",
+                "Inspirar: Al final de cada ronda de combate, inspira a cada luchador aliado que no tenga fichas de hambre. \n\n" +
+                "La maldición: Cada luchador aliado comienza el juego con 2 fichas de hambre. Al comienzo de la segunda y tercera ronda de combate, entrega a cada luchador aliado 1 ficha de hambre. \n\n" +
+                "El hambre: Inmediatamente después de que un luchador aliado realice un ataque con éxito, retira 1 de las fichas de hambre de ese luchador. Si el objetivo de ese ataque ha sido asesinado, retira todas las fichas de hambre de ese luchador. \n\n" +
+                "Sed de sangre: Mientras un luchador aliado tenga 3 o más fichas de hambre, estará sediento de sangre. Los luchadores aliados sedientos de sangre tienen +1 a Movimiento y las fichas de Guardia que tengan no tienen ningún efecto. \n\n" +
+                "Transformación bestial (Una vez por partida): Descarta las mejoras de ese luchador. Hasta el final de la ronda de combate, las armas cuerpo a cuerpo de ese luchador tienen +1 dado de ataque. Si ese luchador esta sediento de sangre, también tiene +1 movimiento hasta el final de la ronda de combate. \n\n" +
+                "Poder vampírico (Una vez por partida): Úsalo inmediatamente después de elegir un arma como parte del ataque de un luchador sediento de sangre. Esa arma tiene las habilidades Romper y Apresar para ese ataque. \n\n" +
+                "Forma tenebrosa (Una vez por partida): Utiliza esta habilidad inmediatamente después de que un luchador aliado inspirado sea elegido como objetivo de un ataque. La característica de salvación de ese luchador es 3 Esquivas para ese ataque. \n\n" +
+                "Transfusión oscura (Una vez por partida): Elige un luchador aliado para usar esta habilidad básica. Elige un luchador enemigo que se encuentre a 1 hexágono de distancia de ese luchador. Puedes elegir un luchador enemigo que se encuentre a 2 hexágonos de distancia si ese luchador aliado está inspirado. Inflige 1 punto de daño a ese luchador enemigo y luego cura a ese luchador aliado.",
                 "Muerte", "the_crimson_court_0");
 
         // Prince Duvalle (Líder)
@@ -432,12 +406,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // --- Inserción de The Exiled Dead (Band) ---
 
         long exiledBandId = insertBandInternal(db, "The Exiled Dead",
-                "Inspire: Friendly minions begin the game Inspired. After an enemy is slain by a minion, Inspire Deintalos and Marcov. \n" +
-                "Dynamic Enhancer: Conductive fighters have +X Move (X = number of slain conductive fighters). \n" +
-                "Overload: Conductive fighters cannot hold treasure. Melee weapons have Grievous against targets with Stagger tokens. \n" +
-                "Dynamic Surge: Re-roll 1 Attack dice for conductive fighters if another conductive fighter is adjacent to the attacker. \n" +
-                "Puppeteer (Once per round): Marcov can use a Core ability or Raise a slain Regulus adjacent to him. \n" +
-                "Danse Dynamic (Once per game): Deintalos grants Move or Attack to all conductive fighters, then can Raise one with 1 damage.",
+                "Inspirar: Los esbirros aliados comienzan la partida Inspirados. Después de que un esbirro aliado mate a un luchador enemigo, inspira a Deintalos y Marcov. \n\n" +
+                "Mejorador dinámico: Los luchadores conductores aliados tienen +X Movimiento, donde X es el número de luchadores conductores aliados muertos. \n\n" +
+                "Sobrecarga: Los luchadores conductores amigos no pueden controlar fichas de tesoro ni Indagar. Las armas cuerpo a cuerpo de los luchadores conductores amigos (excepto las mejoras) tienen Doloroso si el objetivo tiene alguna ficha de Tambaleo. \n\n" +
+                "Sobrecarga dinámica: Puedes volver a tirar 1 dado de ataque en una tirada de ataque para un luchador conductor aliado mientras haya otros luchadores conductores aliados adyacentes al atacante. \n\n" +
+                "Titiritero (Una vez por ronda, habilidad basica): Elige un Marcov aliado para usar esta habilidad si no tiene fichas de Movimiento o Carga. Elige una de las siguientes opciones:\n" + //
+                                        "• Ese luchador y un Regulus aliado pueden usar cada uno una habilidad básica que puedan usar.\n" + //
+                                        "• Si un Regulus aliado esta muerto, resucítalo y colócalo en un hexágono vacío adyacente a ese luchador.\n" + //
+                                        "Esta habilidad solo se puede usar una vez por ronda de batalla. \n\n" +
+                "Danza dinamica (habilidad basica): Elige a tu líder para usar esta habilidad si no tiene fichas de Movimiento o Carga. Elige entre la habilidad Movimiento o la habilidad Ataque. Cada luchador conductor aliado puede usar esa habilidad.\n" + //
+                                        "\n" + //
+                                        "A continuación, puedes elegir un combatiente conductor aliado muerto. Resucita a ese combatiente conductor, colócalo en un hexágono vacío adyacente a tu líder y luego inflígele 1 punto de daño.",
                 "Muerte", "the_exiled_dead_0");
 
         // Deintalos (Líder)
@@ -938,14 +917,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         long zarbagBandId = insertBandInternal(db, "Zarbag's Gitz",
-                "Inspire: Each time you gain a sixth or subsequent Glory point, Inspire a friendly fighter. \n" +
-                "Squig Herder: After you deploy a friendly Drizgit, you must immediately place each friendly Squig in an empty hex adjacent to them that is not a starting hex and that does not contain a feature token. \n" +
-                "Spinnin': Snirk cannot be given Guard tokens. Each time a fighter is placed in, is pushed into or enters a hex adjacent to a friendly Snirk, inflict 1 damage on that fighter. \n" +
-                "Volley: If a friendly fighter's weapon has the Volley runemark, they have access to the Volley Weapon ability. \n" +
-                "Slippery Gitz: After picking a friendly fighter to Move, pick a friendly Grot with no Move/Charge tokens adjacent to them. After the first fighter Moves, that Grot can Move (1/turn). \n" +
-                "Fungal Burst: After a friendly Grot is slain by an adjacent attacker, give the attacker a Stagger token (1/game). \n" +
-                "Gang Up: In a Power step, friendly melee weapons have +1 Attack dice for each other friendly Grot adjacent to the target in the next turn (1/game). \n" +
-                "Make Some Noise!: In a Power step, push each friendly Squig up to 2 hexes. They cannot hold treasure or Delve this round (1/game).",
+                "Inspirar: Ccuando ganes el sexto punto de gloria o uno posterior, inspira a un luchador aliado. \n\n" +
+                "Pastor de squigs: Después de desplegar un Drizgit amigo, debes colocar inmediatamente cada Squig amigo en un hexágono vacío adyacente a ellos que no sea un hexágono inicial y que no contenga una ficha de característica. \n\n" +
+                "Girando: Snirk no puede recibir fichas de Guardia. Cada vez que un luchador sea colocado, empujado o entre en un hexágono adyacente a un Snirk amigo, inflige 1 punto de daño a ese luchador. \n\n" +
+                "Voleybol: Si el arma de un luchador aliado tiene la habilidad de arma Volley, tienes acceso a la siguiente habilidad de arma: Volley: Inmediatamente después del ataque, si ha tenido éxito, puedes elegir a otro luchador aliado cuyo arma tenga Volley. Ese luchador ataca con esa arma. Solo puedes usar esta habilidad una vez por turno. \n\n" +
+                "Gitz escurridizos: Usa esta habilidad inmediatamente después de elegir a un luchador amigo para que se mueva. Elige a un grot amigo que no tenga fichas de Movimiento o Carga adyacentes. Después de que el primer luchador se mueva, ese grot amigo puede moverse. Solo puedes usar esta habilidad una vez por turno. \n\n" +
+                "Explosión fúngica (Una vez por partida): Úsala inmediatamente después de que un grot aliado sea asesinado por un atacante adyacente a él. Dale al atacante una ficha de tambaleo \n\n" +
+                "Ataque en grupo (Una vez por partida): Úsalo en una fase de Poder. En el siguiente turno, las armas cuerpo a cuerpo de los luchadores amigos tienen +1 dado de ataque por cada Grot amigo adyacente al objetivo. \n\n" +
+                "¡Haz ruido! (Una vez por partida): Úsalo en un paso de poder. Empuja a cada squig aliado hasta 2 hexágonos. Durante el resto de la ronda de combate, esos squigs no pueden controlar fichas de tesoro ni indagar.",
                 "Destruccion", "zarbags_gitz_0");
 
         insertFighterInternal(db, (int)zarbagBandId, "Zarbag", "zarbags_gitz_1");
@@ -957,6 +936,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertFighterInternal(db, (int)zarbagBandId, "Redkap", "zarbags_gitz_7");
         insertFighterInternal(db, (int)zarbagBandId, "Bonekrakka", "zarbags_gitz_8");
         insertFighterInternal(db, (int)zarbagBandId, "Gobbaluk", "zarbags_gitz_9");
+
+
         long blackpowderBandId = insertBandInternal(db, "Blackpowder's Buccaneers",
                 "Inspire: Immediately after you resolve a 'The Captain's Treasure' Power card, Inspire Gorlok Blackpowder. After an enemy fighter is slain by Gorlok, Inspire each other friendly fighter. \n" +
                 "The Captain's Treasure: Start with 2 gold tokens. Gain 1 when an enemy is slain by Gorlok. \n" +
