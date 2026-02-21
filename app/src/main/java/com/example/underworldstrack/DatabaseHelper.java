@@ -346,7 +346,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Grymwatch (Band) ---
         long grymwatchBandId = insertBandInternal(db, "The Grymwatch",
-                "Inspirar: Después del último paso de Acción en una ronda de batalla, elige hasta X combatientes aliados, donde X es la suma de las características de Recompensa de los combatientes enemigos muertos y los combatientes enemigos en territorio enemigo y neutral. Inspira a esos combatientes aliados. \n\n" +
+                "Inspirar: Después del último paso de Acción en una ronda de batalla, elige hasta X luchadores aliados, donde X es la suma de las características de Recompensa de los luchadores enemigos muertos y los luchadores enemigos en territorio enemigo y neutral. Inspira a esos luchadores aliados. \n\n" +
                 "¡En el nombre del rey!: Una vez por ronda de combate, en una fase de poder, si tu líder está en el campo de batalla, puedes usar una de las siguientes habilidades:\n" + //
                                         "• Elige un luchador aliado. Inspira a ese luchador.\n" + //
                                         "• Elige un luchador aliado muerto. Resucítalo y colócalo en un hexágono vacío del borde.\n" + //
@@ -354,7 +354,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                         "Si eres el underdog, puedes usar ambas habilidades. \n\n" +
                 "Al comienzo de cada ronda de batalla, puedes elegir una de las siguientes ilusiones para aplicar en esa ronda. Cada ilusión solo se puede elegir una vez por partida: \n" +
                 "- Defensores del reino: Cada vez que realices una tirada de salvación para un luchador aliado en territorio amigo, puedes volver a tirar 1 dado en esa tirada. \n\n" +
-                "- La caza real: Las armas cuerpo a cuerpo de los combatientes amigos tienen +1 dado de ataque si el objetivo del ataque estaba dañado previamente. \n\n" +
+                "- La caza real: Las armas cuerpo a cuerpo de los luchadores amigos tienen +1 dado de ataque si el objetivo del ataque estaba dañado previamente. \n\n" +
                 "- ¡A las murallas!: Puedes usar la habilidad «¡En nombre del rey!» dos veces en esta ronda de batalla en lugar de una.",
                 "Muerte", "the_grymwatch_0");
 
@@ -416,7 +416,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                         "Esta habilidad solo se puede usar una vez por ronda de batalla. \n\n" +
                 "Danza dinamica (habilidad basica): Elige a tu líder para usar esta habilidad si no tiene fichas de Movimiento o Carga. Elige entre la habilidad Movimiento o la habilidad Ataque. Cada luchador conductor aliado puede usar esa habilidad.\n" + //
                                         "\n" + //
-                                        "A continuación, puedes elegir un combatiente conductor aliado muerto. Resucita a ese combatiente conductor, colócalo en un hexágono vacío adyacente a tu líder y luego inflígele 1 punto de daño.",
+                                        "A continuación, puedes elegir un luchador conductor aliado muerto. Resucita a ese luchador conductor, colócalo en un hexágono vacío adyacente a tu líder y luego inflígele 1 punto de daño.",
                 "Muerte", "the_exiled_dead_0");
 
         // Deintalos (Líder)
@@ -442,478 +442,832 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
 
-        String countdownRules = "While using this Rivals deck, during the Muster Warbands step of 'Setting Up', place a generic token on the 1st step on the countdown card included in this deck. This token is your Cataclysm tracker.\n\n" +
-                "You must advance your Cataclysm tracker 1 step the first time a friendly fighter is slain in each combat phase, and you must advance your Cataclysm tracker 1 step after the last power step in each battle round for each feature token that has no enemy fighters on it.\n\n" +
-                "While your tracker is:\n" +
-                "- on the 1st to 5th step, your Cataclysm value is 1.\n" +
-                "- on the 6th to 9th step, your Cataclysm value is 2.\n" +
-                "- on the 10th to 13th step, your Cataclysm value is 3.\n" +
-                "- on the final step, your Cataclysm value is 4.";
+        String countdownRules =
+                "Mientras uses este mazo de Rivales, durante el paso de Reunir Bandas de la preparación, coloca una ficha genérica en el primer escalón de la carta de cuenta atrás incluida en este mazo. Esa ficha es tu marcador de Cataclismo.\n\n" +
+                "Debes avanzar tu marcador de Cataclismo 1 escalón la primera vez que un luchador aliado sea eliminado en cada fase de combate, y debes avanzar tu marcador de Cataclismo 1 escalón después del último paso de Poder de cada ronda de batalla por cada ficha de elemento que no tenga luchadores enemigos encima.\n\n" +
+                "Cuando tu marcador esté:\n" +
+                "- en el 1.º a 5.º escalón, tu valor de Cataclismo es 1.\n" +
+                "- en el 6.º a 9.º escalón, tu valor de Cataclismo es 2.\n" +
+                "- en el 10.º a 13.º escalón, tu valor de Cataclismo es 3.\n" +
+                "- en el último escalón, tu valor de Cataclismo es 4.";
         long countdownDeckId = insertRivalDeckInternal(db, "Countdown to Cataclysm Rivals Deck", "Mazo Universal", null, "UNIVERSAL", countdownRules);
 
-        // Cartas de Countdown to Cataclysm (Lote 1)
-        insertCardInternal(db, "Spread Havoc", "Objective", "End Phase", 1, (int)countdownDeckId, 0, "Score this in an end phase. Gain a number of Glory points equal to your Cataclysm value, to a maximum of 2.", null, "card_cc1");
-        insertCardInternal(db, "Nowhere to Run", "Objective", "Surge", 10, (int)countdownDeckId, 1, "Score this immediately after an Action step if all friendly fighters have Move and/or Charge tokens and there is a friendly fighter in each territory.", null, "card_cc10");
-        insertCardInternal(db, "The Perfect Cut", "Objective", "Surge", 11, (int)countdownDeckId, 1, "Score this immediately after a friendly fighter's successful melee Attack if no result in the target's Save roll was a success.", null, "card_cc11");
-        insertCardInternal(db, "Overwhelming Force", "Objective", "Surge", 12, (int)countdownDeckId, 1, "Score this immediately after a friendly fighter's successful melee Attack if the Attack roll contained 4 or more dice.", null, "card_cc12");
-        insertCardInternal(db, "Hounds of War", "Objective", "End Phase", 2, (int)countdownDeckId, 1, "Score this in an end phase if 2 or more enemy fighters are slain and/or damaged and any of those fighters were slain in the preceding combat phase.", null, "card_cc2");
-
-        // Cartas de Countdown to Cataclysm (Lote 2)
-        insertCardInternal(db, "Set Explosives", "Objective", "End Phase", 3, (int)countdownDeckId, 2, "Score this in an end phase if your warband holds 2 or more treasure tokens and holds all of the treasure tokens in any territories.", null, "card_cc3");
-        insertCardInternal(db, "Wreckers", "Objective", "End Phase", 4, (int)countdownDeckId, 2, "Score this in an end phase if the number of damaged and/or slain enemy fighters is greater than your Cataclysm value.", null, "card_cc4");
-        insertCardInternal(db, "Uneven Contest", "Objective", "End Phase", 5, (int)countdownDeckId, 2, "Score this in an end phase if your warband holds each odd-numbered treasure token.", null, "card_cc5");
-        insertCardInternal(db, "Loaded for Bear", "Objective", "End Phase", 6, (int)countdownDeckId, 1, "Score this in an end phase if any friendly fighters are each equipped with 3 or more Upgrades.", null, "card_cc6");
-        insertCardInternal(db, "Collateral Damage", "Objective", "Surge", 7, (int)countdownDeckId, 1, "Score this immediately after you advance your Cataclysm tracker 1 step as a result of a friendly fighter being slain. If you are the underdog, score this after you advance your Cataclysm tracker 1 step for any reason instead.", null, "card_cc7");
+        insertCardInternal(db, "Spread Havoc", "Objective", "End Phase", 1, (int)countdownDeckId, 0,
+                "Anota esta carta en una fase final. Gana un número de puntos de gloria igual a tu valor de Cataclismo, hasta un máximo de 2.", null, "card_cc1");
+        insertCardInternal(db, "Hounds of War", "Objective", "End Phase", 2, (int)countdownDeckId, 1,
+                "Anota esta carta en una fase final si 2 o más luchadores enemigos están eliminados y/o heridos y alguno de ellos fue eliminado en la fase de combate precedente.", null, "card_cc2");
+        insertCardInternal(db, "Set Explosives", "Objective", "End Phase", 3, (int)countdownDeckId, 2,
+                "Anota esta carta en una fase final si tu banda controla 2 o más fichas de tesoro y controla todas las fichas de tesoro de cualquier territorio.", null, "card_cc3");
+        insertCardInternal(db, "Wreckers", "Objective", "End Phase", 4, (int)countdownDeckId, 2,
+                "Anota esta carta en una fase final si el número de luchadores enemigos heridos y/o eliminados es mayor que tu valor de Cataclismo.", null, "card_cc4");
+        insertCardInternal(db, "Uneven Contest", "Objective", "End Phase", 5, (int)countdownDeckId, 2,
+                "Anota esta carta en una fase final si tu banda controla cada ficha de tesoro con número impar.", null, "card_cc5");
+        insertCardInternal(db, "Loaded for Bear", "Objective", "End Phase", 6, (int)countdownDeckId, 1,
+                "Anota esta carta en una fase final si cualquier luchador aliado está equipado con 3 o más Mejoras.", null, "card_cc6");
+        insertCardInternal(db, "Collateral Damage", "Objective", "Surge", 7, (int)countdownDeckId, 1,
+                "Anota esta carta inmediatamente después de avanzar tu marcador de Cataclismo 1 escalón como resultado de que un luchador aliado sea eliminado. Si eres el desventajado, anótala después de avanzar tu marcador de Cataclismo 1 escalón por cualquier motivo en su lugar.", null, "card_cc7");
 
         // Cartas de Countdown to Cataclysm (Lote 3)
-        insertCardInternal(db, "Too Close for Comfort", "Objective", "Surge", 8, (int)countdownDeckId, 1, "Score this immediately after your opponent's Power step if each friendly fighter is within 2 hexes of any enemy fighters.", null, "card_cc8");
-        insertCardInternal(db, "Shocking Assault", "Objective", "Surge", 9, (int)countdownDeckId, 1, "Score this immediately after your opponent's Action step if your warband holds all of the treasure tokens in neutral territory.", null, "card_cc9");
-        insertCardInternal(db, "Savage Blow", "Gambit", null, 13, (int)countdownDeckId, null, "Play this immediately after you pick a weapon as part of an Attack. Rolls of Double Support count as successes for that Attack.", null, "card_cc13");
-        insertCardInternal(db, "The End is Nigh", "Gambit", null, 14, (int)countdownDeckId, null, "Domain: After each Action step, the player whose turn it is rolls a number of Attack dice equal to their Cataclysm value, or 1 Attack dice if they have no such value. If the roll contains any Sword or Critical success, their opponent must discard a Power card. This effect persists until the end of the battle round, until another Domain card is played, or until you advance your Cataclysm tracker.", null, "card_cc14");
-        insertCardInternal(db, "Growing Concerns", "Gambit", null, 15, (int)countdownDeckId, null, "Enemy fighters have -X Move in the next Action step, where X is your Cataclysm value.", null, "card_cc15");
+        insertCardInternal(db, "Too Close for Comfort", "Objective", "Surge", 8, (int)countdownDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Poder de tu oponente si cada luchador aliado está a 2 hexágonos o menos de cualquier luchador enemigo.", null, "card_cc8");
+        insertCardInternal(db, "Shocking Assault", "Objective", "Surge", 9, (int)countdownDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si tu banda controla todas las fichas de tesoro en territorio neutral.", null, "card_cc9");
+        insertCardInternal(db, "Nowhere to Run", "Objective", "Surge", 10, (int)countdownDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si todos los luchadores aliados tienen fichas de Movimiento y/o Carga y hay al menos un luchador aliado en cada territorio.", null, "card_cc10");
+        insertCardInternal(db, "The Perfect Cut", "Objective", "Surge", 11, (int)countdownDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque cuerpo a cuerpo exitoso de un luchador aliado si ningún resultado de la tirada de Salvación del objetivo fue un éxito.", null, "card_cc11");
+        insertCardInternal(db, "Overwhelming Force", "Objective", "Surge", 12, (int)countdownDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque cuerpo a cuerpo exitoso de un luchador aliado si la tirada de Ataque contenía 4 o más dados.", null, "card_cc12");
+        insertCardInternal(db, "Savage Blow", "Gambit", null, 13, (int)countdownDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un arma como parte de un Ataque. Los resultados de Doble Apoyo cuentan como éxitos para ese Ataque.", null, "card_cc13");
+        insertCardInternal(db, "The End is Nigh", "Gambit", null, 14, (int)countdownDeckId, null,
+                "Dominio: Después de cada paso de Acción, el jugador cuyo turno es tira un número de dados de Ataque igual a su valor de Cataclismo, o 1 dado de Ataque si no tiene dicho valor. Si la tirada contiene alguna Espada o éxito Crítico, su oponente debe descartar una carta de Poder. Este efecto persiste hasta el final de la ronda de batalla, hasta que se juegue otra carta de Dominio o hasta que avances tu marcador de Cataclismo.", null, "card_cc14");
+        insertCardInternal(db, "Growing Concerns", "Gambit", null, 15, (int)countdownDeckId, null,
+                "Los luchadores enemigos tienen -X Movimiento en el siguiente paso de Acción, donde X es tu valor de Cataclismo.", null, "card_cc15");
 
         // Cartas de Countdown to Cataclysm (Lote 4)
-        insertCardInternal(db, "Total Collapse", "Gambit", null, 16, (int)countdownDeckId, null, "Roll a number of Attack dice equal to your Cataclysm value. If the roll contains any Sword or Critical success, pick a fighter. Inflict 1 damage on that fighter. If you picked a friendly fighter, you can inflict damage on that fighter up to your Cataclysm value instead.", null, "card_cc16");
-        insertCardInternal(db, "Violent Blast", "Gambit", null, 17, (int)countdownDeckId, null, "Pick a stagger hex. Push each fighter within 1 hex of that stagger hex 1 hex.", null, "card_cc17");
-        insertCardInternal(db, "Sunder the Realm", "Gambit", null, 18, (int)countdownDeckId, null, "Roll a number of Attack dice equal to your Cataclysm value for each fighter within 1 hex of neutral territory. If the roll contains any Hammer or Critical success, inflict 1 damage on that fighter.", null, "card_cc18");
-        insertCardInternal(db, "Raging Tremors", "Gambit", null, 19, (int)countdownDeckId, null, "Pick a number of enemy fighters up to your Cataclysm value. Give each of those fighters a Stagger token.", null, "card_cc19");
-        insertCardInternal(db, "Counter-charge", "Gambit", null, 20, (int)countdownDeckId, null, "Play this immediately after a friendly fighter is picked to be the target of an Attack. Pick another friendly fighter. Push that fighter up to 3 hexes. That push must end adjacent to the attacker.", null, "card_cc20");
+        insertCardInternal(db, "Total Collapse", "Gambit", null, 16, (int)countdownDeckId, null,
+                "Tira un número de dados de Ataque igual a tu valor de Cataclismo. Si la tirada contiene alguna Espada o éxito Crítico, elige un luchador e inflígele 1 de daño. Si elegiste un luchador aliado, puedes infligirle hasta un número de puntos de daño igual a tu valor de Cataclismo en su lugar.", null, "card_cc16");
+        insertCardInternal(db, "Violent Blast", "Gambit", null, 17, (int)countdownDeckId, null,
+                "Elige un hexágono de Tambaleo. Empuja 1 hexágono a cada luchador que esté a 1 hexágono de ese hexágono de Tambaleo.", null, "card_cc17");
+        insertCardInternal(db, "Sunder the Realm", "Gambit", null, 18, (int)countdownDeckId, null,
+                "Tira un número de dados de Ataque igual a tu valor de Cataclismo por cada luchador que esté a 1 hexágono del territorio neutral. Si la tirada contiene algún Martillo o éxito Crítico, inflige 1 de daño a ese luchador.", null, "card_cc18");
+        insertCardInternal(db, "Raging Tremors", "Gambit", null, 19, (int)countdownDeckId, null,
+                "Elige hasta un número de luchadores enemigos igual a tu valor de Cataclismo. Da a cada uno de esos luchadores una ficha de Tambaleo.", null, "card_cc19");
+        insertCardInternal(db, "Counter-charge", "Gambit", null, 20, (int)countdownDeckId, null,
+                "Juega esta carta inmediatamente después de que se elija a un luchador aliado como objetivo de un Ataque. Elige otro luchador aliado y empújalo hasta 3 hexágonos, terminando adyacente al atacante.", null, "card_cc20");
 
         // Cartas de Countdown to Cataclysm (Lote 5)
-        insertCardInternal(db, "Do or Die", "Gambit", null, 21, (int)countdownDeckId, null, "Pick a friendly fighter. Inspire that fighter. This effect persists for X Action steps where X is your Cataclysm value. After that effect ends, do not discard this card. Instead, Uninspire that fighter. That fighter cannot be Inspired again. This effect persists until the end of the game.", null, "card_cc21");
-        insertCardInternal(db, "Improvised Attack", "Gambit", null, 22, (int)countdownDeckId, null, "Pick a friendly fighter. That fighter immediately Attacks with the following weapon, where X is your Cataclysm value. Weapon: Range 3, Hammer, X Dice, 1 Damage. This weapon cannot be modified.", null, "card_cc22");
-        insertCardInternal(db, "Bringer of Doom", "Upgrade", null, 23, (int)countdownDeckId, 1, "Tick Tock: After this card is discarded during a Combat Phase, you can immediately advance your Cataclysm tracker 1 step.", null, "card_cc23");
-        insertCardInternal(db, "Visions of Ruin", "Upgrade", null, 24, (int)countdownDeckId, 1, "This fighter has +X Move, where X is your Cataclysm value. Immediately after this fighter Moves, give this fighter a Stagger token.", null, "card_cc24");
-        insertCardInternal(db, "Extinction's Edge", "Upgrade", null, 25, (int)countdownDeckId, 1, "Ever Closer: Immediately advance your Cataclysm tracker 1 step after an enemy fighter is slain by this fighter. Then, if your Cataclysm value is 2 or greater, discard this card.", null, "card_cc25");
+        insertCardInternal(db, "Do or Die", "Gambit", null, 21, (int)countdownDeckId, null,
+                "Elige un luchador aliado. Inspira a ese luchador. Este efecto persiste durante X pasos de Acción, donde X es tu valor de Cataclismo. Cuando termine ese efecto, no descartes esta carta; en su lugar, Desinspira a ese luchador. Ese luchador no puede inspirarse de nuevo. Este efecto persiste hasta el final de la partida.", null, "card_cc21");
+        insertCardInternal(db, "Improvised Attack", "Gambit", null, 22, (int)countdownDeckId, null,
+                "Elige un luchador aliado. Ese luchador realiza inmediatamente un Ataque con el siguiente arma, donde X es tu valor de Cataclismo: Alcance 3, Martillo, X dados, 1 Daño. Esta arma no puede modificarse.", null, "card_cc22");
+        insertCardInternal(db, "Bringer of Doom", "Upgrade", null, 23, (int)countdownDeckId, 1,
+                "Tic‑tac: Después de descartar esta carta durante una fase de combate, puedes avanzar inmediatamente tu marcador de Cataclismo 1 escalón.", null, "card_cc23");
+        insertCardInternal(db, "Visions of Ruin", "Upgrade", null, 24, (int)countdownDeckId, 1,
+                "Este luchador tiene +X Movimiento, donde X es tu valor de Cataclismo. Inmediatamente después de que este luchador se mueva, dale una ficha de Tambaleo.", null, "card_cc24");
+        insertCardInternal(db, "Extinction's Edge", "Upgrade", null, 25, (int)countdownDeckId, 1,
+                "Cada vez más cerca: Avanza inmediatamente tu marcador de Cataclismo 1 escalón después de que un luchador enemigo sea eliminado por este luchador. Luego, si tu valor de Cataclismo es 2 o más, descarta esta carta.", null, "card_cc25");
 
         // Cartas de Countdown to Cataclysm (Lote 6)
-        insertCardInternal(db, "Driven by Pain", "Upgrade", null, 26, (int)countdownDeckId, 1, "Insensate: Immediately after this fighter is driven back, you can heal this fighter.", null, "card_cc26");
-        insertCardInternal(db, "Inescapable Grasp", "Upgrade", null, 27, (int)countdownDeckId, 1, "This fighter's melee weapons have Ensnare.", null, "card_cc27");
-        insertCardInternal(db, "Utter Conviction", "Upgrade", null, 28, (int)countdownDeckId, 1, "This fighter's Save characteristic is X, where X is your Cataclysm value, and cannot be modified further. This fighter cannot use Critical Weapon abilities.", null, "card_cc28");
-        insertCardInternal(db, "Burnt Out", "Upgrade", null, 29, (int)countdownDeckId, 1, "Smoulder: Pick a friendly fighter. Give that fighter a Stagger token. Then, draw 2 Power cards. If you are the underdog, draw 3 Power cards instead.", null, "card_cc29");
-        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 30, (int)countdownDeckId, 2, "This fighter has +1 Health.", null, "card_cc30");
+        insertCardInternal(db, "Driven by Pain", "Upgrade", null, 26, (int)countdownDeckId, 1,
+                "Insensible: Inmediatamente después de que este luchador sea empujado hacia atrás, puedes curarlo.", null, "card_cc26");
+        insertCardInternal(db, "Inescapable Grasp", "Upgrade", null, 27, (int)countdownDeckId, 1,
+                "Las armas cuerpo a cuerpo de este luchador tienen Atrapador.", null, "card_cc27");
+        insertCardInternal(db, "Utter Conviction", "Upgrade", null, 28, (int)countdownDeckId, 1,
+                "La característica de Salvación de este luchador es X, donde X es tu valor de Cataclismo, y no puede modificarse más. Este luchador no puede usar habilidades de Arma Crítica.", null, "card_cc28");
+        insertCardInternal(db, "Burnt Out", "Upgrade", null, 29, (int)countdownDeckId, 1,
+                "Ardiendo: Elige un luchador aliado. Dale una ficha de Tambaleo. Luego roba 2 cartas de Poder. Si eres el desventajado, roba 3 cartas de Poder en su lugar.", null, "card_cc29");
+        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 30, (int)countdownDeckId, 2,
+                "Este luchador tiene +1 Herida.", null, "card_cc30");
 
         // Cartas de Countdown to Cataclysm (Lote 7 - Final)
-        insertCardInternal(db, "Hurled Weapon", "Upgrade", null, 31, (int)countdownDeckId, 1, "Ranged Attack action: Range 3, Hammer, 2 Dice, 1 Damage. Critical success: Cleave.", null, "card_cc31");
-        insertCardInternal(db, "Desperate Rage", "Upgrade", null, 32, (int)countdownDeckId, 1, "Melee Attack action: Range 1, Hammer, 2 Dice, 3 Damage. Immediately after this fighter has Attacked with this weapon, inflict 1 damage on this fighter.", null, "card_cc32");
+        insertCardInternal(db, "Hurled Weapon", "Upgrade", null, 31, (int)countdownDeckId, 1,
+                "Acción de Ataque a distancia: Alcance 3, Martillo, 2 dados, 1 Daño. Éxito Crítico: Perforante.", null, "card_cc31");
+        insertCardInternal(db, "Desperate Rage", "Upgrade", null, 32, (int)countdownDeckId, 1,
+                "Acción de Ataque cuerpo a cuerpo: Alcance 1, Martillo, 2 dados, 3 Daño. Inmediatamente después de que este luchador haya atacado con esta arma, inflige 1 de daño a este luchador.", null, "card_cc32");
 
         // --- Inserción de Deadly Synergy Rivals Deck ---
-        String deadlySynergyRules = "While using this Rivals deck, adjacent friendly fighters are united. \n\n" +
-                "Enemy fighters adjacent to a united friendly fighter are Flanked. \n\n" +
-                "If each other friendly fighter is slain, the remaining friendly fighter is united.";
+        String deadlySynergyRules =
+                "Mientras uses este mazo de Rivales, los luchadores aliados adyacentes están unidos.\n\n" +
+                "Los luchadores enemigos adyacentes a un luchador aliado unido están Flanqueados.\n\n" +
+                "Si todos los demás luchadores aliados están eliminados, el luchador aliado restante está unido.";
         long deadlySynergyDeckId = insertRivalDeckInternal(db, "Deadly Synergy Rivals Deck", "Mazo Universal", null, "UNIVERSAL", deadlySynergyRules);
 
         // --- Cartas de Deadly Synergy ---
-        insertCardInternal(db, "Aggressive Unity", "Objective", "End Phase", 1, (int)deadlySynergyDeckId, 2, "Score this in an end phase if 3 or more melee Attacks were made by united friendly fighters this battle round.", null, "card_dy1");
-        insertCardInternal(db, "Beatdown", "Objective", "End Phase", 2, (int)deadlySynergyDeckId, 1, "Score this in an end phase if the same enemy fighter was picked to be the target of 3 or more different friendly fighters' melee Attacks this battle round.", null, "card_dy2");
-        insertCardInternal(db, "Closed Down", "Objective", "End Phase", 3, (int)deadlySynergyDeckId, 2, "Score this in an end phase if a united friendly fighter is holding a treasure token that was held by an enemy fighter this battle round.", null, "card_dy3");
-        insertCardInternal(db, "Got Your Back!", "Objective", "Surge", 4, (int)deadlySynergyDeckId, 1, "Score this immediately after an enemy fighter's failed Attack if the target was a united friendly fighter.", null, "card_dy4");
-        insertCardInternal(db, "Helping Hand", "Objective", "Surge", 5, (int)deadlySynergyDeckId, 1, "Score this immediately after a united friendly fighter's successful Attack if the Attack roll contained any Single Support.", null, "card_dy5");
-        insertCardInternal(db, "Hemmed In", "Objective", "End Phase", 6, (int)deadlySynergyDeckId, 2, "Score this in an end phase if an enemy leader was slain by a united friendly fighter this battle round.", null, "card_dy6");
-        insertCardInternal(db, "Inevitable Outcome", "Objective", "End Phase", 7, (int)deadlySynergyDeckId, 1, "Score this in an end phase if 2 or more united friendly fighters are adjacent to the same enemy fighter.", null, "card_dy7");
-        insertCardInternal(db, "Infiltrate", "Objective", "Surge", 8, (int)deadlySynergyDeckId, 1, "Score this immediately after a friendly fighter's successful Attack if the target was in neutral or enemy territory and either the attacker was united or the target was Flanked and/or Surrounded.", null, "card_dy8");
-        insertCardInternal(db, "Outmuscle", "Objective", "End Phase", 9, (int)deadlySynergyDeckId, 2, "Score this in an end phase if an enemy fighter was driven back as part of a united friendly fighter's successful Attack this battle round.", null, "card_dy9");
-        insertCardInternal(db, "Tag Team", "Objective", "Surge", 10, (int)deadlySynergyDeckId, 1, "Score this immediately after a friendly fighter's successful Attack if they have no Move or Charge tokens and either the attacker was united or the target was Flanked and/or Surrounded.", null, "card_dy10");
-        insertCardInternal(db, "Tandem Assault", "Objective", "Surge", 11, (int)deadlySynergyDeckId, 1, "Score this immediately after an enemy fighter is slain by a friendly fighter's Attack if the attacker was united or the target was Flanked and/or Surrounded.", null, "card_dy11");
-        insertCardInternal(db, "United Aid", "Objective", "Surge", 12, (int)deadlySynergyDeckId, 1, "Score this immediately after you make a Save roll for a united friendly fighter if there were more successes in the Save roll than the Attacker roll and the Save roll contained any Single Support. If you are the underdog, the Save roll does not have to contain any Single Support.", null, "card_dy12");
+        insertCardInternal(db, "Aggressive Unity", "Objective", "End Phase", 1, (int)deadlySynergyDeckId, 2,
+                "Anota esta carta en una fase final si en esta ronda de batalla se han realizado 3 o más Ataques cuerpo a cuerpo por luchadores aliados unidos.", null, "card_dy1");
+        insertCardInternal(db, "Beatdown", "Objective", "End Phase", 2, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta en una fase final si en esta ronda de batalla el mismo luchador enemigo ha sido elegido como objetivo de 3 o más Ataques cuerpo a cuerpo de luchadores aliados distintos.", null, "card_dy2");
+        insertCardInternal(db, "Closed Down", "Objective", "End Phase", 3, (int)deadlySynergyDeckId, 2,
+                "Anota esta carta en una fase final si un luchador aliado unido sostiene una ficha de tesoro que en esta ronda de batalla estuvo en posesión de un luchador enemigo.", null, "card_dy3");
+        insertCardInternal(db, "Got Your Back!", "Objective", "Surge", 4, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta inmediatamente después del fallo de un Ataque de un luchador enemigo si el objetivo era un luchador aliado unido.", null, "card_dy4");
+        insertCardInternal(db, "Helping Hand", "Objective", "Surge", 5, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque exitoso de un luchador aliado unido si la tirada de Ataque contenía al menos un resultado de Apoyo Sencillo.", null, "card_dy5");
+        insertCardInternal(db, "Hemmed In", "Objective", "End Phase", 6, (int)deadlySynergyDeckId, 2,
+                "Anota esta carta en una fase final si en esta ronda de batalla un líder enemigo ha sido eliminado por un luchador aliado unido.", null, "card_dy6");
+        insertCardInternal(db, "Inevitable Outcome", "Objective", "End Phase", 7, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta en una fase final si 2 o más luchadores aliados unidos están adyacentes al mismo luchador enemigo.", null, "card_dy7");
+        insertCardInternal(db, "Infiltrate", "Objective", "Surge", 8, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque exitoso de un luchador aliado si el objetivo estaba en territorio neutral o enemigo y o bien el atacante estaba unido, o bien el objetivo estaba Flanqueado y/o Rodeado.", null, "card_dy8");
+        insertCardInternal(db, "Outmuscle", "Objective", "End Phase", 9, (int)deadlySynergyDeckId, 2,
+                "Anota esta carta en una fase final si en esta ronda de batalla un luchador enemigo fue empujado hacia atrás como parte del Ataque exitoso de un luchador aliado unido.", null, "card_dy9");
+        insertCardInternal(db, "Tag Team", "Objective", "Surge", 10, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque exitoso de un luchador aliado si no tiene fichas de Movimiento ni de Carga y o bien el atacante estaba unido, o bien el objetivo estaba Flanqueado y/o Rodeado.", null, "card_dy10");
+        insertCardInternal(db, "Tandem Assault", "Objective", "Surge", 11, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador enemigo sea eliminado por el Ataque de un luchador aliado si el atacante estaba unido o el objetivo estaba Flanqueado y/o Rodeado.", null, "card_dy11");
+        insertCardInternal(db, "United Aid", "Objective", "Surge", 12, (int)deadlySynergyDeckId, 1,
+                "Anota esta carta inmediatamente después de hacer una tirada de Salvación para un luchador aliado unido si hubo más éxitos en la tirada de Salvación que en la tirada de Ataque y la tirada de Salvación contenía al menos un resultado de Apoyo Sencillo. Si eres el desventajado, la tirada de Salvación no tiene por qué contener ningún Apoyo Sencillo.", null, "card_dy12");
 
         // --- Gambitos (Ploys) de Deadly Synergy ---
-        insertCardInternal(db, "Another Swing", "Gambit", null, 13, (int)deadlySynergyDeckId, null, "Play this immediately after a united friendly fighter's failed melee Attack if the attacker is adjacent to 2 united friendly fighters. That fighter Attacks again using a melee weapon, but the Damage characteristic of that weapon is reduced to 1.", null, "card_dy13");
-        insertCardInternal(db, "Army of Two", "Gambit", null, 14, (int)deadlySynergyDeckId, null, "Pick a friendly fighter. That fighter is united in the next turn.", null, "card_dy14");
-        insertCardInternal(db, "Brother-in-Arms", "Gambit", null, 15, (int)deadlySynergyDeckId, null, "Play this immediately before you pick a melee weapon as part of a united friendly fighter's Attack. Pick a united friendly fighter adjacent to the attacker. Use 1 of that fighter's melee weapons for that Attack instead.", null, "card_dy15");
-        insertCardInternal(db, "Defiant Duo", "Gambit", null, 16, (int)deadlySynergyDeckId, null, "Pick 2 adjacent united friendly fighters. If you are the underdog, pick 2 united friendly fighters instead. Give 1 of those fighters a Guard token and then heal the other fighter.", null, "card_dy16");
-        insertCardInternal(db, "Out of Nowhere!", "Gambit", null, 17, (int)deadlySynergyDeckId, null, "Play this immediately after you make an Attack roll for a united friendly fighter. Change 1 dice in that Attack roll to Single Support or Double Support.", null, "card_dy17");
-        insertCardInternal(db, "Selfless Parry", "Gambit", null, 18, (int)deadlySynergyDeckId, null, "Play this immediately after a united friendly fighter is picked to be the target of an Attack. Pick a united friendly fighter adjacent to the target. The target has that fighter's Save characteristic for that Attack.", null, "card_dy18");
-        insertCardInternal(db, "Sidestep", "Gambit", null, 19, (int)deadlySynergyDeckId, null, "Pick a friendly fighter. Push that fighter 1 hex.", null, "card_dy19");
-        insertCardInternal(db, "Take One for the Team", "Gambit", null, 20, (int)deadlySynergyDeckId, null, "Play this immediately after a united friendly fighter is picked to be the target of an Attack. Pick a united friendly fighter adjacent to the target and within range of the weapon being used for the Attack. That fighter must be the target of that Attack instead.", null, "card_dy20");
-        insertCardInternal(db, "Timed Strike", "Gambit", null, 21, (int)deadlySynergyDeckId, null, "Play this immediately after you pick a melee weapon as part of an Attack for a friendly fighter that is not united. That weapon has +1 Attack dice for that Attack.", null, "card_dy21");
-        insertCardInternal(db, "Unified Front", "Gambit", null, 22, (int)deadlySynergyDeckId, null, "United friendly fighters have +1 Save in the next turn, to a maximum of 3.", null, "card_dy22");
+        insertCardInternal(db, "Another Swing", "Gambit", null, 13, (int)deadlySynergyDeckId, null,
+                "Juega esta carta inmediatamente después de un Ataque cuerpo a cuerpo fallido de un luchador aliado unido si el atacante está adyacente a 2 luchadores aliados unidos. Ese luchador ataca de nuevo usando un arma cuerpo a cuerpo, pero la característica de Daño de esa arma se reduce a 1.", null, "card_dy13");
+        insertCardInternal(db, "Army of Two", "Gambit", null, 14, (int)deadlySynergyDeckId, null,
+                "Elige un luchador aliado. Ese luchador estará unido en el siguiente turno.", null, "card_dy14");
+        insertCardInternal(db, "Brother-in-Arms", "Gambit", null, 15, (int)deadlySynergyDeckId, null,
+                "Juega esta carta inmediatamente antes de elegir un arma cuerpo a cuerpo como parte del Ataque de un luchador aliado unido. Elige un luchador aliado unido adyacente al atacante. Usa 1 de las armas cuerpo a cuerpo de ese luchador para ese Ataque en su lugar.", null, "card_dy15");
+        insertCardInternal(db, "Defiant Duo", "Gambit", null, 16, (int)deadlySynergyDeckId, null,
+                "Elige 2 luchadores aliados unidos adyacentes. Si eres el desventajado, elige 2 luchadores aliados unidos cualesquiera en su lugar. Da a uno de esos luchadores una ficha de Guardia y luego cura al otro luchador.", null, "card_dy16");
+        insertCardInternal(db, "Out of Nowhere!", "Gambit", null, 17, (int)deadlySynergyDeckId, null,
+                "Juega esta carta inmediatamente después de hacer una tirada de Ataque para un luchador aliado unido. Cambia 1 dado de esa tirada de Ataque por un resultado de Apoyo Sencillo o Doble Apoyo.", null, "card_dy17");
+        insertCardInternal(db, "Selfless Parry", "Gambit", null, 18, (int)deadlySynergyDeckId, null,
+                "Juega esta carta inmediatamente después de que se elija a un luchador aliado unido como objetivo de un Ataque. Elige un luchador aliado unido adyacente al objetivo. El objetivo usa la característica de Salvación de ese luchador para ese Ataque.", null, "card_dy18");
+        insertCardInternal(db, "Sidestep", "Gambit", null, 19, (int)deadlySynergyDeckId, null,
+                "Elige un luchador aliado. Empuja a ese luchador 1 hexágono.", null, "card_dy19");
+        insertCardInternal(db, "Take One for the Team", "Gambit", null, 20, (int)deadlySynergyDeckId, null,
+                "Juega esta carta inmediatamente después de que se elija a un luchador aliado unido como objetivo de un Ataque. Elige un luchador aliado unido adyacente al objetivo y dentro del alcance del arma usada para el Ataque. Ese luchador debe ser el objetivo de ese Ataque en su lugar.", null, "card_dy20");
+        insertCardInternal(db, "Timed Strike", "Gambit", null, 21, (int)deadlySynergyDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un arma cuerpo a cuerpo como parte del Ataque de un luchador aliado que no esté unido. Esa arma tiene +1 dado de Ataque para ese Ataque.", null, "card_dy21");
+        insertCardInternal(db, "Unified Front", "Gambit", null, 22, (int)deadlySynergyDeckId, null,
+                "Los luchadores aliados unidos tienen +1 a su Salvación en el siguiente turno, hasta un máximo de 3.", null, "card_dy22");
 
         // --- Mejoras (Upgrades) de Deadly Synergy ---
-        insertCardInternal(db, "Battering Ram", "Upgrade", null, 23, (int)deadlySynergyDeckId, null, "Attack rolls made for this fighter as part of melee Attacks always count as having more Critical success than the Save roll for purposes of Drive Back and Overrun.", null, "card_dy23");
-        insertCardInternal(db, "Coordinated Deathblow", "Upgrade", "Weapon", 24, (int)deadlySynergyDeckId, null, "Range 1, 3 Fury, 2 Damage. This weapon has Grievous while this fighter is united.", null, "card_dy24");
-        insertCardInternal(db, "Duellist", "Upgrade", null, 25, (int)deadlySynergyDeckId, null, "Footwork: Immediately after this fighter has Attacked, you can push this fighter 1 hex.", null, "card_dy25");
-        insertCardInternal(db, "Entangling Strike", "Upgrade", "Weapon", 26, (int)deadlySynergyDeckId, null, "Range 1, 3 Smash, 1 Damage. This weapon has Cleave and Ensnare if the target is Flanked and/or Surrounded.", null, "card_dy26");
-        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 27, (int)deadlySynergyDeckId, null, "This fighter has +1 Health.", null, "card_dy27");
-        insertCardInternal(db, "Keen Eye", "Upgrade", null, 28, (int)deadlySynergyDeckId, null, "This fighter's melee weapons have +1 Attack dice.", null, "card_dy28");
-        insertCardInternal(db, "Rush to Aid", "Upgrade", null, 29, (int)deadlySynergyDeckId, null, "Assist: Immediately after this fighter has Attacked, you can pick a united friendly fighter. Push this fighter up to 2 hexes. That push must end adjacent to that united friendly fighter.", null, "card_dy29");
-        insertCardInternal(db, "Shared Incentive", "Upgrade", null, 30, (int)deadlySynergyDeckId, null, "This upgrade can only be given to your leader. This fighter has +1 Move. United friendly fighters have +1 Move if they are adjacent to this fighter when they start that Move.", null, "card_dy30");
-        insertCardInternal(db, "Spurred Momentum", "Upgrade", null, 31, (int)deadlySynergyDeckId, null, "Driven: Immediately after this fighter's successful Attack, if this fighter was united, remove their Move and Stagger tokens and then discard this card.", null, "card_dy31");
-        insertCardInternal(db, "Titan of Combat", "Upgrade", null, 32, (int)deadlySynergyDeckId, null, "This fighter is united.", null, "card_dy32");
+        insertCardInternal(db, "Battering Ram", "Upgrade", null, 23, (int)deadlySynergyDeckId, null,
+                "Las tiradas de Ataque realizadas para este luchador como parte de Ataques cuerpo a cuerpo cuentan siempre como si tuvieran más éxitos Críticos que la tirada de Salvación a efectos de Empujar hacia atrás y Arrollar.", null, "card_dy23");
+        insertCardInternal(db, "Coordinated Deathblow", "Upgrade", "Weapon", 24, (int)deadlySynergyDeckId, null,
+                "Alcance 1, 3 Furia, 2 Daño. Esta arma tiene Doloroso mientras este luchador esté unido.", null, "card_dy24");
+        insertCardInternal(db, "Duellist", "Upgrade", null, 25, (int)deadlySynergyDeckId, null,
+                "Juego de pies: Inmediatamente después de que este luchador haya atacado, puedes empujarlo 1 hexágono.", null, "card_dy25");
+        insertCardInternal(db, "Entangling Strike", "Upgrade", "Weapon", 26, (int)deadlySynergyDeckId, null,
+                "Alcance 1, 3 Aplastar, 1 Daño. Esta arma tiene Perforante y Atrapador si el objetivo está Flanqueado y/o Rodeado.", null, "card_dy26");
+        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 27, (int)deadlySynergyDeckId, null,
+                "Este luchador tiene +1 Herida.", null, "card_dy27");
+        insertCardInternal(db, "Keen Eye", "Upgrade", null, 28, (int)deadlySynergyDeckId, null,
+                "Las armas cuerpo a cuerpo de este luchador tienen +1 dado de Ataque.", null, "card_dy28");
+        insertCardInternal(db, "Rush to Aid", "Upgrade", null, 29, (int)deadlySynergyDeckId, null,
+                "Ayuda: Inmediatamente después de que este luchador haya atacado, puedes elegir un luchador aliado unido. Empuja a este luchador hasta 2 hexágonos, terminando adyacente a ese luchador aliado unido.", null, "card_dy29");
+        insertCardInternal(db, "Shared Incentive", "Upgrade", null, 30, (int)deadlySynergyDeckId, null,
+                "Esta mejora solo puede darse a tu líder. Este luchador tiene +1 Movimiento. Los luchadores aliados unidos tienen +1 Movimiento si están adyacentes a este luchador cuando comienzan ese Movimiento.", null, "card_dy30");
+        insertCardInternal(db, "Spurred Momentum", "Upgrade", null, 31, (int)deadlySynergyDeckId, null,
+                "Impulso: Inmediatamente después del Ataque exitoso de este luchador, si estaba unido, retira sus fichas de Movimiento y de Tambaleo y luego descarta esta carta.", null, "card_dy31");
+        insertCardInternal(db, "Titan of Combat", "Upgrade", null, 32, (int)deadlySynergyDeckId, null,
+                "Este luchador está unido.", null, "card_dy32");
 
         // --- Inserción de Raging Slayers Rivals Deck ---
-        String ragingSlayersRules = "Raging Charge: Immediately after picking a friendly fighter to Charge, you can give that fighter a Rage token. Fighters with any Rage tokens are enraged. \n\n" +
-                "Raging Strike: After you make an Attack roll as part of a melee Attack for an enraged friendly fighter, you can immediately re-roll 1 Attack dice in that Attack roll. \n\n" +
-                "Poor Footing: You must use this immediately after an enraged friendly fighter was Attacked if that fighter was not driven back or grappled. Push the target 1 hex away from the attacker. Your opponent chooses the direction of that push. \n\n" +
-                "Remove all Rage tokens from enraged friendly fighters at the end of the battle round.";
+        String ragingSlayersRules =
+                "Carga Rabiosa: Inmediatamente después de elegir a un luchador aliado para Cargar, puedes darle a ese luchador una ficha de Rabia. Los luchadores con cualquier ficha de Rabia están enloquecidos.\n\n" +
+                "Golpe Rabioso: Después de hacer una tirada de Ataque como parte de un Ataque cuerpo a cuerpo de un luchador aliado enloquecido, puedes volver a tirar inmediatamente 1 dado de Ataque de esa tirada.\n\n" +
+                "Mala Pisada: Debes usar esto inmediatamente después de que un luchador aliado enloquecido haya sido atacado si ese luchador no fue empujado hacia atrás ni agarrado. Empuja al objetivo 1 hexágono alejándolo del atacante. Tu oponente elige la dirección de ese empujón.\n\n" +
+                "Retira todas las fichas de Rabia de los luchadores aliados enloquecidos al final de la ronda de batalla.";
         long ragingSlayersDeckId = insertRivalDeckInternal(db, "Raging Slayers Rivals Deck", "Mazo Universal", null, "UNIVERSAL", ragingSlayersRules);
 
         // --- Objetivos (Objectives) de Raging Slayers ---
-        insertCardInternal(db, "Aggressive Expansion", "Objective", "End Phase", 1, (int)ragingSlayersDeckId, 1, "Score this in an end phase if 3 or more enraged friendly fighters are in enemy territory.", null, "card_rs1");
-        insertCardInternal(db, "Best Foot Forward", "Objective", "Surge", 2, (int)ragingSlayersDeckId, 1, "Score this immediately after a friendly fighter's successful Attack if that fighter has any Charge tokens and is in enemy territory.", null, "card_rs2");
-        insertCardInternal(db, "Blinded by Rage", "Objective", "Surge", 3, (int)ragingSlayersDeckId, 1, "Score this immediately after an enemy fighter is slain by an enraged friendly fighter's melee Attack if that friendly fighter was enraged at the start of the turn.", null, "card_rs3");
-        insertCardInternal(db, "Coordinated Assault", "Objective", "Surge", 4, (int)ragingSlayersDeckId, 1, "Score this immediately after an Action step if each friendly fighter is enraged and in enemy territory.", null, "card_rs4");
-        insertCardInternal(db, "Into the Fire", "Objective", "End Phase", 5, (int)ragingSlayersDeckId, 1, "Score this in an end phase if your leader is in enemy territory and within 2 hexes of 2 or more other fighters.", null, "card_rs5");
-        insertCardInternal(db, "No Contest", "Objective", "End Phase", 6, (int)ragingSlayersDeckId, 1, "Score this in an end phase if an enemy leader is slain.", null, "card_rs6");
-        insertCardInternal(db, "No Escape", "Objective", "End Phase", 7, (int)ragingSlayersDeckId, 2, "Score this in an end phase if each friendly fighter is enraged and in enemy territory, and no enemy fighters are in your territory.", null, "card_rs7");
-        insertCardInternal(db, "No Respite", "Objective", "Surge", 8, (int)ragingSlayersDeckId, 1, "Score this immediately after an opponent's Action step if there is an enraged friendly fighter in each territory.", null, "card_rs8");
-        insertCardInternal(db, "Overwhelming Presence", "Objective", "End Phase", 9, (int)ragingSlayersDeckId, 2, "Score this in an end phase if each friendly fighter is enraged and there are no fighters holding treasure tokens.", null, "card_rs9");
-        insertCardInternal(db, "Sever the Head", "Objective", "Surge", 10, (int)ragingSlayersDeckId, 1, "Score this immediately after an enemy leader is slain by an enraged friendly fighter's melee Attack.", null, "card_rs10");
-        insertCardInternal(db, "Supreme Slayer", "Objective", "Surge", 11, (int)ragingSlayersDeckId, 1, "Score this immediately after your leader's successful Attack if the target was slain and that was the second or subsequent fighter slain by your leader.", null, "card_rs11");
-        insertCardInternal(db, "Unrelenting Massacre", "Objective", "End Phase", 12, (int)ragingSlayersDeckId, 3, "Score this in an end phase if all fighters have Charge tokens.", null, "card_rs12");
+        insertCardInternal(db, "Aggressive Expansion", "Objective", "End Phase", 1, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta en una fase final si 3 o más luchadores aliados enloquecidos están en territorio enemigo.", null, "card_rs1");
+        insertCardInternal(db, "Best Foot Forward", "Objective", "Surge", 2, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque exitoso de un luchador aliado si ese luchador tiene alguna ficha de Carga y está en territorio enemigo.", null, "card_rs2");
+        insertCardInternal(db, "Blinded by Rage", "Objective", "Surge", 3, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador enemigo sea eliminado por el Ataque cuerpo a cuerpo de un luchador aliado enloquecido si ese luchador aliado ya estaba enloquecido al comienzo del turno.", null, "card_rs3");
+        insertCardInternal(db, "Coordinated Assault", "Objective", "Surge", 4, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si cada luchador aliado está enloquecido y en territorio enemigo.", null, "card_rs4");
+        insertCardInternal(db, "Into the Fire", "Objective", "End Phase", 5, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta en una fase final si tu líder está en territorio enemigo y a 2 hexágonos o menos de 2 o más luchadores.", null, "card_rs5");
+        insertCardInternal(db, "No Contest", "Objective", "End Phase", 6, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta en una fase final si un líder enemigo ha sido eliminado.", null, "card_rs6");
+        insertCardInternal(db, "No Escape", "Objective", "End Phase", 7, (int)ragingSlayersDeckId, 2,
+                "Anota esta carta en una fase final si cada luchador aliado está enloquecido y en territorio enemigo, y no hay luchadores enemigos en tu territorio.", null, "card_rs7");
+        insertCardInternal(db, "No Respite", "Objective", "Surge", 8, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si hay un luchador aliado enloquecido en cada territorio.", null, "card_rs8");
+        insertCardInternal(db, "Overwhelming Presence", "Objective", "End Phase", 9, (int)ragingSlayersDeckId, 2,
+                "Anota esta carta en una fase final si cada luchador aliado está enloquecido y no hay luchadores que sostengan fichas de tesoro.", null, "card_rs9");
+        insertCardInternal(db, "Sever the Head", "Objective", "Surge", 10, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta inmediatamente después de que un líder enemigo sea eliminado por el Ataque cuerpo a cuerpo de un luchador aliado enloquecido.", null, "card_rs10");
+        insertCardInternal(db, "Supreme Slayer", "Objective", "Surge", 11, (int)ragingSlayersDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque exitoso de tu líder si el objetivo fue eliminado y ese era el segundo (o posterior) luchador eliminado por tu líder.", null, "card_rs11");
+        insertCardInternal(db, "Unrelenting Massacre", "Objective", "End Phase", 12, (int)ragingSlayersDeckId, 3,
+                "Anota esta carta en una fase final si todos los luchadores tienen fichas de Carga.", null, "card_rs12");
 
         // --- Gambitos (Ploys) de Raging Slayers ---
-        insertCardInternal(db, "Adrenaline Rush", "Gambit", null, 13, (int)ragingSlayersDeckId, null, "Pick up to 2 enraged friendly fighters. Remove their Stagger tokens.", null, "card_rs13");
-        insertCardInternal(db, "Honed Reflexes", "Gambit", null, 14, (int)ragingSlayersDeckId, null, "Domain: Each time you make a Save roll for an enraged friendly fighter, you can re-roll 1 Save dice in that Save roll. This effect persists until the end of the battle round or until another Domain card is played.", null, "card_rs14");
-        insertCardInternal(db, "Knife to the Heart", "Gambit", null, 15, (int)ragingSlayersDeckId, null, "Pick an enemy fighter that is not vulnerable and that is adjacent to an enraged friendly fighter. Inflict 1 damage on that enemy fighter. Then, remove that friendly fighter's Rage tokens.", null, "card_rs15");
-        insertCardInternal(db, "Murderlust", "Gambit", null, 16, (int)ragingSlayersDeckId, null, "Play this immediately after an enraged friendly fighter's melee Attack fails. Friendly fighters' melee weapons have +1 Attack dice while targeting the target of that failed Attack until the end of the battle round.", null, "card_rs16");
-        insertCardInternal(db, "Senseless Haste", "Gambit", null, 17, (int)ragingSlayersDeckId, null, "Friendly fighters have +1 Move in the next turn. After any friendly fighters Move in your next turn, give that fighter a Stagger token.", null, "card_rs17");
-        insertCardInternal(db, "Slayer's Aid", "Gambit", null, 18, (int)ragingSlayersDeckId, null, "Pick an enraged friendly fighter. Push that fighter up to 3 hexes. That push must end adjacent to your leader.", null, "card_rs18");
-        insertCardInternal(db, "Slayer's Arena", "Gambit", null, 19, (int)ragingSlayersDeckId, null, "Domain: After each failed Attack, give the attacker a Stagger token. This effect persists until the end of the battle round or until another Domain card is played.", null, "card_rs19");
-        insertCardInternal(db, "Venting Strike", "Gambit", null, 20, (int)ragingSlayersDeckId, null, "Play this immediately after you pick a melee weapon as part of an Attack made by an enraged friendly fighter. That weapon has +1 Attack dice for that Attack. Immediately after that Attack, remove that fighter's Rage tokens.", null, "card_rs20");
-        insertCardInternal(db, "What Pain?", "Gambit", null, 21, (int)ragingSlayersDeckId, null, "Pick up to 2 enraged friendly fighters. Heal those fighters. Then, remove their Rage tokens and give them a Stagger token.", null, "card_rs21");
-        insertCardInternal(db, "Wrong-footed Stance", "Gambit", null, 22, (int)ragingSlayersDeckId, null, "Domain: If a fighter enters or is placed in a stagger hex, give them a Move token in addition to a Stagger token. This effect persists until the end of the battle round or until another Domain card is played.", null, "card_rs22");
+        insertCardInternal(db, "Adrenaline Rush", "Gambit", null, 13, (int)ragingSlayersDeckId, null,
+                "Elige hasta 2 luchadores aliados enloquecidos. Retira sus fichas de Tambaleo.", null, "card_rs13");
+        insertCardInternal(db, "Honed Reflexes", "Gambit", null, 14, (int)ragingSlayersDeckId, null,
+                "Dominio: Cada vez que hagas una tirada de Salvación para un luchador aliado enloquecido, puedes repetir 1 dado de Salvación de esa tirada. Este efecto persiste hasta el final de la ronda de batalla o hasta que se juegue otra carta de Dominio.", null, "card_rs14");
+        insertCardInternal(db, "Knife to the Heart", "Gambit", null, 15, (int)ragingSlayersDeckId, null,
+                "Elige un luchador enemigo que no sea vulnerable y que esté adyacente a un luchador aliado enloquecido. Inflige 1 de daño a ese luchador enemigo. Luego, retira las fichas de Rabia de ese luchador aliado.", null, "card_rs15");
+        insertCardInternal(db, "Murderlust", "Gambit", null, 16, (int)ragingSlayersDeckId, null,
+                "Juega esta carta inmediatamente después de que falle el Ataque cuerpo a cuerpo de un luchador aliado enloquecido. Las armas cuerpo a cuerpo de los luchadores aliados tienen +1 dado de Ataque mientras tengan como objetivo al objetivo de ese Ataque fallido, hasta el final de la ronda de batalla.", null, "card_rs16");
+        insertCardInternal(db, "Senseless Haste", "Gambit", null, 17, (int)ragingSlayersDeckId, null,
+                "Los luchadores aliados tienen +1 Movimiento en el siguiente turno. Después de que cualquier luchador aliado se mueva en tu siguiente turno, dale a ese luchador una ficha de Tambaleo.", null, "card_rs17");
+        insertCardInternal(db, "Slayer's Aid", "Gambit", null, 18, (int)ragingSlayersDeckId, null,
+                "Elige un luchador aliado enloquecido. Empuja a ese luchador hasta 3 hexágonos, terminando adyacente a tu líder.", null, "card_rs18");
+        insertCardInternal(db, "Slayer's Arena", "Gambit", null, 19, (int)ragingSlayersDeckId, null,
+                "Dominio: Después de cada Ataque fallido, da al atacante una ficha de Tambaleo. Este efecto persiste hasta el final de la ronda de batalla o hasta que se juegue otra carta de Dominio.", null, "card_rs19");
+        insertCardInternal(db, "Venting Strike", "Gambit", null, 20, (int)ragingSlayersDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un Ataque realizado por un luchador aliado enloquecido. Esa arma tiene +1 dado de Ataque para ese Ataque. Inmediatamente después de ese Ataque, retira las fichas de Rabia de ese luchador.", null, "card_rs20");
+        insertCardInternal(db, "What Pain?", "Gambit", null, 21, (int)ragingSlayersDeckId, null,
+                "Elige hasta 2 luchadores aliados enloquecidos. Cúralos. Luego, retira sus fichas de Rabia y dales una ficha de Tambaleo.", null, "card_rs21");
+        insertCardInternal(db, "Wrong-footed Stance", "Gambit", null, 22, (int)ragingSlayersDeckId, null,
+                "Dominio: Si un luchador entra en un hexágono de Tambaleo o es colocado en él, dale una ficha de Movimiento además de una ficha de Tambaleo. Este efecto persiste hasta el final de la ronda de batalla o hasta que se juegue otra carta de Dominio.", null, "card_rs22");
 
         // --- Mejoras (Upgrades) de Raging Slayers ---
-        insertCardInternal(db, "Agile", "Upgrade", null, 23, (int)ragingSlayersDeckId, 2, "Deft: After you make a Save roll for this fighter, you can immediately re-roll 1 Save dice in that Save roll.", null, "card_rs23");
-        insertCardInternal(db, "Aggressive Ambusher", "Upgrade", null, 24, (int)ragingSlayersDeckId, 1, "While this fighter is enraged, their melee weapons have Cleave and Ensnare if the target is Flanked and/or Surrounded.", null, "card_rs24");
-        insertCardInternal(db, "Angered Swing", "Upgrade", null, 25, (int)ragingSlayersDeckId, 1, "Melee Attack action \n\n Hex 1 SwordFury 3 Damage 2 \n A fighter can only use this weapon while enraged. When using the Raging Strike ability with this weapon, you must re-roll each Attack dice instead.", null, "card_rs25");
-        insertCardInternal(db, "Assured Bloodshed", "Upgrade", null, 26, (int)ragingSlayersDeckId, 1, "While this fighter is enraged, their melee weapons have Grapple and Brutal.", null, "card_rs26");
-        insertCardInternal(db, "Gifted Vitality", "Upgrade", null, 27, (int)ragingSlayersDeckId, 2, "Heal this fighter at the end of each battle round.", null, "card_rs27");
-        insertCardInternal(db, "Haymaker", "Upgrade", null, 28, (int)ragingSlayersDeckId, 2, "This fighter's melee weapons (excluding Upgrades) have the Lethal Weapon ability. After this fighter make a successful Attack with Lethal, discard this card. \n\n Lethal: That fighter's weapon has +2 Damage for that Attack, to a maximum of 4.", null, "card_rs28");
-        insertCardInternal(db, "Keen Eye", "Upgrade", null, 29, (int)ragingSlayersDeckId, 2, "This fighter's melee weapons have +1 Attack dice.", null, "card_rs29");
-        insertCardInternal(db, "Murderous Instincts", "Upgrade", null, 30, (int)ragingSlayersDeckId, 1, "This fighter's Range 1 melee weapons (excluding Upgrades) have Grievous. \n\n This fighter cannot use Core abilities other than the Charge ability.", null, "card_rs30");
-        insertCardInternal(db, "Stubborn to the Bone", "Upgrade", null, 31, (int)ragingSlayersDeckId, 1, "While this fighter is enraged, this fighter cannot be pushed or given Stagger tokens.", null, "card_rs31");
-        insertCardInternal(db, "United in Anger", "Upgrade", null, 32, (int)ragingSlayersDeckId, 1, "Rally Together: Immediately after an enraged friendly fighter is pushed, you can push this fighter up to 1 hex closer to that fighter.", null, "card_rs32");
+        insertCardInternal(db, "Agile", "Upgrade", null, 23, (int)ragingSlayersDeckId, 2,
+                "Desteza: Después de hacer una tirada de Salvación para este luchador, puedes volver a tirar inmediatamente 1 dado de Salvación de esa tirada.", null, "card_rs23");
+        insertCardInternal(db, "Aggressive Ambusher", "Upgrade", null, 24, (int)ragingSlayersDeckId, 1,
+                "Mientras este luchador esté enloquecido, sus armas cuerpo a cuerpo tienen Perforante y Atrapador si el objetivo está Flanqueado y/o Rodeado.", null, "card_rs24");
+        insertCardInternal(db, "Angered Swing", "Upgrade", null, 25, (int)ragingSlayersDeckId, 1,
+                "Acción de Ataque cuerpo a cuerpo:\n\nAlcance 1, Espada/Furia 3, Daño 2.\nUn luchador solo puede usar esta arma mientras esté enloquecido. Al usar la habilidad Golpe Rabioso con esta arma, debes volver a tirar cada dado de Ataque en su lugar.", null, "card_rs25");
+        insertCardInternal(db, "Assured Bloodshed", "Upgrade", null, 26, (int)ragingSlayersDeckId, 1,
+                "Mientras este luchador esté enloquecido, sus armas cuerpo a cuerpo tienen Agarre y Brutal.", null, "card_rs26");
+        insertCardInternal(db, "Gifted Vitality", "Upgrade", null, 27, (int)ragingSlayersDeckId, 2,
+                "Cura a este luchador al final de cada ronda de batalla.", null, "card_rs27");
+        insertCardInternal(db, "Haymaker", "Upgrade", null, 28, (int)ragingSlayersDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador (excluyendo Mejoras) tienen la habilidad Letal. Después de que este luchador realice un Ataque exitoso con Letal, descarta esta carta.\n\nLetal: El arma de ese luchador tiene +2 Daño para ese Ataque, hasta un máximo de 4.", null, "card_rs28");
+        insertCardInternal(db, "Keen Eye", "Upgrade", null, 29, (int)ragingSlayersDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen +1 dado de Ataque.", null, "card_rs29");
+        insertCardInternal(db, "Murderous Instincts", "Upgrade", null, 30, (int)ragingSlayersDeckId, 1,
+                "Las armas cuerpo a cuerpo de Alcance 1 de este luchador (excluyendo Mejoras) tienen Doloroso.\n\nEste luchador no puede usar habilidades Básicas distintas de la habilidad de Carga.", null, "card_rs30");
+        insertCardInternal(db, "Stubborn to the Bone", "Upgrade", null, 31, (int)ragingSlayersDeckId, 1,
+                "Mientras este luchador esté enloquecido, no puede ser empujado ni recibir fichas de Tambaleo.", null, "card_rs31");
+        insertCardInternal(db, "United in Anger", "Upgrade", null, 32, (int)ragingSlayersDeckId, 1,
+                "Reunidos por la ira: Inmediatamente después de que un luchador aliado enloquecido sea empujado, puedes empujar a este luchador hasta 1 hexágono más cerca de ese luchador.", null, "card_rs32");
 
         // --- Inserción de Realmstone Raiders Rivals Deck ---
-        String realmstoneRaidersRules = "While using this Rivals deck, immediately after the first successful friendly melee Attack in an Action step, you can raid a number of times equal to the Bounty characteristic of the target. \n\n" +
-                "Raid: Reveal the top card of your Power deck. That card is raided. If that card is an Emberstone card, you can put that card back on top or on the bottom of your Power deck. \n\n" +
-                "Emberstone cards have the following additional rules: \n\n" +
-                "Emberstone Ploy: You can play this Ploy immediately after it is raided. \n\n" +
-                "Emberstone Upgrade: You can equip this Upgrade immediately after it is raided if you have the required Glory points. \n\n" +
-                "If a raided card is not an Emberstone card, put that card on the bottom of your Power deck.";
+        String realmstoneRaidersRules =
+                "Mientras uses este mazo de Rivales, inmediatamente después del primer Ataque cuerpo a cuerpo exitoso de un luchador aliado en un paso de Acción, puedes saquear un número de veces igual a la característica de Recompensa del objetivo.\n\n" +
+                "Saqueo: Revela la primera carta de tu mazo de Poder. Esa carta se considera saqueada. Si esa carta es una carta de Emberstone, puedes colocarla de nuevo en la parte superior o en el fondo de tu mazo de Poder.\n\n" +
+                "Las cartas de Emberstone tienen las siguientes reglas adicionales:\n\n" +
+                "Ardid de Emberstone: Puedes jugar este Ardid inmediatamente después de que sea saqueado.\n\n" +
+                "Mejora de Emberstone: Puedes equipar esta Mejora inmediatamente después de que sea saqueada si tienes los puntos de gloria necesarios.\n\n" +
+                "Si una carta saqueada no es una carta de Emberstone, coloca esa carta en el fondo de tu mazo de Poder.";
         long realmstoneRaidersDeckId = insertRivalDeckInternal(db, "Realmstone Raiders Rivals Deck", "Mazo Universal", null, "UNIVERSAL", realmstoneRaidersRules);
 
         // --- Objetivos (Objectives) de Realmstone Raiders ---
-        insertCardInternal(db, "A Sure Bet", "Objective", "Surge", 1, (int)realmstoneRaidersDeckId, 1, "Score this immediately after raiding an Emberstone card after a melee Attack if the Attack roll contained 3 or more Attack dice.", null, "card_rr1");
-        insertCardInternal(db, "Certain Aggression", "Objective", "End Phase", 2, (int)realmstoneRaidersDeckId, 2, "Score this in an end phase if you raided 2 or more times this battle round and there are no enemy fighters in friendly territory.", null, "card_rr2");
-        insertCardInternal(db, "Critical Risk", "Objective", "Surge", 3, (int)realmstoneRaidersDeckId, 1, "Score this immediately after raiding an Emberstone card if the preceding Attack was successful and the Attack roll included any Critical success.", null, "card_rr3");
-        insertCardInternal(db, "Emberstone Stash", "Objective", "End Phase", 4, (int)realmstoneRaidersDeckId, 1, "Score this in an end phase if you raided 4 or more different Emberstone cards this battle round.", null, "card_rr4");
-        insertCardInternal(db, "Hoarder's Hovel", "Objective", "End Phase", 5, (int)realmstoneRaidersDeckId, 2, "Score this in an end phase if any friendly fighters are holding a treasure token that has a value equal to that fighter's Bounty characteristic.", null, "card_rr5");
-        insertCardInternal(db, "Invade", "Objective", "End Phase", 6, (int)realmstoneRaidersDeckId, 1, "Score this in an end phase if you raided any Emberstone cards this battle round after a melee Attack if the target was holding a treasure token.", null, "card_rr6");
-        insertCardInternal(db, "Looted Realmstone", "Objective", "Surge", 7, (int)realmstoneRaidersDeckId, 1, "Score this immediately after raiding 2 or more different Emberstone cards from the same melee Attack.", null, "card_rr7");
-        insertCardInternal(db, "Pillage", "Objective", "Surge", 8, (int)realmstoneRaidersDeckId, 1, "Score this immediately after raiding 2 or more different Emberstone cards after a melee Attack if the target was in neutral or enemy territory.", null, "card_rr8");
-        insertCardInternal(db, "Ragerock Strike", "Objective", "Surge", 9, (int)realmstoneRaidersDeckId, 1, "Score this immediately after resolving the Emberstone Ploy ability or the Emberstone Upgrade ability (see Plot card).", null, "card_rr9");
-        insertCardInternal(db, "Realmstone Raid", "Objective", "End Phase", 10, (int)realmstoneRaidersDeckId, 2, "Score this in an end phase if you raided 3 or more times after different friendly fighters Attacked this battle round.", null, "card_rr10");
-        insertCardInternal(db, "Reckless Gambit", "Objective", "Surge", 11, (int)realmstoneRaidersDeckId, 1, "Score this immediately after raiding an Emberstone card for the second or subsequent time this battle round and each Emberstone card raided was a different card.", null, "card_rr11");
-        insertCardInternal(db, "Roused Violence", "Objective", "End Phase", 12, (int)realmstoneRaidersDeckId, 2, "Score this in an end phase if the number of treasure tokens on the battlefield is equal to or less than the number of Emberstone cards you raided this battle round.", null, "card_rr12");
+        insertCardInternal(db, "A Sure Bet", "Objective", "Surge", 1, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta inmediatamente después de saquear una carta de Emberstone tras un Ataque cuerpo a cuerpo si la tirada de Ataque contenía 3 o más dados de Ataque.", null, "card_rr1");
+        insertCardInternal(db, "Certain Aggression", "Objective", "End Phase", 2, (int)realmstoneRaidersDeckId, 2,
+                "Anota esta carta en una fase final si has saqueado 2 o más veces en esta ronda de batalla y no hay luchadores enemigos en territorio aliado.", null, "card_rr2");
+        insertCardInternal(db, "Critical Risk", "Objective", "Surge", 3, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta inmediatamente después de saquear una carta de Emberstone si el Ataque precedente fue exitoso y la tirada de Ataque incluía al menos un éxito Crítico.", null, "card_rr3");
+        insertCardInternal(db, "Emberstone Stash", "Objective", "End Phase", 4, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta en una fase final si has saqueado 4 o más cartas de Emberstone diferentes en esta ronda de batalla.", null, "card_rr4");
+        insertCardInternal(db, "Hoarder's Hovel", "Objective", "End Phase", 5, (int)realmstoneRaidersDeckId, 2,
+                "Anota esta carta en una fase final si algún luchador aliado sostiene una ficha de tesoro cuyo valor es igual a la característica de Recompensa de ese luchador.", null, "card_rr5");
+        insertCardInternal(db, "Invade", "Objective", "End Phase", 6, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta en una fase final si esta ronda de batalla has saqueado alguna carta de Emberstone tras un Ataque cuerpo a cuerpo cuyo objetivo sostenía una ficha de tesoro.", null, "card_rr6");
+        insertCardInternal(db, "Looted Realmstone", "Objective", "Surge", 7, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta inmediatamente después de saquear 2 o más cartas de Emberstone diferentes a partir del mismo Ataque cuerpo a cuerpo.", null, "card_rr7");
+        insertCardInternal(db, "Pillage", "Objective", "Surge", 8, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta inmediatamente después de saquear 2 o más cartas de Emberstone diferentes tras un Ataque cuerpo a cuerpo si el objetivo estaba en territorio neutral o enemigo.", null, "card_rr8");
+        insertCardInternal(db, "Ragerock Strike", "Objective", "Surge", 9, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta inmediatamente después de resolver la habilidad de Ardid de Emberstone o la habilidad de Mejora de Emberstone (ver carta de Trama).", null, "card_rr9");
+        insertCardInternal(db, "Realmstone Raid", "Objective", "End Phase", 10, (int)realmstoneRaidersDeckId, 2,
+                "Anota esta carta en una fase final si has saqueado 3 o más veces después de que distintos luchadores aliados hayan atacado en esta ronda de batalla.", null, "card_rr10");
+        insertCardInternal(db, "Reckless Gambit", "Objective", "Surge", 11, (int)realmstoneRaidersDeckId, 1,
+                "Anota esta carta inmediatamente después de saquear una carta de Emberstone por segunda vez o más en esta ronda de batalla y que cada carta de Emberstone saqueada haya sido distinta.", null, "card_rr11");
+        insertCardInternal(db, "Roused Violence", "Objective", "End Phase", 12, (int)realmstoneRaidersDeckId, 2,
+                "Anota esta carta en una fase final si el número de fichas de tesoro en el campo de batalla es igual o menor que el número de cartas de Emberstone que has saqueado en esta ronda de batalla.", null, "card_rr12");
 
         // --- Gambitos (Gambits) de Realmstone Raiders ---
-        insertCardInternal(db, "Ambush", "Gambit", null, 13, (int)realmstoneRaidersDeckId, null, "Play this immediately after picking a ranged weapon as part of an Attack. You can raid after a successful friendly ranged Attack instead of a melee Attack this turn.", null, "card_rr13");
-        insertCardInternal(db, "Angered Focus", "Gambit", null, 14, (int)realmstoneRaidersDeckId, null, "Emberstone Ploy \n Pick a friendly fighter holding a treasure token in friendly territory that does not have any Move, Charge or Stagger tokens. Raid a number of cards equal to that fighter's Bounty characteristic. Cards raided this way do not count as having been raided as a result of a successful Attack.", null, "card_rr14");
-        insertCardInternal(db, "A Step Ahead", "Gambit", null, 15, (int)realmstoneRaidersDeckId, null, "Emberstone Ploy \n Pick a friendly fighter in neutral or enemy territory. Push that fighter 1 hex. That push must end closer to an enemy fighter.", null, "card_rr15");
-        insertCardInternal(db, "Fortune Faded", "Gambit", null, 16, (int)realmstoneRaidersDeckId, null, "Pick a friendly fighter adjacent to an enemy fighter that is not vulnerable. Inflict 1 damage on both fighters.", null, "card_rr16");
-        insertCardInternal(db, "Hidden Knowledge", "Gambit", null, 17, (int)realmstoneRaidersDeckId, null, "Emberstone Ploy \n Pick an enemy fighter adjacent to a friendly fighter. Give that fighter a Move token.", null, "card_rr17");
-        insertCardInternal(db, "Intoxicated with Rage", "Gambit", null, 18, (int)realmstoneRaidersDeckId, null, "Emberstone Ploy \n Pick a friendly fighter that has no Move and/or Charge tokens. Give that fighter a Guard token.", null, "card_rr18");
-        insertCardInternal(db, "Manipulated Fate", "Gambit", null, 19, (int)realmstoneRaidersDeckId, null, "Play this immediately after a friendly fighter is picked as the target of an Attack. Save rolls made for that Attack count as having more Critical success than the Attack roll for the purposes of the Stand Fast ability.", null, "card_rr19");
-        insertCardInternal(db, "Misstep", "Gambit", null, 20, (int)realmstoneRaidersDeckId, null, "Emberstone Ploy \n Pick an enemy fighter. Give that fighter a Stagger token.", null, "card_rr20");
-        insertCardInternal(db, "Raider's Rapture", "Gambit", null, 21, (int)realmstoneRaidersDeckId, null, "Domain: When you raid, you can reveal 1 additional card. This effect persists until the end of the round or until another Domain card is played.", null, "card_rr21");
-        insertCardInternal(db, "Raider's Premonition", "Gambit", null, 22, (int)realmstoneRaidersDeckId, null, "Emberstone Ploy \n Pick an Objective card from your hand and put it on the bottom of your Objective deck. Then draw 1 Objective card.", null, "card_rr22");
+        insertCardInternal(db, "Ambush", "Gambit", null, 13, (int)realmstoneRaidersDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un arma a distancia como parte de un Ataque. Este turno puedes saquear después de un Ataque a distancia exitoso de un luchador aliado en lugar de después de un Ataque cuerpo a cuerpo.", null, "card_rr13");
+        insertCardInternal(db, "Angered Focus", "Gambit", null, 14, (int)realmstoneRaidersDeckId, null,
+                "Ardid de Emberstone\nElige un luchador aliado que sostenga una ficha de tesoro en territorio aliado y que no tenga fichas de Movimiento, Carga ni Tambaleo. Saquea un número de cartas igual a la característica de Recompensa de ese luchador. Las cartas saqueadas de este modo no cuentan como saqueadas como resultado de un Ataque exitoso.", null, "card_rr14");
+        insertCardInternal(db, "A Step Ahead", "Gambit", null, 15, (int)realmstoneRaidersDeckId, null,
+                "Ardid de Emberstone\nElige un luchador aliado en territorio neutral o enemigo. Empuja a ese luchador 1 hexágono, terminando más cerca de un luchador enemigo.", null, "card_rr15");
+        insertCardInternal(db, "Fortune Faded", "Gambit", null, 16, (int)realmstoneRaidersDeckId, null,
+                "Elige un luchador aliado adyacente a un luchador enemigo que no sea vulnerable. Inflige 1 de daño a ambos luchadores.", null, "card_rr16");
+        insertCardInternal(db, "Hidden Knowledge", "Gambit", null, 17, (int)realmstoneRaidersDeckId, null,
+                "Ardid de Emberstone\nElige un luchador enemigo adyacente a un luchador aliado. Dale a ese luchador una ficha de Movimiento.", null, "card_rr17");
+        insertCardInternal(db, "Intoxicated with Rage", "Gambit", null, 18, (int)realmstoneRaidersDeckId, null,
+                "Ardid de Emberstone\nElige un luchador aliado que no tenga fichas de Movimiento ni de Carga. Dale a ese luchador una ficha de Guardia.", null, "card_rr18");
+        insertCardInternal(db, "Manipulated Fate", "Gambit", null, 19, (int)realmstoneRaidersDeckId, null,
+                "Juega esta carta inmediatamente después de que se elija a un luchador aliado como objetivo de un Ataque. Las tiradas de Salvación hechas para ese Ataque cuentan como si tuvieran más éxitos Críticos que la tirada de Ataque a efectos de la habilidad Mantenerse Firme.", null, "card_rr19");
+        insertCardInternal(db, "Misstep", "Gambit", null, 20, (int)realmstoneRaidersDeckId, null,
+                "Ardid de Emberstone\nElige un luchador enemigo. Dale a ese luchador una ficha de Tambaleo.", null, "card_rr20");
+        insertCardInternal(db, "Raider's Rapture", "Gambit", null, 21, (int)realmstoneRaidersDeckId, null,
+                "Dominio: Cuando saques, puedes revelar 1 carta adicional. Este efecto persiste hasta el final de la ronda o hasta que se juegue otra carta de Dominio.", null, "card_rr21");
+        insertCardInternal(db, "Raider's Premonition", "Gambit", null, 22, (int)realmstoneRaidersDeckId, null,
+                "Ardid de Emberstone\nElige una carta de Objetivo de tu mano y colócala en el fondo de tu mazo de Objetivos. Luego roba 1 carta de Objetivo.", null, "card_rr22");
 
         // --- Mejoras (Upgrades) de Realmstone Raiders ---
-        insertCardInternal(db, "Armour Piercer", "Upgrade", null, 23, (int)realmstoneRaidersDeckId, 2, "Emberstone Upgrade \n Breached: Immediately after a drawn Attack made by this fighter, if the Damage characteristic of the attacker's weapon is greater than the target's Save characteristic, inflict 1 damage on the target. Then discard this card.", null, "card_rr23");
-        insertCardInternal(db, "Brightstone Vigour", "Upgrade", null, 24, (int)realmstoneRaidersDeckId, 2, "Emberstone Upgrade \n Soothed by Slaughter: Immediately after a successful Attack made by this fighter, if the Damage characteristic of the weapon used is greater than the Save characteristic of the target, you can heal the attacker. Then discard this card.", null, "card_rr24");
-        insertCardInternal(db, "Call to Power", "Upgrade", null, 25, (int)realmstoneRaidersDeckId, 1, "Emberstone Upgrade \n Heed the Call: Immediately after a successful Attack made by this fighter, you can draw 1 Power card. Then discard this card.", null, "card_rr25");
-        insertCardInternal(db, "Emberstone Edge", "Upgrade", null, 26, (int)realmstoneRaidersDeckId, 2, "Emberstone Upgrade \n Melee Attack action \n Hex 1 Hammer 2 Damage 1 \n This weapon has +1 Attack dice if you raided in the same phase.", null, "card_rr26");
-        insertCardInternal(db, "Forgotten Fortune", "Upgrade", null, 27, (int)realmstoneRaidersDeckId, 1, "Emberstone Upgrade \n Lingering Power: Immediately after a successful Attack made by this fighter, you can pick 1 Emberstone Ploy from your Power discard pile. Add it to your hand. Then discard this card.", null, "card_rr27");
-        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 28, (int)realmstoneRaidersDeckId, 2, "This fighter has +1 Health.", null, "card_rr28");
-        insertCardInternal(db, "Great Speed", "Upgrade", null, 29, (int)realmstoneRaidersDeckId, 0, "This fighter has +1 Move.", null, "card_rr29");
-        insertCardInternal(db, "Great Strength", "Upgrade", null, 30, (int)realmstoneRaidersDeckId, 2, "This fighter's melee weapons have Grievous.", null, "card_rr30");
-        insertCardInternal(db, "Keen Eye", "Upgrade", null, 31, (int)realmstoneRaidersDeckId, 2, "This fighter's melee weapons have +1 Attack dice.", null, "card_rr31");
-        insertCardInternal(db, "Reforged Aid", "Upgrade", null, 32, (int)realmstoneRaidersDeckId, 1, "Emberstone Upgrade \n Salvaged Arms: Immediately after a successful Attack made by this fighter, you can pick 1 Emberstone Upgrade from your Power discard pile. Add it to your hand. Then discard this card.", null, "card_rr32");
+        insertCardInternal(db, "Armour Piercer", "Upgrade", null, 23, (int)realmstoneRaidersDeckId, 2,
+                "Mejora de Emberstone\nBrecha: Inmediatamente después de un Ataque empatado realizado por este luchador, si la característica de Daño del arma del atacante es mayor que la característica de Salvación del objetivo, inflige 1 de daño al objetivo. Luego descarta esta carta.", null, "card_rr23");
+        insertCardInternal(db, "Brightstone Vigour", "Upgrade", null, 24, (int)realmstoneRaidersDeckId, 2,
+                "Mejora de Emberstone\nCalmado por la matanza: Inmediatamente después de un Ataque exitoso realizado por este luchador, si la característica de Daño del arma usada es mayor que la característica de Salvación del objetivo, puedes curar al atacante. Luego descarta esta carta.", null, "card_rr24");
+        insertCardInternal(db, "Call to Power", "Upgrade", null, 25, (int)realmstoneRaidersDeckId, 1,
+                "Mejora de Emberstone\nAtiende la llamada: Inmediatamente después de un Ataque exitoso realizado por este luchador, puedes robar 1 carta de Poder. Luego descarta esta carta.", null, "card_rr25");
+        insertCardInternal(db, "Emberstone Edge", "Upgrade", null, 26, (int)realmstoneRaidersDeckId, 2,
+                "Mejora de Emberstone\nAcción de Ataque cuerpo a cuerpo:\nAlcance 1, Martillo 2, Daño 1.\nEsta arma tiene +1 dado de Ataque si has saqueado en la misma fase.", null, "card_rr26");
+        insertCardInternal(db, "Forgotten Fortune", "Upgrade", null, 27, (int)realmstoneRaidersDeckId, 1,
+                "Mejora de Emberstone\nPoder persistente: Inmediatamente después de un Ataque exitoso realizado por este luchador, puedes elegir 1 Ardid de Emberstone de tu pila de descarte de Poder. Añádelo a tu mano. Luego descarta esta carta.", null, "card_rr27");
+        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 28, (int)realmstoneRaidersDeckId, 2,
+                "Este luchador tiene +1 Herida.", null, "card_rr28");
+        insertCardInternal(db, "Great Speed", "Upgrade", null, 29, (int)realmstoneRaidersDeckId, 0,
+                "Este luchador tiene +1 Movimiento.", null, "card_rr29");
+        insertCardInternal(db, "Great Strength", "Upgrade", null, 30, (int)realmstoneRaidersDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen Doloroso.", null, "card_rr30");
+        insertCardInternal(db, "Keen Eye", "Upgrade", null, 31, (int)realmstoneRaidersDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen +1 dado de Ataque.", null, "card_rr31");
+        insertCardInternal(db, "Reforged Aid", "Upgrade", null, 32, (int)realmstoneRaidersDeckId, 1,
+                "Mejora de Emberstone\nArmas recuperadas: Inmediatamente después de un Ataque exitoso realizado por este luchador, puedes elegir 1 Mejora de Emberstone de tu pila de descarte de Poder. Añádela a tu mano. Luego descarta esta carta.", null, "card_rr32");
 
         // --- Inserción de Edge of the Knife Rivals Deck ---
-        String edgeKnifeRules = "While using this Rivals deck, fighters with a Health characteristic of 2 or less and/or 2 or more damage tokens are tempered.";
+        String edgeKnifeRules =
+                "Mientras uses este mazo de Rivales, los luchadores con una característica de Heridas de 2 o menos y/o con 2 o más fichas de daño están templados.";
         long edgeKnifeDeckId = insertRivalDeckInternal(db, "Edge of the Knife Rivals Deck", "Mazo Universal", null, "UNIVERSAL", edgeKnifeRules);
 
         // --- Objetivos (Objectives) de Edge of the Knife ---
-        insertCardInternal(db, "Aggressive Defender", "Objective", "Surge", 1, (int)edgeKnifeDeckId, 1, "Score this immediately after a friendly fighter's Attack if the attacker is holding a treasure token.", null, "card_ek1");
-        insertCardInternal(db, "All In", "Objective", "End Phase", 2, (int)edgeKnifeDeckId, 1, "Score this in an end phase if there are no tempered friendly fighters in friendly territory and any tempered friendly fighters are in neutral and/or enemy territory.", null, "card_ek2");
-        insertCardInternal(db, "Trial of the Tempered", "Objective", "End Phase", 10, (int)edgeKnifeDeckId, 3, "Score this in an end phase if each fighter is tempered.", null, "card_ek10");
-        insertCardInternal(db, "Two-pronged Assault", "Objective", "End Phase", 11, (int)edgeKnifeDeckId, 1, "Score this in an end phase if 2 or more tempered friendly fighters are in enemy territory.", null, "card_ek11");
-        insertCardInternal(db, "Usurper", "Objective", "End Phase", 12, (int)edgeKnifeDeckId, 2, "Score this in an end phase if an enemy leader was slain by a tempered friendly fighter this battle round.", null, "card_ek12");
-        insertCardInternal(db, "Behind Enemy Lines", "Objective", "Surge", 3, (int)edgeKnifeDeckId, 1, "Score this immediately after an opponent's Action step if a tempered friendly fighter holds a feature token in enemy territory.", null, "card_ek3");
-        insertCardInternal(db, "Calm Before The Storm", "Objective", "End Phase", 4, (int)edgeKnifeDeckId, 2, "Score this in an end phase if there are any damaged fighters and those fighters are not adjacent.", null, "card_ek4");
-        insertCardInternal(db, "Double Team", "Objective", "Surge", 5, (int)edgeKnifeDeckId, 1, "Score this immediately after a friendly fighter's successful Attack if the target was Flanked by a friendly fighter.", null, "card_ek5");
-        insertCardInternal(db, "Immovable", "Objective", "Surge", 6, (int)edgeKnifeDeckId, 1, "Score this immediately after an opponent's Action step if a friendly fighter was the target of an Attack in that Action step while they were tempered and the target was not slain.", null, "card_ek6");
-        insertCardInternal(db, "Power in Numbers", "Objective", "Surge", 7, (int)edgeKnifeDeckId, 1, "Score this immediately after an Action step if 3 or more tempered fighters with no Move tokens are adjacent. If you are the underdog score this if 2 or more tempered fighters with no Move tokens are adjacent instead.", null, "card_ek7");
-        insertCardInternal(db, "Risky Position", "Objective", "End Phase", 8, (int)edgeKnifeDeckId, 1, "Score this in an end phase if a tempered friendly fighter is in enemy territory.", null, "card_ek8");
-        insertCardInternal(db, "Sneak Into Position", "Objective", "Surge", 9, (int)edgeKnifeDeckId, 1, "Score this immediately after an opponent's Action step if 2 or more tempered friendly fighters are adjacent to the same enemy fighter.", null, "card_ek9");
+        insertCardInternal(db, "Aggressive Defender", "Objective", "Surge", 1, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el atacante sostiene una ficha de tesoro.", null, "card_ek1");
+        insertCardInternal(db, "All In", "Objective", "End Phase", 2, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta en una fase final si no hay luchadores aliados templados en territorio aliado y hay luchadores aliados templados en territorio neutral y/o enemigo.", null, "card_ek2");
+        insertCardInternal(db, "Trial of the Tempered", "Objective", "End Phase", 10, (int)edgeKnifeDeckId, 3,
+                "Anota esta carta en una fase final si cada luchador está templado.", null, "card_ek10");
+        insertCardInternal(db, "Two-pronged Assault", "Objective", "End Phase", 11, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta en una fase final si 2 o más luchadores aliados templados están en territorio enemigo.", null, "card_ek11");
+        insertCardInternal(db, "Usurper", "Objective", "End Phase", 12, (int)edgeKnifeDeckId, 2,
+                "Anota esta carta en una fase final si un líder enemigo ha sido eliminado por un luchador aliado templado en esta ronda de batalla.", null, "card_ek12");
+        insertCardInternal(db, "Behind Enemy Lines", "Objective", "Surge", 3, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si un luchador aliado templado sostiene una ficha de elemento en territorio enemigo.", null, "card_ek3");
+        insertCardInternal(db, "Calm Before The Storm", "Objective", "End Phase", 4, (int)edgeKnifeDeckId, 2,
+                "Anota esta carta en una fase final si hay algún luchador herido y esos luchadores no están adyacentes entre sí.", null, "card_ek4");
+        insertCardInternal(db, "Double Team", "Objective", "Surge", 5, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque exitoso de un luchador aliado si el objetivo estaba Flanqueado por un luchador aliado.", null, "card_ek5");
+        insertCardInternal(db, "Immovable", "Objective", "Surge", 6, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si un luchador aliado fue objetivo de un Ataque en ese paso de Acción mientras estaba templado y el objetivo no fue eliminado.", null, "card_ek6");
+        insertCardInternal(db, "Power in Numbers", "Objective", "Surge", 7, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si 3 o más luchadores templados sin fichas de Movimiento están adyacentes. Si eres el desventajado, anótala si 2 o más luchadores templados sin fichas de Movimiento están adyacentes en su lugar.", null, "card_ek7");
+        insertCardInternal(db, "Risky Position", "Objective", "End Phase", 8, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta en una fase final si un luchador aliado templado está en territorio enemigo.", null, "card_ek8");
+        insertCardInternal(db, "Sneak Into Position", "Objective", "Surge", 9, (int)edgeKnifeDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si 2 o más luchadores aliados templados están adyacentes al mismo luchador enemigo.", null, "card_ek9");
 
         // --- Gambitos (Ploys) de Edge of the Knife ---
-        insertCardInternal(db, "Death Throes", "Ploy", null, 13, (int)edgeKnifeDeckId, null, "Pick a tempered friendly fighter. In the next Action step, Attacks that target this fighter have -2 Attack dice.", null, "card_ek13");
-        insertCardInternal(db, "Fake Out!", "Ploy", null, 14, (int)edgeKnifeDeckId, null, "Pick an enemy fighter with a Health characteristic of 3 or more that is adjacent to a tempered friendly fighter, and then roll an Attack dice. If the roll contains any Hammer or Swords, inflict 1 damage on that fighter, and then give that fighter a stagger token. If you are the underdog, the roll can also contain Critical Success.", null, "card_ek14");
-        insertCardInternal(db, "Final Stand", "Ploy", null, 15, (int)edgeKnifeDeckId, null, "In the next Action step, tempered friendly fighters cannot be pushed.", null, "card_ek15");
-        insertCardInternal(db, "Opportunity Strikes", "Ploy", null, 16, (int)edgeKnifeDeckId, null, "Play this immediately after you pick a weapon as part of an Attack for a tempered friendly fighter. That weapon has +1 Attack dice for that Attack.", null, "card_ek16");
-        insertCardInternal(db, "Power From Death", "Ploy", null, 17, (int)edgeKnifeDeckId, null, "Play this immediately after a friendly fighter with a bounty of 1 or more is slain by an enemy fighter, if that fighter was tempered before inflicting the damage that would slay them. Draw up to 3 Power cards.", null, "card_ek17");
-        insertCardInternal(db, "Running Riot", "Ploy", null, 18, (int)edgeKnifeDeckId, null, "Play this immediately after a tempered friendly fighter's successful Attack. Pick another friendly fighter. That fighter is tempered.", null, "card_ek18");
-        insertCardInternal(db, "Sidestep", "Ploy", null, 19, (int)edgeKnifeDeckId, null, "Pick a friendly fighter. Push that fighter 1 hex.", null, "card_ek19");
-        insertCardInternal(db, "Spiteful Traps", "Ploy", null, 20, (int)edgeKnifeDeckId, null, "Pick an enemy fighter with a Health characteristic of 3 or more within 2 hexes of your leader. Give that fighter a Move token.", null, "card_ek20");
-        insertCardInternal(db, "Synchronised Effort", "Ploy", null, 21, (int)edgeKnifeDeckId, null, "Pick 2 tempered friendly fighters within 4 hexes of each other. Remove those fighters from the battlefield and then place each in the hex the other was removed from.", null, "card_ek21");
-        insertCardInternal(db, "The Uprising!", "Ploy", null, 22, (int)edgeKnifeDeckId, null, "All friendly fighters are tempered in the next Action step.", null, "card_ek22");
+        insertCardInternal(db, "Death Throes", "Ploy", null, 13, (int)edgeKnifeDeckId, null,
+                "Elige un luchador aliado templado. En el siguiente paso de Acción, los Ataques que tengan como objetivo a ese luchador tienen -2 dados de Ataque.", null, "card_ek13");
+        insertCardInternal(db, "Fake Out!", "Ploy", null, 14, (int)edgeKnifeDeckId, null,
+                "Elige un luchador enemigo con una característica de Heridas de 3 o más que esté adyacente a un luchador aliado templado y luego tira un dado de Ataque. Si la tirada contiene algún Martillo o Espada, inflige 1 de daño a ese luchador y dale una ficha de Tambaleo. Si eres el desventajado, la tirada también puede contener éxitos Críticos.", null, "card_ek14");
+        insertCardInternal(db, "Final Stand", "Ploy", null, 15, (int)edgeKnifeDeckId, null,
+                "En el siguiente paso de Acción, los luchadores aliados templados no pueden ser empujados.", null, "card_ek15");
+        insertCardInternal(db, "Opportunity Strikes", "Ploy", null, 16, (int)edgeKnifeDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un arma como parte del Ataque de un luchador aliado templado. Esa arma tiene +1 dado de Ataque para ese Ataque.", null, "card_ek16");
+        insertCardInternal(db, "Power From Death", "Ploy", null, 17, (int)edgeKnifeDeckId, null,
+                "Juega esta carta inmediatamente después de que un luchador aliado con una Recompensa de 1 o más sea eliminado por un luchador enemigo, si ese luchador estaba templado antes de infligir el daño que lo eliminaría. Roba hasta 3 cartas de Poder.", null, "card_ek17");
+        insertCardInternal(db, "Running Riot", "Ploy", null, 18, (int)edgeKnifeDeckId, null,
+                "Juega esta carta inmediatamente después de un Ataque exitoso de un luchador aliado templado. Elige otro luchador aliado. Ese luchador pasa a estar templado.", null, "card_ek18");
+        insertCardInternal(db, "Sidestep", "Ploy", null, 19, (int)edgeKnifeDeckId, null,
+                "Elige un luchador aliado. Empuja a ese luchador 1 hexágono.", null, "card_ek19");
+        insertCardInternal(db, "Spiteful Traps", "Ploy", null, 20, (int)edgeKnifeDeckId, null,
+                "Elige un luchador enemigo con una característica de Heridas de 3 o más que esté a 2 hexágonos o menos de tu líder. Dale a ese luchador una ficha de Movimiento.", null, "card_ek20");
+        insertCardInternal(db, "Synchronised Effort", "Ploy", null, 21, (int)edgeKnifeDeckId, null,
+                "Elige 2 luchadores aliados templados que estén a 4 hexágonos o menos entre sí. Retira esos luchadores del campo de batalla y luego coloca cada uno en el hexágono del que fue retirado el otro.", null, "card_ek21");
+        insertCardInternal(db, "The Uprising!", "Ploy", null, 22, (int)edgeKnifeDeckId, null,
+                "Todos los luchadores aliados están templados en el siguiente paso de Acción.", null, "card_ek22");
 
         // --- Mejoras (Upgrades) de Edge of the Knife ---
-        insertCardInternal(db, "Dark Horse", "Upgrade", null, 23, (int)edgeKnifeDeckId, 1, "This fighter is tempered.", null, "card_ek23");
-        insertCardInternal(db, "Deadly Aim", "Upgrade", null, 24, (int)edgeKnifeDeckId, 1, "This fighter's weapons have Ensnare.", null, "card_ek24");
-        insertCardInternal(db, "Fuelled by Pain", "Upgrade", null, 25, (int)edgeKnifeDeckId, 1, "Melee Attack action: Range 1, Dice X (Hammer), Damage 2. Keywords: Ensnare. X is equal to the number of damage tokens this fighter has.", null, "card_ek25");
-        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 26, (int)edgeKnifeDeckId, 1, "This fighter has +1 Health.", null, "card_ek26");
-        insertCardInternal(db, "Impervious", "Upgrade", null, 27, (int)edgeKnifeDeckId, 1, "While this fighter is tempered, Save rolls for this fighter cannot be affected by Cleave and Ensnare.", null, "card_ek27");
-        insertCardInternal(db, "Lash Out", "Upgrade", null, 28, (int)edgeKnifeDeckId, 1, "Thrash: Immediately after this fighter is slain, before removing them from the battlefield, roll a number of Save dice equal to the battle round. For each Block, give an enemy fighter within 2 hexes of this fighter a Move token.", null, "card_ek28");
-        insertCardInternal(db, "Mobbed!", "Upgrade", null, 29, (int)edgeKnifeDeckId, 1, "When this fighter Attacks, if the target is within 3 hexes of any other friendly fighters, the target is Flanked and Surrounded for that Attack.", null, "card_ek29");
-        insertCardInternal(db, "Parting Shot", "Upgrade", null, 30, (int)edgeKnifeDeckId, 1, "Pyrrhic Strike: Immediately after this fighter is slain by an enemy fighter, before removing them from the battlefield, pick an enemy fighter within 2 hexes of them. Give that fighter a stagger token. If this fighter was tempered before inflicting the damage that would slay them, inflict 1 damage on that fighter.", null, "card_ek30");
-        insertCardInternal(db, "Pesky Nuisance", "Upgrade", null, 31, (int)edgeKnifeDeckId, 2, "Enemy fighters adjacent to this fighter must target this fighter with any Attacks.", null, "card_ek31");
-        insertCardInternal(db, "Sharpened Points", "Upgrade", null, 32, (int)edgeKnifeDeckId, 1, "This fighter's weapons have Cleave.", null, "card_ek32");
+        insertCardInternal(db, "Dark Horse", "Upgrade", null, 23, (int)edgeKnifeDeckId, 1,
+                "Este luchador está templado.", null, "card_ek23");
+        insertCardInternal(db, "Deadly Aim", "Upgrade", null, 24, (int)edgeKnifeDeckId, 1,
+                "Las armas de este luchador tienen Atrapador.", null, "card_ek24");
+        insertCardInternal(db, "Fuelled by Pain", "Upgrade", null, 25, (int)edgeKnifeDeckId, 1,
+                "Acción de Ataque cuerpo a cuerpo: Alcance 1, X dados (Martillo), Daño 2. Palabra clave: Atrapador. X es igual al número de fichas de daño que tiene este luchador.", null, "card_ek25");
+        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 26, (int)edgeKnifeDeckId, 1,
+                "Este luchador tiene +1 Herida.", null, "card_ek26");
+        insertCardInternal(db, "Impervious", "Upgrade", null, 27, (int)edgeKnifeDeckId, 1,
+                "Mientras este luchador esté templado, las tiradas de Salvación para este luchador no pueden verse afectadas por Perforante ni Atrapador.", null, "card_ek27");
+        insertCardInternal(db, "Lash Out", "Upgrade", null, 28, (int)edgeKnifeDeckId, 1,
+                "Azote: Inmediatamente después de que este luchador sea eliminado, antes de retirarlo del campo de batalla, tira un número de dados de Salvación igual a la ronda de batalla. Por cada Escudo, da a un luchador enemigo a 2 hexágonos o menos de este luchador una ficha de Movimiento.", null, "card_ek28");
+        insertCardInternal(db, "Mobbed!", "Upgrade", null, 29, (int)edgeKnifeDeckId, 1,
+                "Cuando este luchador ataque, si el objetivo está a 3 hexágonos o menos de cualquier otro luchador aliado, el objetivo está Flanqueado y Rodeado para ese Ataque.", null, "card_ek29");
+        insertCardInternal(db, "Parting Shot", "Upgrade", null, 30, (int)edgeKnifeDeckId, 1,
+                "Golpe pírrico: Inmediatamente después de que este luchador sea eliminado por un luchador enemigo, antes de retirarlo del campo de batalla, elige un luchador enemigo a 2 hexágonos o menos. Da a ese luchador una ficha de Tambaleo. Si este luchador estaba templado antes de infligir el daño que lo eliminaría, inflige 1 de daño a ese luchador.", null, "card_ek30");
+        insertCardInternal(db, "Pesky Nuisance", "Upgrade", null, 31, (int)edgeKnifeDeckId, 2,
+                "Los luchadores enemigos adyacentes a este luchador deben elegirlo a él como objetivo de sus Ataques.", null, "card_ek31");
+        insertCardInternal(db, "Sharpened Points", "Upgrade", null, 32, (int)edgeKnifeDeckId, 1,
+                "Las armas de este luchador tienen Perforante.", null, "card_ek32");
 
         // --- Inserción de Hunting Grounds Rivals Deck ---
         long huntingGroundsDeckId = insertRivalDeckInternal(db, "Hunting Grounds Rivals Deck", "Mazo Universal", null, "UNIVERSAL", null);
 
         // --- Objetivos (Objectives) de Hunting Grounds ---
-        insertCardInternal(db, "Back Off!", "Objective", "Surge", 1, (int)huntingGroundsDeckId, 1, "Score this immediately after a friendly fighter's Attack if the target was pushed into a different territory.", null, "card_hg1");
-        insertCardInternal(db, "Bloodscent", "Objective", "End Phase", 2, (int)huntingGroundsDeckId, 1, "Score this in an end phase if any enemy fighters in friendly territory have 2 or more damage tokens and/or are vulnerable. If you are the underdog, those enemy fighters can be in enemy territory instead.", null, "card_hg2");
-        insertCardInternal(db, "Hands Off!", "Objective", "Surge", 3, (int)huntingGroundsDeckId, 1, "Score this immediately after a friendly fighter's Attack if the target was on a feature token and was driven back.", null, "card_hg3");
-        insertCardInternal(db, "Home Advantage", "Objective", "Surge", 4, (int)huntingGroundsDeckId, 1, "Score this immediately after an enemy fighter's failed Attack if the target was a friendly fighter in friendly territory.", null, "card_hg4");
-        insertCardInternal(db, "Lead by Example", "Objective", "End Phase", 5, (int)huntingGroundsDeckId, 2, "Score this in an end phase if your leader is in friendly territory and Attacked 2 or more times this battle round.", null, "card_hg5");
-        insertCardInternal(db, "No Business Here", "Objective", "Surge", 6, (int)huntingGroundsDeckId, 1, "Score this immediately after a friendly fighter's Attack if the target was in friendly territory and was Flanked and/or Surrounded.", null, "card_hg6");
-        insertCardInternal(db, "No Trespassers", "Objective", "Surge", 7, (int)huntingGroundsDeckId, 1, "Score this immediately after a friendly fighter's Attack if the target was in friendly territory and was slain.", null, "card_hg7");
-        insertCardInternal(db, "Pinned!", "Objective", "End Phase", 8, (int)huntingGroundsDeckId, 3, "Score this in an end phase if an enemy fighter was driven back into an edge hex in friendly territory this battle round.", null, "card_hg8");
-        insertCardInternal(db, "Ready or Not", "Objective", "End Phase", 9, (int)huntingGroundsDeckId, 2, "Score this in an end phase if 2 or more enemy fighters are in friendly territory and each enemy fighter is damaged and/or adjacent to any friendly fighters.", null, "card_hg9");
-        insertCardInternal(db, "Spoiling for a Fight", "Objective", "End Phase", 10, (int)huntingGroundsDeckId, 1, "Score this in an end phase if your leader is in friendly territory and is within 2 hexes of 2 or more other fighters from 2 or more warbands.", null, "card_hg10");
-        insertCardInternal(db, "This is Our Turf!", "Objective", "End Phase", 11, (int)huntingGroundsDeckId, 1, "Score this in an end phase if there are more friendly fighters with Move and/or Charge tokens in friendly territory than there are enemy fighters with Move and/or Charge tokens in friendly territory.", null, "card_hg11");
-        insertCardInternal(db, "Usurped", "Objective", "Surge", 12, (int)huntingGroundsDeckId, 1, "Score this immediately after a friendly fighter's Attack if the attacker is on a feature token that the target was on when you picked them to be the target of that Attack.", null, "card_hg12");
+        insertCardInternal(db, "Back Off!", "Objective", "Surge", 1, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el objetivo fue empujado a un territorio diferente.", null, "card_hg1");
+        insertCardInternal(db, "Bloodscent", "Objective", "End Phase", 2, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta en una fase final si algún luchador enemigo en territorio aliado tiene 2 o más fichas de daño y/o es vulnerable. Si eres el desventajado, esos luchadores enemigos pueden estar en territorio enemigo en su lugar.", null, "card_hg2");
+        insertCardInternal(db, "Hands Off!", "Objective", "Surge", 3, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el objetivo estaba sobre una ficha de elemento y fue empujado hacia atrás.", null, "card_hg3");
+        insertCardInternal(db, "Home Advantage", "Objective", "Surge", 4, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta inmediatamente después del fallo de un Ataque de un luchador enemigo si el objetivo era un luchador aliado en territorio aliado.", null, "card_hg4");
+        insertCardInternal(db, "Lead by Example", "Objective", "End Phase", 5, (int)huntingGroundsDeckId, 2,
+                "Anota esta carta en una fase final si tu líder está en territorio aliado y ha atacado 2 o más veces en esta ronda de batalla.", null, "card_hg5");
+        insertCardInternal(db, "No Business Here", "Objective", "Surge", 6, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el objetivo estaba en territorio aliado y estaba Flanqueado y/o Rodeado.", null, "card_hg6");
+        insertCardInternal(db, "No Trespassers", "Objective", "Surge", 7, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el objetivo estaba en territorio aliado y fue eliminado.", null, "card_hg7");
+        insertCardInternal(db, "Pinned!", "Objective", "End Phase", 8, (int)huntingGroundsDeckId, 3,
+                "Anota esta carta en una fase final si en esta ronda de batalla un luchador enemigo fue empujado hacia atrás hasta un hexágono de borde en territorio aliado.", null, "card_hg8");
+        insertCardInternal(db, "Ready or Not", "Objective", "End Phase", 9, (int)huntingGroundsDeckId, 2,
+                "Anota esta carta en una fase final si 2 o más luchadores enemigos están en territorio aliado y cada luchador enemigo está herido y/o adyacente a algún luchador aliado.", null, "card_hg9");
+        insertCardInternal(db, "Spoiling for a Fight", "Objective", "End Phase", 10, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta en una fase final si tu líder está en territorio aliado y a 2 hexágonos o menos de 2 o más luchadores de 2 o más bandas.", null, "card_hg10");
+        insertCardInternal(db, "This is Our Turf!", "Objective", "End Phase", 11, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta en una fase final si hay más luchadores aliados con fichas de Movimiento y/o Carga en territorio aliado que luchadores enemigos con fichas de Movimiento y/o Carga en territorio aliado.", null, "card_hg11");
+        insertCardInternal(db, "Usurped", "Objective", "Surge", 12, (int)huntingGroundsDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el atacante está sobre una ficha de elemento en la que estaba el objetivo cuando lo elegiste como objetivo de ese Ataque.", null, "card_hg12");
 
         // --- Ardides (Gambits) de Hunting Grounds ---
-        insertCardInternal(db, "Audacious Denial", "Gambit", "Ploy", 13, (int)huntingGroundsDeckId, null, "If your leader is in friendly territory, pick an enemy fighter adjacent to them in friendly territory. Your leader immediately Attacks that fighter with 1 of their melee weapons that has a Damage characteristic of 1.", null, "card_hg13");
-        insertCardInternal(db, "Deny Invaders", "Gambit", "Ploy", 14, (int)huntingGroundsDeckId, null, "In the next turn, friendly fighters' weapons have +1 Attack dice while they are in friendly territory.", null, "card_hg14");
-        insertCardInternal(db, "Hidden Snares", "Gambit", "Ploy", 15, (int)huntingGroundsDeckId, null, "Pick an enemy fighter in friendly territory and within 1 hex of a feature token. If you are the underdog, you can pick an enemy fighter in enemy territory and within 1 hex of a feature token instead. That fighter's weapons have -1 Attack dice in the next turn.", null, "card_hg15");
-        insertCardInternal(db, "Keep Them at Bay", "Gambit", "Ploy", 16, (int)huntingGroundsDeckId, null, "In the next turn, friendly fighters' melee weapons have +1 Range, to a maximum of 2, for Attacks that target enemy fighters in friendly territory.", null, "card_hg16");
-        insertCardInternal(db, "Mind Your Step", "Gambit", "Ploy", 17, (int)huntingGroundsDeckId, null, "Pick an enemy fighter in friendly territory. Push that fighter up to 2 hexes. That push must end in neutral or enemy territory.", null, "card_hg17");
-        insertCardInternal(db, "Mystical Misdirection", "Gambit", "Ploy", 18, (int)huntingGroundsDeckId, null, "Pick 2 treasure tokens in friendly territory. Swap the positions of those treasure tokens.", null, "card_hg18");
-        insertCardInternal(db, "Paths Unknown", "Gambit", "Ploy", 19, (int)huntingGroundsDeckId, null, "Pick a friendly fighter in friendly territory. If you are the underdog, you can pick a friendly fighter in enemy territory instead. In the next turn, that fighter cannot be picked to be the target of an Attack.", null, "card_hg19");
-        insertCardInternal(db, "Poor Footing", "Gambit", "Ploy", 20, (int)huntingGroundsDeckId, null, "Pick an enemy fighter in friendly territory and within 1 hex of a feature token. Give that fighter a Move token.", null, "card_hg20");
-        insertCardInternal(db, "Secrets of the Realm", "Gambit", "Ploy", 21, (int)huntingGroundsDeckId, null, "Give each enemy fighter in friendly territory that is adjacent to a friendly fighter and/or feature token a Stagger token.", null, "card_hg21");
-        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 22, (int)huntingGroundsDeckId, null, "Pick a friendly fighter. Push that fighter 1 hex.", null, "card_hg22");
+        insertCardInternal(db, "Audacious Denial", "Gambit", "Ploy", 13, (int)huntingGroundsDeckId, null,
+                "Si tu líder está en territorio aliado, elige un luchador enemigo adyacente a él en territorio aliado. Tu líder ataca inmediatamente a ese luchador con una de sus armas cuerpo a cuerpo que tenga una característica de Daño de 1.", null, "card_hg13");
+        insertCardInternal(db, "Deny Invaders", "Gambit", "Ploy", 14, (int)huntingGroundsDeckId, null,
+                "En el siguiente turno, las armas de los luchadores aliados tienen +1 dado de Ataque mientras estén en territorio aliado.", null, "card_hg14");
+        insertCardInternal(db, "Hidden Snares", "Gambit", "Ploy", 15, (int)huntingGroundsDeckId, null,
+                "Elige un luchador enemigo en territorio aliado y a 1 hexágono o menos de una ficha de elemento. Si eres el desventajado, puedes elegir en su lugar un luchador enemigo en territorio enemigo y a 1 hexágono o menos de una ficha de elemento. Las armas de ese luchador tienen -1 dado de Ataque en el siguiente turno.", null, "card_hg15");
+        insertCardInternal(db, "Keep Them at Bay", "Gambit", "Ploy", 16, (int)huntingGroundsDeckId, null,
+                "En el siguiente turno, las armas cuerpo a cuerpo de los luchadores aliados tienen +1 Alcance, hasta un máximo de 2, para Ataques que tengan como objetivo luchadores enemigos en territorio aliado.", null, "card_hg16");
+        insertCardInternal(db, "Mind Your Step", "Gambit", "Ploy", 17, (int)huntingGroundsDeckId, null,
+                "Elige un luchador enemigo en territorio aliado. Empuja a ese luchador hasta 2 hexágonos, terminando en territorio neutral o enemigo.", null, "card_hg17");
+        insertCardInternal(db, "Mystical Misdirection", "Gambit", "Ploy", 18, (int)huntingGroundsDeckId, null,
+                "Elige 2 fichas de tesoro en territorio aliado. Intercambia las posiciones de esas fichas de tesoro.", null, "card_hg18");
+        insertCardInternal(db, "Paths Unknown", "Gambit", "Ploy", 19, (int)huntingGroundsDeckId, null,
+                "Elige un luchador aliado en territorio aliado. Si eres el desventajado, puedes elegir en su lugar un luchador aliado en territorio enemigo. En el siguiente turno, ese luchador no puede ser elegido como objetivo de un Ataque.", null, "card_hg19");
+        insertCardInternal(db, "Poor Footing", "Gambit", "Ploy", 20, (int)huntingGroundsDeckId, null,
+                "Elige un luchador enemigo en territorio aliado y a 1 hexágono o menos de una ficha de elemento. Dale a ese luchador una ficha de Movimiento.", null, "card_hg20");
+        insertCardInternal(db, "Secrets of the Realm", "Gambit", "Ploy", 21, (int)huntingGroundsDeckId, null,
+                "Da a cada luchador enemigo en territorio aliado que esté adyacente a un luchador aliado y/o a una ficha de elemento una ficha de Tambaleo.", null, "card_hg21");
+        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 22, (int)huntingGroundsDeckId, null,
+                "Elige un luchador aliado. Empuja a ese luchador 1 hexágono.", null, "card_hg22");
 
         // --- Mejoras (Upgrades) de Hunting Grounds ---
-        insertCardInternal(db, "Balance of Ghyran", "Upgrade", null, 23, (int)huntingGroundsDeckId, 1, "Equilibrium: Immediately after an enemy fighter's successful Attack, if this fighter was the target of that Attack and the attacker is within 3 hexes of them, roll 3 Attack dice. If the roll contains any Swords, inflict 1 damage on the attacker.", null, "card_hg23");
-        insertCardInternal(db, "Blocked!", "Upgrade", null, 24, (int)huntingGroundsDeckId, 1, "Hinder: The first time each enemy fighter enters a hex adjacent to this fighter as part of a Move, roll an Attack dice. On a Hammers or Criticals, that fighter must end that Move in that hex.", null, "card_hg24");
-        insertCardInternal(db, "Bounty of Ghyran", "Upgrade", null, 25, (int)huntingGroundsDeckId, 1, "This fighter is Inspired while they are in friendly territory. Immediately after your next Action step, Uninspire this fighter and discard this card.", null, "card_hg25");
-        insertCardInternal(db, "Crippling Blow", "Upgrade", null, 26, (int)huntingGroundsDeckId, 1, "Range: 2, Dice: 3 Swords, Damage: 1. If the target is in friendly territory, give that fighter a Move token.", null, "card_hg26");
-        insertCardInternal(db, "Goading Defender", "Upgrade", null, 27, (int)huntingGroundsDeckId, 1, "This fighter has +1 Save while they are in friendly territory. Discard this card if this fighter is picked to be the target of a Ploy or is damaged.", null, "card_hg27");
-        insertCardInternal(db, "Great Speed", "Upgrade", null, 28, (int)huntingGroundsDeckId, 1, "This fighter has +1 Move.", null, "card_hg28");
-        insertCardInternal(db, "Hidden Aid", "Upgrade", null, 29, (int)huntingGroundsDeckId, 1, "Enemy fighters adjacent to this fighter are Flanked.", null, "card_hg29");
-        insertCardInternal(db, "Hidden Traps", "Upgrade", null, 30, (int)huntingGroundsDeckId, 1, "Range: 1, Dice: 3 Hammers, Damage: 1. This weapon has Grievous if the target is within 1 hex of a feature token in friendly territory.", null, "card_hg30");
-        insertCardInternal(db, "Killing Blow", "Upgrade", null, 31, (int)huntingGroundsDeckId, 1, "This fighter's melee weapons have Grievous if the target is damaged.", null, "card_hg31");
-        insertCardInternal(db, "True Grit", "Upgrade", null, 32, (int)huntingGroundsDeckId, 1, "This Upgrade can only be given to your leader. Rolls of Block and Dodge count as successes in Save rolls for friendly fighters adjacent to this fighter.", null, "card_hg32");
+        insertCardInternal(db, "Balance of Ghyran", "Upgrade", null, 23, (int)huntingGroundsDeckId, 1,
+                "Equilibrio: Inmediatamente después de un Ataque exitoso de un luchador enemigo, si este luchador fue el objetivo de ese Ataque y el atacante está a 3 hexágonos o menos de él, tira 3 dados de Ataque. Si la tirada contiene alguna Espada, inflige 1 de daño al atacante.", null, "card_hg23");
+        insertCardInternal(db, "Blocked!", "Upgrade", null, 24, (int)huntingGroundsDeckId, 1,
+                "Estorbar: La primera vez que cada luchador enemigo entra en un hexágono adyacente a este luchador como parte de un Movimiento, tira un dado de Ataque. Con Martillo o éxito Crítico, ese luchador debe terminar ese Movimiento en ese hexágono.", null, "card_hg24");
+        insertCardInternal(db, "Bounty of Ghyran", "Upgrade", null, 25, (int)huntingGroundsDeckId, 1,
+                "Este luchador está Inspirado mientras esté en territorio aliado. Inmediatamente después de tu siguiente paso de Acción, Desinspira a este luchador y descarta esta carta.", null, "card_hg25");
+        insertCardInternal(db, "Crippling Blow", "Upgrade", null, 26, (int)huntingGroundsDeckId, 1,
+                "Alcance 2, 3 Espadas, 1 Daño. Si el objetivo está en territorio aliado, dale a ese luchador una ficha de Movimiento.", null, "card_hg26");
+        insertCardInternal(db, "Goading Defender", "Upgrade", null, 27, (int)huntingGroundsDeckId, 1,
+                "Este luchador tiene +1 a su Salvación mientras esté en territorio aliado. Descarta esta carta si se elige a este luchador como objetivo de un Ardid o si sufre daño.", null, "card_hg27");
+        insertCardInternal(db, "Great Speed", "Upgrade", null, 28, (int)huntingGroundsDeckId, 1,
+                "Este luchador tiene +1 Movimiento.", null, "card_hg28");
+        insertCardInternal(db, "Hidden Aid", "Upgrade", null, 29, (int)huntingGroundsDeckId, 1,
+                "Los luchadores enemigos adyacentes a este luchador están Flanqueados.", null, "card_hg29");
+        insertCardInternal(db, "Hidden Traps", "Upgrade", null, 30, (int)huntingGroundsDeckId, 1,
+                "Alcance 1, 3 Martillos, 1 Daño. Esta arma tiene Doloroso si el objetivo está a 1 hexágono o menos de una ficha de elemento en territorio aliado.", null, "card_hg30");
+        insertCardInternal(db, "Killing Blow", "Upgrade", null, 31, (int)huntingGroundsDeckId, 1,
+                "Las armas cuerpo a cuerpo de este luchador tienen Doloroso si el objetivo está herido.", null, "card_hg31");
+        insertCardInternal(db, "True Grit", "Upgrade", null, 32, (int)huntingGroundsDeckId, 1,
+                "Esta Mejora solo puede darse a tu líder. Los resultados de Escudo y Esquiva cuentan como éxitos en las tiradas de Salvación de los luchadores aliados adyacentes a este luchador.", null, "card_hg32");
 
         // --- Inserción de Reckless Fury Rivals Deck ---
         long recklessFuryDeckId = insertRivalDeckInternal(db, "Reckless Fury Rivals Deck", "Mazo Universal", null, "UNIVERSAL", null);
 
         // --- Objetivos (Objectives) de Reckless Fury ---
-        insertCardInternal(db, "Aim for the Top", "Objective", "End Phase", 1, (int)recklessFuryDeckId, 1, "Score this in an end phase if the total Bounty characteristic of slain and/or damaged enemy fighters is 4 or more.", null, "card_rf1");
-        insertCardInternal(db, "Arena Mortis", "Objective", "End Phase", 2, (int)recklessFuryDeckId, 2, "Score this in an end phase if all fighters in the same territory have Charge tokens and their total Bounty characteristic is 4 or more.", null, "card_rf2");
-        insertCardInternal(db, "Best Foot Forward", "Objective", "Surge", 3, (int)recklessFuryDeckId, 1, "Score this immediately after a friendly fighter's successful Attack if that fighter has any Charge tokens and is in enemy territory.", null, "card_rf3");
-        insertCardInternal(db, "Bloodbathed Rampager", "Objective", "End Phase", 4, (int)recklessFuryDeckId, 1, "Score this in an end phase if a friendly fighter has 2 or more Charge tokens.", null, "card_rf4");
-        insertCardInternal(db, "Bloody Momentum", "Objective", "End Phase", 5, (int)recklessFuryDeckId, 2, "Score this in an end phase if 2 or more friendly fighters with a total Bounty characteristic of 4 or more have Charge tokens and are in enemy territory.", null, "card_rf5");
-        insertCardInternal(db, "Frenzied Rush", "Objective", "Surge", 6, (int)recklessFuryDeckId, 1, "Score this immediately after an Action step if friendly fighters with a total Bounty characteristic of 3 or more have Charge tokens and are in enemy territory.", null, "card_rf6");
-        insertCardInternal(db, "Living Bludgeon", "Objective", "Surge", 7, (int)recklessFuryDeckId, 1, "Score this immediately after an Action step if a friendly fighter has a Guard token and a Charge token and is not in friendly territory.", null, "card_rf7");
-        insertCardInternal(db, "Red Aftermath", "Objective", "End Phase", 8, (int)recklessFuryDeckId, 1, "Score this in an end phase if the total Bounty characteristic of slain enemy fighters is 2 or more.", null, "card_rf8");
-        insertCardInternal(db, "Sally Forth", "Objective", "Surge", 9, (int)recklessFuryDeckId, 1, "Score this immediately after your opponent's Action step if a friendly fighter with any Charge tokens holds a treasure token in enemy territory.", null, "card_rf9");
-        insertCardInternal(db, "Savage Sprinter", "Objective", "Surge", 10, (int)recklessFuryDeckId, 1, "Score this immediately after an Action step if a friendly fighter in enemy territory has 2 or more Move tokens.", null, "card_rf10");
-        insertCardInternal(db, "Unrelenting Massacre", "Objective", "End Phase", 11, (int)recklessFuryDeckId, 3, "Score this in an end phase if all fighters have Charge tokens.", null, "card_rf11");
-        insertCardInternal(db, "Vicious Brawl", "Objective", "Surge", 12, (int)recklessFuryDeckId, 1, "Score this immediately after an Action step if there are 3 or more fighters with Charge tokens adjacent to each other. If you are the underdog, there can be 2 or more fighters instead.", null, "card_rf12");
+        insertCardInternal(db, "Aim for the Top", "Objective", "End Phase", 1, (int)recklessFuryDeckId, 1,
+                "Anota esta carta en una fase final si la característica total de Recompensa de los luchadores enemigos heridos y/o eliminados es 4 o más.", null, "card_rf1");
+        insertCardInternal(db, "Arena Mortis", "Objective", "End Phase", 2, (int)recklessFuryDeckId, 2,
+                "Anota esta carta en una fase final si todos los luchadores en el mismo territorio tienen fichas de Carga y su característica total de Recompensa es 4 o más.", null, "card_rf2");
+        insertCardInternal(db, "Best Foot Forward", "Objective", "Surge", 3, (int)recklessFuryDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque exitoso de un luchador aliado si ese luchador tiene alguna ficha de Carga y está en territorio enemigo.", null, "card_rf3");
+        insertCardInternal(db, "Bloodbathed Rampager", "Objective", "End Phase", 4, (int)recklessFuryDeckId, 1,
+                "Anota esta carta en una fase final si un luchador aliado tiene 2 o más fichas de Carga.", null, "card_rf4");
+        insertCardInternal(db, "Bloody Momentum", "Objective", "End Phase", 5, (int)recklessFuryDeckId, 2,
+                "Anota esta carta en una fase final si 2 o más luchadores aliados con una característica total de Recompensa de 4 o más tienen fichas de Carga y están en territorio enemigo.", null, "card_rf5");
+        insertCardInternal(db, "Frenzied Rush", "Objective", "Surge", 6, (int)recklessFuryDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si luchadores aliados con una característica total de Recompensa de 3 o más tienen fichas de Carga y están en territorio enemigo.", null, "card_rf6");
+        insertCardInternal(db, "Living Bludgeon", "Objective", "Surge", 7, (int)recklessFuryDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si un luchador aliado tiene una ficha de Guardia y una ficha de Carga y no está en territorio aliado.", null, "card_rf7");
+        insertCardInternal(db, "Red Aftermath", "Objective", "End Phase", 8, (int)recklessFuryDeckId, 1,
+                "Anota esta carta en una fase final si la característica total de Recompensa de los luchadores enemigos eliminados es 2 o más.", null, "card_rf8");
+        insertCardInternal(db, "Sally Forth", "Objective", "Surge", 9, (int)recklessFuryDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si un luchador aliado con alguna ficha de Carga sostiene una ficha de tesoro en territorio enemigo.", null, "card_rf9");
+        insertCardInternal(db, "Savage Sprinter", "Objective", "Surge", 10, (int)recklessFuryDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si un luchador aliado en territorio enemigo tiene 2 o más fichas de Movimiento.", null, "card_rf10");
+        insertCardInternal(db, "Unrelenting Massacre", "Objective", "End Phase", 11, (int)recklessFuryDeckId, 3,
+                "Anota esta carta en una fase final si todos los luchadores tienen fichas de Carga.", null, "card_rf11");
+        insertCardInternal(db, "Vicious Brawl", "Objective", "Surge", 12, (int)recklessFuryDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si hay 3 o más luchadores con fichas de Carga adyacentes entre sí. Si eres el desventajado, pueden ser 2 o más luchadores en su lugar.", null, "card_rf12");
 
         // --- Ardides (Gambits) de Reckless Fury ---
-        insertCardInternal(db, "Braced", "Gambit", "Ploy", 13, (int)recklessFuryDeckId, null, "Pick a friendly fighter. Give that fighter a Charge token.", null, "card_rf13");
-        insertCardInternal(db, "Catch Weapon", "Gambit", "Ploy", 14, (int)recklessFuryDeckId, null, "Play this immediately after a fighter's successful Attack. Give that fighter a Charge token.", null, "card_rf14");
-        insertCardInternal(db, "Diving In", "Gambit", "Ploy", 15, (int)recklessFuryDeckId, null, "Pick a friendly fighter. Push that fighter up to 2 hexes. That push must end adjacent to any fighters with Charge tokens.", null, "card_rf15");
-        insertCardInternal(db, "Get It Done", "Gambit", "Ploy", 16, (int)recklessFuryDeckId, null, "Pick 2 friendly fighters. Remove a Charge token from 1 of those fighters and then give the other fighter a Charge token.", null, "card_rf16");
-        insertCardInternal(db, "Lost Legacy", "Gambit", "Ploy", 17, (int)recklessFuryDeckId, null, "Play this immediately after you discard a slain friendly fighter's Upgrades. Pick 1 of those Upgrades, put it in your hand then draw 1 Power card.", null, "card_rf17");
-        insertCardInternal(db, "Outburst", "Gambit", "Ploy", 18, (int)recklessFuryDeckId, null, "Pick a friendly fighter with any Charge tokens. Roll an Attack dice for each enemy fighter adjacent to them. If you are the underdog, roll a number of dice equal to the battle round number instead. If the roll contains any Hammers, inflict 1 damage on that fighter.", null, "card_rf18");
-        insertCardInternal(db, "Over to You", "Gambit", "Ploy", 19, (int)recklessFuryDeckId, null, "Play this immediately before removing a slain friendly fighter's tokens if that fighter was slain by an attacker and had any Move, Charge, Guard and/or Stagger tokens. Pick a friendly fighter or the attacker. Give the fighter you picked all of the slain fighter's Move, Charge, Guard and Stagger tokens.", null, "card_rf19");
-        insertCardInternal(db, "Push Through", "Gambit", "Ploy", 20, (int)recklessFuryDeckId, null, "Pick a friendly fighter with a Bounty characteristic of 2 or less. Inflict 1 damage on that fighter. In your next Action step, that fighter can use Core abilities as if they did not have any Move or Charge tokens.", null, "card_rf20");
-        insertCardInternal(db, "Quick Shift", "Gambit", "Ploy", 21, (int)recklessFuryDeckId, null, "Pick a friendly fighter that has any Move tokens. Remove 1 of that fighter's Move tokens and then give that fighter a Charge token.", null, "card_rf21");
-        insertCardInternal(db, "Reckless Attitudes", "Gambit", "Ploy", 22, (int)recklessFuryDeckId, null, "Enemy fighters cannot use Core abilities other than the Charge ability in the next Action step.", null, "card_rf22");
+        insertCardInternal(db, "Braced", "Gambit", "Ploy", 13, (int)recklessFuryDeckId, null,
+                "Elige un luchador aliado. Dale a ese luchador una ficha de Carga.", null, "card_rf13");
+        insertCardInternal(db, "Catch Weapon", "Gambit", "Ploy", 14, (int)recklessFuryDeckId, null,
+                "Juega esta carta inmediatamente después de un Ataque exitoso de un luchador. Dale a ese luchador una ficha de Carga.", null, "card_rf14");
+        insertCardInternal(db, "Diving In", "Gambit", "Ploy", 15, (int)recklessFuryDeckId, null,
+                "Elige un luchador aliado. Empuja a ese luchador hasta 2 hexágonos, terminando adyacente a cualquier luchador con fichas de Carga.", null, "card_rf15");
+        insertCardInternal(db, "Get It Done", "Gambit", "Ploy", 16, (int)recklessFuryDeckId, null,
+                "Elige 2 luchadores aliados. Retira una ficha de Carga de uno de esos luchadores y luego da una ficha de Carga al otro luchador.", null, "card_rf16");
+        insertCardInternal(db, "Lost Legacy", "Gambit", "Ploy", 17, (int)recklessFuryDeckId, null,
+                "Juega esta carta inmediatamente después de descartar las Mejoras de un luchador aliado eliminado. Elige 1 de esas Mejoras, añádela a tu mano y luego roba 1 carta de Poder.", null, "card_rf17");
+        insertCardInternal(db, "Outburst", "Gambit", "Ploy", 18, (int)recklessFuryDeckId, null,
+                "Elige un luchador aliado con alguna ficha de Carga. Tira un dado de Ataque por cada luchador enemigo adyacente a él. Si eres el desventajado, tira en su lugar un número de dados igual al número de la ronda de batalla. Si la tirada contiene algún Martillo, inflige 1 de daño a ese luchador enemigo.", null, "card_rf18");
+        insertCardInternal(db, "Over to You", "Gambit", "Ploy", 19, (int)recklessFuryDeckId, null,
+                "Juega esta carta inmediatamente antes de retirar las fichas de un luchador aliado eliminado si ese luchador fue eliminado por un atacante y tenía fichas de Movimiento, Carga, Guardia y/o Tambaleo. Elige un luchador aliado o al atacante. Da al luchador elegido todas las fichas de Movimiento, Carga, Guardia y Tambaleo del luchador eliminado.", null, "card_rf19");
+        insertCardInternal(db, "Push Through", "Gambit", "Ploy", 20, (int)recklessFuryDeckId, null,
+                "Elige un luchador aliado con una característica de Recompensa de 2 o menos. Inflige 1 de daño a ese luchador. En tu siguiente paso de Acción, ese luchador puede usar habilidades Básicas como si no tuviera fichas de Movimiento ni Carga.", null, "card_rf20");
+        insertCardInternal(db, "Quick Shift", "Gambit", "Ploy", 21, (int)recklessFuryDeckId, null,
+                "Elige un luchador aliado que tenga fichas de Movimiento. Retira 1 de esas fichas de Movimiento y luego da a ese luchador una ficha de Carga.", null, "card_rf21");
+        insertCardInternal(db, "Reckless Attitudes", "Gambit", "Ploy", 22, (int)recklessFuryDeckId, null,
+                "En el siguiente paso de Acción, los luchadores enemigos no pueden usar habilidades Básicas distintas de la habilidad de Carga.", null, "card_rf22");
 
         // --- Mejoras (Upgrades) de Reckless Fury ---
-        insertCardInternal(db, "Bellowing Tyrant", "Upgrade", null, 23, (int)recklessFuryDeckId, 1, "Bellow: This fighter can use this Core ability if they have any Charge tokens. Push each other friendly fighter with any Charge tokens up to 2 hexes. Then, pick 1 of those fighters. Remove 1 of that fighter's Charge tokens.", null, "card_rf23");
-        insertCardInternal(db, "Bladecatcher", "Upgrade", null, 24, (int)recklessFuryDeckId, 1, "While this fighter is the target of an Attack, the attacker cannot use Weapon abilities.", null, "card_rf24");
-        insertCardInternal(db, "Blades of Wrath", "Upgrade", null, 25, (int)recklessFuryDeckId, 1, "If this fighter is slain, before removing them from the battlefield, roll a number of Attack dice equal to the battle round number for each enemy fighter adjacent to them. If the roll contains any Hammers, inflict 1 damage on that fighter.", null, "card_rf25");
-        insertCardInternal(db, "Furious Might", "Upgrade", null, 26, (int)recklessFuryDeckId, 1, "This fighter's melee weapons have Grievous while this fighter has any Charge tokens and is not using the Charge ability.", null, "card_rf26");
-        insertCardInternal(db, "Fury of Aqshy", "Upgrade", null, 27, (int)recklessFuryDeckId, 1, "Fighters adjacent to this fighter cannot use Core abilities other than the Charge ability.", null, "card_rf27");
-        insertCardInternal(db, "Headcase", "Upgrade", null, 28, (int)recklessFuryDeckId, 0, "If this fighter has no Charge tokens, instead of playing a Power card in a Power step, you can give this fighter a Charge token.", null, "card_rf28");
-        insertCardInternal(db, "Headlong Charge", "Upgrade", null, 29, (int)recklessFuryDeckId, 0, "This fighter has +2 Move while using the Charge ability.", null, "card_rf29");
-        insertCardInternal(db, "Keen Eye", "Upgrade", null, 30, (int)recklessFuryDeckId, 2, "This fighter's melee weapons have +1 Attack dice.", null, "card_rf30");
-        insertCardInternal(db, "Still Swinging", "Upgrade", null, 31, (int)recklessFuryDeckId, 1, "This fighter's melee weapons have Ensnare while this fighter has any Charge tokens and is not using the Charge ability.", null, "card_rf31");
-        insertCardInternal(db, "Utter Ignorance", "Upgrade", null, 32, (int)recklessFuryDeckId, 2, "If this fighter would be slain, they are not slain. Remove damage tokens from this fighter until they are vulnerable and then discard this card.", null, "card_rf32");
+        insertCardInternal(db, "Bellowing Tyrant", "Upgrade", null, 23, (int)recklessFuryDeckId, 1,
+                "Brama: Este luchador puede usar esta habilidad Básica si tiene fichas de Carga. Empuja hasta 2 hexágonos a cada otro luchador aliado con fichas de Carga. Luego elige 1 de esos luchadores y retira 1 de sus fichas de Carga.", null, "card_rf23");
+        insertCardInternal(db, "Bladecatcher", "Upgrade", null, 24, (int)recklessFuryDeckId, 1,
+                "Mientras este luchador sea el objetivo de un Ataque, el atacante no puede usar habilidades de Arma.", null, "card_rf24");
+        insertCardInternal(db, "Blades of Wrath", "Upgrade", null, 25, (int)recklessFuryDeckId, 1,
+                "Si este luchador es eliminado, antes de retirarlo del campo de batalla, tira un número de dados de Ataque igual al número de la ronda de batalla por cada luchador enemigo adyacente a él. Si la tirada contiene algún Martillo, inflige 1 de daño a ese luchador.", null, "card_rf25");
+        insertCardInternal(db, "Furious Might", "Upgrade", null, 26, (int)recklessFuryDeckId, 1,
+                "Las armas cuerpo a cuerpo de este luchador tienen Doloroso mientras este luchador tenga fichas de Carga y no esté usando la habilidad de Carga.", null, "card_rf26");
+        insertCardInternal(db, "Fury of Aqshy", "Upgrade", null, 27, (int)recklessFuryDeckId, 1,
+                "Los luchadores adyacentes a este luchador no pueden usar habilidades Básicas distintas de la habilidad de Carga.", null, "card_rf27");
+        insertCardInternal(db, "Headcase", "Upgrade", null, 28, (int)recklessFuryDeckId, 0,
+                "Si este luchador no tiene fichas de Carga, en lugar de jugar una carta de Poder en un paso de Poder, puedes darle a este luchador una ficha de Carga.", null, "card_rf28");
+        insertCardInternal(db, "Headlong Charge", "Upgrade", null, 29, (int)recklessFuryDeckId, 0,
+                "Este luchador tiene +2 Movimiento mientras usa la habilidad de Carga.", null, "card_rf29");
+        insertCardInternal(db, "Keen Eye", "Upgrade", null, 30, (int)recklessFuryDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen +1 dado de Ataque.", null, "card_rf30");
+        insertCardInternal(db, "Still Swinging", "Upgrade", null, 31, (int)recklessFuryDeckId, 1,
+                "Las armas cuerpo a cuerpo de este luchador tienen Atrapador mientras este luchador tenga fichas de Carga y no esté usando la habilidad de Carga.", null, "card_rf31");
+        insertCardInternal(db, "Utter Ignorance", "Upgrade", null, 32, (int)recklessFuryDeckId, 2,
+                "Si este luchador fuera a ser eliminado, no es eliminado. Retira fichas de daño de este luchador hasta que quede vulnerable y luego descarta esta carta.", null, "card_rf32");
 
         // --- Inserción de Wrack and Ruin Rivals Deck ---
         long wrackAndRuinDeckId = insertRivalDeckInternal(db, "Wrack and Ruin Rivals Deck", "Mazo Universal", null, "UNIVERSAL", null);
 
         // --- Objetivos (Objectives) de Wrack and Ruin ---
-        insertCardInternal(db, "Alone in the Dark", "Objective", "End Phase", 1, (int)wrackAndRuinDeckId, 2, "Score this in an end phase if no fighters are adjacent.", null, "card_wr1");
-        insertCardInternal(db, "Bloody and Bruised", "Objective", "Surge", 2, (int)wrackAndRuinDeckId, 1, "Score this immediately after your warband inflicts damage on an enemy fighter if 3 or more fighters are damaged.", null, "card_wr2");
-        insertCardInternal(db, "Careful Advance", "Objective", "Surge", 3, (int)wrackAndRuinDeckId, 1, "Score this immediately after a friendly fighter Moves if 2 or more friendly fighters that have Move tokens are in enemy territory.", null, "card_wr3");
-        insertCardInternal(db, "Living on the Edge", "Objective", "End Phase", 4, (int)wrackAndRuinDeckId, 2, "Score this in an end phase if a vulnerable friendly fighter is in enemy territory.", null, "card_wr4");
-        insertCardInternal(db, "Low on Options", "Objective", "Surge", 5, (int)wrackAndRuinDeckId, 1, "Score this immediately after you discard a Power card if 5 or more Ploy cards are in your Power discard pile.", null, "card_wr5");
-        insertCardInternal(db, "Out of the Frying Pan", "Objective", "End Phase", 6, (int)wrackAndRuinDeckId, 2, "Score this in an end phase if 3 or more damaged friendly fighters that have Move and/or Charge tokens are in enemy territory.", null, "card_wr6");
-        insertCardInternal(db, "Ploymaster", "Objective", "End Phase", 7, (int)wrackAndRuinDeckId, 1, "Score this in an end phase if you played 3 or more Ploys this battle round.", null, "card_wr7");
-        insertCardInternal(db, "Predictable End", "Objective", "Surge", 8, (int)wrackAndRuinDeckId, 1, "Score this immediately after an ability on a friendly Wrack and Ruin card inflicts damage on an enemy fighter holding a treasure token.", null, "card_wr8");
-        insertCardInternal(db, "Spread Out!", "Objective", "End Phase", 9, (int)wrackAndRuinDeckId, 1, "Score this in an end phase if there is a friendly fighter in each territory.", null, "card_wr9");
-        insertCardInternal(db, "Stay Close", "Objective", "End Phase", 10, (int)wrackAndRuinDeckId, 2, "Score this in an end phase if there are no fighters in edge hexes.", null, "card_wr10");
-        insertCardInternal(db, "Strong Start", "Objective", "Surge", 11, (int)wrackAndRuinDeckId, 1, "Score this immediately after an enemy fighter is slain if that fighter was the first fighter slain this combat phase.", null, "card_wr11");
-        insertCardInternal(db, "Unsafe Ground", "Objective", "Surge", 12, (int)wrackAndRuinDeckId, 1, "Score this immediately after your warband inflicts damage on an enemy fighter in an edge hex. If you are the underdog, that enemy fighter can be within 1 hex of an edge hex instead.", null, "card_wr12");
+        insertCardInternal(db, "Alone in the Dark", "Objective", "End Phase", 1, (int)wrackAndRuinDeckId, 2,
+                "Anota esta carta en una fase final si ningún luchador está adyacente a otro.", null, "card_wr1");
+        insertCardInternal(db, "Bloody and Bruised", "Objective", "Surge", 2, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta inmediatamente después de que tu banda inflija daño a un luchador enemigo si 3 o más luchadores están heridos.", null, "card_wr2");
+        insertCardInternal(db, "Careful Advance", "Objective", "Surge", 3, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador aliado se Mueva si 2 o más luchadores aliados con fichas de Movimiento están en territorio enemigo.", null, "card_wr3");
+        insertCardInternal(db, "Living on the Edge", "Objective", "End Phase", 4, (int)wrackAndRuinDeckId, 2,
+                "Anota esta carta en una fase final si un luchador aliado vulnerable está en territorio enemigo.", null, "card_wr4");
+        insertCardInternal(db, "Low on Options", "Objective", "Surge", 5, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta inmediatamente después de descartar una carta de Poder si hay 5 o más Ardides en tu pila de descarte de Poder.", null, "card_wr5");
+        insertCardInternal(db, "Out of the Frying Pan", "Objective", "End Phase", 6, (int)wrackAndRuinDeckId, 2,
+                "Anota esta carta en una fase final si 3 o más luchadores aliados heridos con fichas de Movimiento y/o Carga están en territorio enemigo.", null, "card_wr6");
+        insertCardInternal(db, "Ploymaster", "Objective", "End Phase", 7, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta en una fase final si has jugado 3 o más Ardides en esta ronda de batalla.", null, "card_wr7");
+        insertCardInternal(db, "Predictable End", "Objective", "Surge", 8, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta inmediatamente después de que una habilidad de una carta aliada de Wrack and Ruin inflija daño a un luchador enemigo que sostiene una ficha de tesoro.", null, "card_wr8");
+        insertCardInternal(db, "Spread Out!", "Objective", "End Phase", 9, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta en una fase final si hay un luchador aliado en cada territorio.", null, "card_wr9");
+        insertCardInternal(db, "Stay Close", "Objective", "End Phase", 10, (int)wrackAndRuinDeckId, 2,
+                "Anota esta carta en una fase final si no hay luchadores en hexágonos de borde.", null, "card_wr10");
+        insertCardInternal(db, "Strong Start", "Objective", "Surge", 11, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador enemigo sea eliminado si fue el primer luchador eliminado de esta fase de combate.", null, "card_wr11");
+        insertCardInternal(db, "Unsafe Ground", "Objective", "Surge", 12, (int)wrackAndRuinDeckId, 1,
+                "Anota esta carta inmediatamente después de que tu banda inflija daño a un luchador enemigo en un hexágono de borde. Si eres el desventajado, ese luchador enemigo puede estar a 1 hexágono de un hexágono de borde en su lugar.", null, "card_wr12");
 
         // --- Gambitos (Ploys) de Wrack and Ruin ---
-        insertCardInternal(db, "Confusion", "Ploy", null, 13, (int)wrackAndRuinDeckId, 0, "Pick 2 adjacent fighters. Remove those fighters from the battlefield and then place each in the hex the other was removed from.", null, "card_wr13");
-        insertCardInternal(db, "Damned if You Do", "Ploy", null, 14, (int)wrackAndRuinDeckId, 0, "Your opponent must pick 1 of the following abilities for you to resolve: Pick an enemy fighter. Push that fighter 1 hex. Pick an enemy fighter that is not vulnerable. Inflict 1 damage on that fighter.", null, "card_wr14");
-        insertCardInternal(db, "Deadly Traps", "Ploy", null, 15, (int)wrackAndRuinDeckId, 0, "Play this immediately after a friendly fighter's drawn Attack if the target is not vulnerable and was driven back. Inflict 1 damage on the target.", null, "card_wr15");
-        insertCardInternal(db, "Fault Lines", "Ploy", null, 16, (int)wrackAndRuinDeckId, 0, "Pick an undamaged enemy fighter. Inflict 1 damage on that fighter. Then, your opponent can pick a fighter. Inflict 1 damage on that fighter.", null, "card_wr16");
-        insertCardInternal(db, "Fireproof", "Ploy", null, 17, (int)wrackAndRuinDeckId, 0, "The first time damage is inflicted on a friendly fighter in the next turn, reduce that damage to 1.", null, "card_wr17");
-        insertCardInternal(db, "Flee!", "Ploy", null, 18, (int)wrackAndRuinDeckId, 0, "Pick a friendly fighter in friendly territory. That fighter has +3 Move in your next Action step. If that fighter Moves in that Action step, that Move cannot end in friendly territory.", null, "card_wr18");
-        insertCardInternal(db, "Ominous Rumbling", "Ploy", null, 19, (int)wrackAndRuinDeckId, 0, "Your opponent must pick 1 of the following abilities for you to resolve: Pick 2 enemy fighters. Give each of those fighters a Stagger token. Pick an enemy fighter that is not vulnerable. Inflict 1 damage on that fighter.", null, "card_wr19");
-        insertCardInternal(db, "Sidle Up", "Ploy", null, 20, (int)wrackAndRuinDeckId, 0, "Pick a friendly fighter. Push that fighter up to 2 hexes. That push must end adjacent to 2 or more fighters.", null, "card_wr20");
-        insertCardInternal(db, "Vicious Intent", "Ploy", null, 21, (int)wrackAndRuinDeckId, 0, "Play this immediately after you pick a melee weapon as part of an Attack. That weapon has +1 Attack dice for that Attack. If the target is undamaged, that weapon has +2 Attack dice for that Attack instead.", null, "card_wr21");
-        insertCardInternal(db, "Volcanic Eruption", "Ploy", null, 22, (int)wrackAndRuinDeckId, 0, "Pick a fighter. Then your opponent can pick an enemy fighter. Starting with the fighter you picked, roll a number of Attack dice for each of those fighters equal to their Bounty characteristic, to a minimum of 1. If the roll contains any HammerSmash, inflict 1 damage on that fighter.", null, "card_wr22");
+        insertCardInternal(db, "Confusion", "Ploy", null, 13, (int)wrackAndRuinDeckId, 0,
+                "Elige 2 luchadores adyacentes. Retira esos luchadores del campo de batalla y colócalos en el hexágono del que fue retirado el otro.", null, "card_wr13");
+        insertCardInternal(db, "Damned if You Do", "Ploy", null, 14, (int)wrackAndRuinDeckId, 0,
+                "Tu oponente debe elegir 1 de las siguientes habilidades para que la resuelvas: Elige un luchador enemigo y empújalo 1 hexágono. Elige un luchador enemigo que no sea vulnerable e inflígele 1 de daño.", null, "card_wr14");
+        insertCardInternal(db, "Deadly Traps", "Ploy", null, 15, (int)wrackAndRuinDeckId, 0,
+                "Juega esta carta inmediatamente después de un Ataque con éxito parcial de un luchador aliado si el objetivo no es vulnerable y fue empujado hacia atrás. Inflige 1 de daño al objetivo.", null, "card_wr15");
+        insertCardInternal(db, "Fault Lines", "Ploy", null, 16, (int)wrackAndRuinDeckId, 0,
+                "Elige un luchador enemigo sin heridas. Inflige 1 de daño a ese luchador. Luego tu oponente puede elegir un luchador e infligir 1 de daño a ese luchador.", null, "card_wr16");
+        insertCardInternal(db, "Fireproof", "Ploy", null, 17, (int)wrackAndRuinDeckId, 0,
+                "La primera vez que se inflija daño a un luchador aliado en el siguiente turno, reduce ese daño a 1.", null, "card_wr17");
+        insertCardInternal(db, "Flee!", "Ploy", null, 18, (int)wrackAndRuinDeckId, 0,
+                "Elige un luchador aliado en territorio aliado. Ese luchador tiene +3 Movimiento en tu siguiente paso de Acción. Si ese luchador se Mueve en ese paso de Acción, ese Movimiento no puede terminar en territorio aliado.", null, "card_wr18");
+        insertCardInternal(db, "Ominous Rumbling", "Ploy", null, 19, (int)wrackAndRuinDeckId, 0,
+                "Tu oponente debe elegir 1 de las siguientes habilidades para que la resuelvas: Elige 2 luchadores enemigos y dales a cada uno una ficha de Tambaleo. Elige un luchador enemigo que no sea vulnerable e inflígele 1 de daño.", null, "card_wr19");
+        insertCardInternal(db, "Sidle Up", "Ploy", null, 20, (int)wrackAndRuinDeckId, 0,
+                "Elige un luchador aliado. Empuja a ese luchador hasta 2 hexágonos, terminando adyacente a 2 o más luchadores.", null, "card_wr20");
+        insertCardInternal(db, "Vicious Intent", "Ploy", null, 21, (int)wrackAndRuinDeckId, 0,
+                "Juega esta carta inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un Ataque. Esa arma tiene +1 dado de Ataque para ese Ataque. Si el objetivo no tiene heridas, esa arma tiene +2 dados de Ataque para ese Ataque en su lugar.", null, "card_wr21");
+        insertCardInternal(db, "Volcanic Eruption", "Ploy", null, 22, (int)wrackAndRuinDeckId, 0,
+                "Elige un luchador. Luego tu oponente puede elegir un luchador enemigo. Empezando por el luchador que elegiste, tira un número de dados de Ataque para cada uno de esos luchadores igual a su característica de Recompensa, con un mínimo de 1. Si la tirada contiene algún Martillo, inflige 1 de daño a ese luchador.", null, "card_wr22");
 
         // --- Mejoras (Upgrades) de Wrack and Ruin ---
-        insertCardInternal(db, "Barge", "Upgrade", null, 23, (int)wrackAndRuinDeckId, 2, "Barge: This fighter can use this Core ability if they have no Move and/or Charge tokens. This fighter Moves. That Move must end adjacent to an enemy fighter. Give this fighter a Charge token. Then, pick an enemy fighter adjacent to this fighter. Push that fighter 1 hex then give them a Stagger token.", null, "card_wr23");
-        insertCardInternal(db, "Desperate Defence", "Upgrade", null, 24, (int)wrackAndRuinDeckId, 2, "While this fighter is the target of an Attack, the attacker's weapons have -1 Damage. The next time damage is inflicted on this fighter as part on an Attack, discard this card.", null, "card_wr24");
-        insertCardInternal(db, "Fiery Temper", "Upgrade", null, 25, (int)wrackAndRuinDeckId, 0, "Belligerent: Immediately after this fighter has been picked to be pushed, you can inflict 1 damage on this fighter. If you do so, this fighter is not pushed.", null, "card_wr25");
-        insertCardInternal(db, "Great Speed", "Upgrade", null, 26, (int)wrackAndRuinDeckId, 0, "This fighter has +1 Move.", null, "card_wr26");
-        insertCardInternal(db, "Henchman", "Upgrade", null, 27, (int)wrackAndRuinDeckId, 1, "Disciplined: Immediately after you make an Attack roll for this fighter, you can change 1 result to Single Support. You cannot re-roll Attack rolls for this fighter.", null, "card_wr27");
-        insertCardInternal(db, "Misfortune", "Upgrade", null, 28, (int)wrackAndRuinDeckId, 0, "Ill-fated: Immediately after this fighter uses a Core ability, you can inflict 1 damage on this fighter. Then, you can remove this Upgrade from this fighter and equip another friendly fighter with this Upgrade.", null, "card_wr28");
-        insertCardInternal(db, "Rock-splitting Tread", "Upgrade", null, 29, (int)wrackAndRuinDeckId, 1, "Stomp: Immediately after your last Action step in a battle round, pick an adjacent enemy fighter that is not vulnerable. Inflict 1 damage on that fighter. Then, roll an Attack dice. On an HammerSmash, discard this card.", null, "card_wr29");
-        insertCardInternal(db, "Sundering Weapon", "Upgrade", null, 30, (int)wrackAndRuinDeckId, 1, "This fighter's melee weapons have Cleave.", null, "card_wr30");
-        insertCardInternal(db, "Unstoppable", "Upgrade", null, 31, (int)wrackAndRuinDeckId, 2, "While this fighter is vulnerable, each time 1 damage is inflicted on this fighter, reduce that damage to 0.", null, "card_wr31");
-        insertCardInternal(db, "Wary Tread", "Upgrade", null, 32, (int)wrackAndRuinDeckId, 1, "You can use this ability after the last Power step in a battle round. Push this fighter 1 hex. That push cannot end adjacent to any fighters.", null, "card_wr32");
+        insertCardInternal(db, "Barge", "Upgrade", null, 23, (int)wrackAndRuinDeckId, 2,
+                "Arrollar: Este luchador puede usar esta habilidad Básica si no tiene fichas de Movimiento y/o Carga. Este luchador se Mueve. Ese Movimiento debe terminar adyacente a un luchador enemigo. Dale a este luchador una ficha de Carga. Luego elige un luchador enemigo adyacente a este luchador, empújalo 1 hexágono y dale una ficha de Tambaleo.", null, "card_wr23");
+        insertCardInternal(db, "Desperate Defence", "Upgrade", null, 24, (int)wrackAndRuinDeckId, 2,
+                "Mientras este luchador sea el objetivo de un Ataque, las armas del atacante tienen -1 Daño. La próxima vez que se inflija daño a este luchador como parte de un Ataque, descarta esta carta.", null, "card_wr24");
+        insertCardInternal(db, "Fiery Temper", "Upgrade", null, 25, (int)wrackAndRuinDeckId, 0,
+                "Beligerante: Inmediatamente después de que se haya elegido a este luchador para ser empujado, puedes infligir 1 de daño a este luchador. Si lo haces, este luchador no es empujado.", null, "card_wr25");
+        insertCardInternal(db, "Great Speed", "Upgrade", null, 26, (int)wrackAndRuinDeckId, 0,
+                "Este luchador tiene +1 Movimiento.", null, "card_wr26");
+        insertCardInternal(db, "Henchman", "Upgrade", null, 27, (int)wrackAndRuinDeckId, 1,
+                "Disciplinado: Inmediatamente después de hacer una tirada de Ataque para este luchador, puedes cambiar 1 resultado a un único Apoyo. No puedes volver a tirar tiradas de Ataque para este luchador.", null, "card_wr27");
+        insertCardInternal(db, "Misfortune", "Upgrade", null, 28, (int)wrackAndRuinDeckId, 0,
+                "Infortunio: Inmediatamente después de que este luchador use una habilidad Básica, puedes infligir 1 de daño a este luchador. Luego puedes retirar esta Mejora de este luchador y equipar a otro luchador aliado con esta Mejora.", null, "card_wr28");
+        insertCardInternal(db, "Rock-splitting Tread", "Upgrade", null, 29, (int)wrackAndRuinDeckId, 1,
+                "Pisotear: Inmediatamente después de tu último paso de Acción de una ronda de batalla, elige un luchador enemigo adyacente que no sea vulnerable. Inflige 1 de daño a ese luchador. Luego tira un dado de Ataque. Con Martillo, descarta esta carta.", null, "card_wr29");
+        insertCardInternal(db, "Sundering Weapon", "Upgrade", null, 30, (int)wrackAndRuinDeckId, 1,
+                "Las armas cuerpo a cuerpo de este luchador tienen Perforante.", null, "card_wr30");
+        insertCardInternal(db, "Unstoppable", "Upgrade", null, 31, (int)wrackAndRuinDeckId, 2,
+                "Mientras este luchador sea vulnerable, cada vez que se le inflija 1 de daño, reduce ese daño a 0.", null, "card_wr31");
+        insertCardInternal(db, "Wary Tread", "Upgrade", null, 32, (int)wrackAndRuinDeckId, 1,
+                "Puedes usar esta habilidad después del último paso de Poder de una ronda de batalla. Empuja a este luchador 1 hexágono. Ese empuje no puede terminar adyacente a ningún luchador.", null, "card_wr32");
 
         // --- Inserción de Blazing Assault Rivals Deck ---
         long blazingAssaultDeckId = insertRivalDeckInternal(db, "Blazing Assault Rivals Deck", "Mazo Universal", null, "UNIVERSAL", null);
 
         // --- Objetivos (Objectives) de Blazing Assault ---
-        insertCardInternal(db, "Strike the Head", "Objective", "Surge", 1, (int)blazingAssaultDeckId, 1, "Score this immediately after an enemy fighter is slain by a friendly fighter if the target was a leader or the target's Health characteristic was equal to or greater than the attacker's.", null, "card_bl1");
-        insertCardInternal(db, "Branching Fate", "Objective", "Surge", 2, (int)blazingAssaultDeckId, 1, "Score this immediately after you make an Attack roll that contained 3 or more dice if each result was a different symbol. If you are the underdog, the Attack roll can contain 2 or more dice instead.", null, "card_bl2");
-        insertCardInternal(db, "Perfect Strike", "Objective", "Surge", 3, (int)blazingAssaultDeckId, 1, "Score this immediately after you make an Attack roll if all of the results were successes.", null, "card_bl3");
-        insertCardInternal(db, "Critical Effort", "Objective", "Surge", 4, (int)blazingAssaultDeckId, 1, "Score this immediately after you make an Attack roll if any of the results was a Critical success.", null, "card_bl4");
-        insertCardInternal(db, "Get Stuck In", "Objective", "Surge", 5, (int)blazingAssaultDeckId, 1, "Score this immediately after a friendly fighter's Attack if the target was in enemy territory.", null, "card_bl5");
-        insertCardInternal(db, "Strong Start", "Objective", "Surge", 6, (int)blazingAssaultDeckId, 1, "Score this immediately after an enemy fighter is slain if that fighter was the first fighter slain this combat phase.", null, "card_bl6");
-        insertCardInternal(db, "Keep Choppin'", "Objective", "End Phase", 7, (int)blazingAssaultDeckId, 1, "Score this in an end phase if your warband Attacked 3 or more times this combat phase.", null, "card_bl7");
-        insertCardInternal(db, "Fields of Blood", "Objective", "End Phase", 8, (int)blazingAssaultDeckId, 1, "Score this in an end phase if 4 or more fighters are damaged and/or slain.", null, "card_bl8");
-        insertCardInternal(db, "Go All Out", "Objective", "End Phase", 9, (int)blazingAssaultDeckId, 1, "Score this in an end phase if 5 or more fighters have Move and/or Charge tokens.", null, "card_bl9");
-        insertCardInternal(db, "On the Edge", "Objective", "End Phase", 10, (int)blazingAssaultDeckId, 1, "Score this in an end phase if any enemy fighters are vulnerable.", null, "card_bl10");
-        insertCardInternal(db, "Denial", "Objective", "End Phase", 11, (int)blazingAssaultDeckId, 1, "Score this in an end phase if there are no enemy fighters in friendly territory.", null, "card_bl11");
-        insertCardInternal(db, "Annihilation", "Objective", "End Phase", 12, (int)blazingAssaultDeckId, 5, "Score this in an end phase if each enemy fighter is slain.", null, "card_bl12");
+        insertCardInternal(db, "Strike the Head", "Objective", "Surge", 1, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador aliado elimine a un luchador enemigo si el objetivo era un líder o si su característica de Salud era igual o mayor que la del atacante.", null, "card_bl1");
+        insertCardInternal(db, "Branching Fate", "Objective", "Surge", 2, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta inmediatamente después de hacer una tirada de Ataque con 3 o más dados si cada resultado fue un símbolo diferente. Si eres el desventajado, la tirada de Ataque puede contener 2 o más dados en su lugar.", null, "card_bl2");
+        insertCardInternal(db, "Perfect Strike", "Objective", "Surge", 3, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta inmediatamente después de hacer una tirada de Ataque si todos los resultados fueron éxitos.", null, "card_bl3");
+        insertCardInternal(db, "Critical Effort", "Objective", "Surge", 4, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta inmediatamente después de hacer una tirada de Ataque si alguno de los resultados fue un éxito Crítico.", null, "card_bl4");
+        insertCardInternal(db, "Get Stuck In", "Objective", "Surge", 5, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el objetivo estaba en territorio enemigo.", null, "card_bl5");
+        insertCardInternal(db, "Strong Start", "Objective", "Surge", 6, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador enemigo sea eliminado si fue el primer luchador eliminado de esta fase de combate.", null, "card_bl6");
+        insertCardInternal(db, "Keep Choppin'", "Objective", "End Phase", 7, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta en una fase final si tu banda ha realizado 3 o más Ataques en esta fase de combate.", null, "card_bl7");
+        insertCardInternal(db, "Fields of Blood", "Objective", "End Phase", 8, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta en una fase final si 4 o más luchadores están heridos y/o eliminados.", null, "card_bl8");
+        insertCardInternal(db, "Go All Out", "Objective", "End Phase", 9, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta en una fase final si 5 o más luchadores tienen fichas de Movimiento y/o Carga.", null, "card_bl9");
+        insertCardInternal(db, "On the Edge", "Objective", "End Phase", 10, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta en una fase final si algún luchador enemigo es vulnerable.", null, "card_bl10");
+        insertCardInternal(db, "Denial", "Objective", "End Phase", 11, (int)blazingAssaultDeckId, 1,
+                "Anota esta carta en una fase final si no hay luchadores enemigos en territorio aliado.", null, "card_bl11");
+        insertCardInternal(db, "Annihilation", "Objective", "End Phase", 12, (int)blazingAssaultDeckId, 5,
+                "Anota esta carta en una fase final si todos los luchadores enemigos han sido eliminados.", null, "card_bl12");
 
         // --- Ardides (Gambits) de Blazing Assault ---
-        insertCardInternal(db, "Determined Effort", "Gambit", "Ploy", 13, (int)blazingAssaultDeckId, null, "Play this immediately after you pick a weapon as part of an Attack. That weapon has +1 Attack dice for that Attack. If you are the underdog, that weapon has +2 Attack dice for that Attack instead.", null, "card_bl13");
-        insertCardInternal(db, "Twist the Knife", "Gambit", "Ploy", 14, (int)blazingAssaultDeckId, null, "Play this immediately after you pick a melee weapon as part of an Attack. That weapon has Grievous for that Attack.", null, "card_bl14");
-        insertCardInternal(db, "Lure of Battle", "Gambit", "Ploy", 15, (int)blazingAssaultDeckId, null, "Pick 1 friendly fighter that is within 2 hexes of another fighter. Push the other fighter 1 hex closer to that friendly fighter.", null, "card_bl15");
-        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 16, (int)blazingAssaultDeckId, null, "Pick a friendly fighter. Push that fighter 1 hex.", null, "card_bl16");
-        insertCardInternal(db, "Commanding Stride", "Gambit", "Ploy", 17, (int)blazingAssaultDeckId, null, "Push your leader up to 3 hexes. That push must end in a starting hex.", null, "card_bl17");
-        insertCardInternal(db, "Illusory Fighter", "Gambit", "Ploy", 18, (int)blazingAssaultDeckId, null, "Pick a friendly fighter. Remove that fighter from the battlefield, and then place that fighter in an empty starting hex in friendly territory.", null, "card_bl18");
-        insertCardInternal(db, "Wings of War", "Gambit", "Ploy", 19, (int)blazingAssaultDeckId, null, "Play this immediately after you pick a fighter to Move. That fighter has +2 Move for that Move.", null, "card_bl19");
-        insertCardInternal(db, "Shields Up!", "Gambit", "Ploy", 20, (int)blazingAssaultDeckId, null, "Pick a friendly fighter. Give that fighter a Guard token.", null, "card_bl20");
-        insertCardInternal(db, "Scream of Anger", "Gambit", "Ploy", 21, (int)blazingAssaultDeckId, null, "Pick a friendly fighter. Inflict 2 damage on that fighter and then remove 1 of that fighter's Move or Charge tokens.", null, "card_bl21");
-        insertCardInternal(db, "Healing Potion", "Gambit", "Ploy", 22, (int)blazingAssaultDeckId, null, "Pick a friendly fighter. Heal that fighter. If you are the underdog, you can roll a Save dice. On a Block or Critical success, heal that fighter again.", null, "card_bl22");
+        insertCardInternal(db, "Determined Effort", "Gambit", "Ploy", 13, (int)blazingAssaultDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un arma como parte de un Ataque. Esa arma tiene +1 dado de Ataque para ese Ataque. Si eres el desventajado, esa arma tiene +2 dados de Ataque para ese Ataque en su lugar.", null, "card_bl13");
+        insertCardInternal(db, "Twist the Knife", "Gambit", "Ploy", 14, (int)blazingAssaultDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un Ataque. Esa arma tiene Doloroso para ese Ataque.", null, "card_bl14");
+        insertCardInternal(db, "Lure of Battle", "Gambit", "Ploy", 15, (int)blazingAssaultDeckId, null,
+                "Elige 1 luchador aliado que esté a 2 hexágonos o menos de otro luchador. Empuja al otro luchador 1 hexágono más cerca de ese luchador aliado.", null, "card_bl15");
+        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 16, (int)blazingAssaultDeckId, null,
+                "Elige un luchador aliado. Empuja a ese luchador 1 hexágono.", null, "card_bl16");
+        insertCardInternal(db, "Commanding Stride", "Gambit", "Ploy", 17, (int)blazingAssaultDeckId, null,
+                "Empuja a tu líder hasta 3 hexágonos. Ese empuje debe terminar en un hexágono de salida.", null, "card_bl17");
+        insertCardInternal(db, "Illusory Fighter", "Gambit", "Ploy", 18, (int)blazingAssaultDeckId, null,
+                "Elige un luchador aliado. Retira a ese luchador del campo de batalla y luego colócalo en un hexágono de salida vacío en territorio aliado.", null, "card_bl18");
+        insertCardInternal(db, "Wings of War", "Gambit", "Ploy", 19, (int)blazingAssaultDeckId, null,
+                "Juega esta carta inmediatamente después de elegir un luchador para que se Mueva. Ese luchador tiene +2 Movimiento para ese Movimiento.", null, "card_bl19");
+        insertCardInternal(db, "Shields Up!", "Gambit", "Ploy", 20, (int)blazingAssaultDeckId, null,
+                "Elige un luchador aliado. Dale a ese luchador una ficha de Guardia.", null, "card_bl20");
+        insertCardInternal(db, "Scream of Anger", "Gambit", "Ploy", 21, (int)blazingAssaultDeckId, null,
+                "Elige un luchador aliado. Inflige 2 de daño a ese luchador y luego retira 1 de sus fichas de Movimiento o Carga.", null, "card_bl21");
+        insertCardInternal(db, "Healing Potion", "Gambit", "Ploy", 22, (int)blazingAssaultDeckId, null,
+                "Elige un luchador aliado. Sana a ese luchador. Si eres el desventajado, puedes tirar un dado de Salvación. Con Escudo o éxito Crítico, sana a ese luchador otra vez.", null, "card_bl22");
 
         // --- Mejoras (Upgrades) de Blazing Assault ---
-        insertCardInternal(db, "Brawler", "Upgrade", null, 23, (int)blazingAssaultDeckId, 1, "This fighter cannot be Flanked or Surrounded.", null, "card_bl23");
-        insertCardInternal(db, "Hidden Aid", "Upgrade", null, 24, (int)blazingAssaultDeckId, 1, "Enemy fighters adjacent to this fighter are Flanked.", null, "card_bl24");
-        insertCardInternal(db, "Accurate", "Upgrade", null, 25, (int)blazingAssaultDeckId, 1, "Strike True: After you make an Attack roll for this fighter, you can immediately re-roll 1 Attack dice in that Attack roll.", null, "card_bl25");
-        insertCardInternal(db, "Great Strength", "Upgrade", null, 26, (int)blazingAssaultDeckId, 2, "This fighter's melee weapons have Grievous.", null, "card_bl26");
-        insertCardInternal(db, "Deadly Aim", "Upgrade", null, 27, (int)blazingAssaultDeckId, 1, "This fighter's weapons have Ensnare.", null, "card_bl27");
-        insertCardInternal(db, "Sharpened Points", "Upgrade", null, 28, (int)blazingAssaultDeckId, 1, "This fighter's weapons have Cleave.", null, "card_bl28");
-        insertCardInternal(db, "Duellist", "Upgrade", null, 29, (int)blazingAssaultDeckId, 1, "Footwork: Immediately after this fighter has Attacked, you can push this fighter 1 hex.", null, "card_bl29");
-        insertCardInternal(db, "Tough", "Upgrade", null, 30, (int)blazingAssaultDeckId, 2, "No more than 3 damage can be inflicted on this fighter in the same turn.", null, "card_bl30");
-        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 31, (int)blazingAssaultDeckId, 2, "This fighter has +1 Health.", null, "card_bl31");
-        insertCardInternal(db, "Keen Eye", "Upgrade", null, 32, (int)blazingAssaultDeckId, 2, "This fighter's melee weapons have +1 Attack dice.", null, "card_bl32");
+        insertCardInternal(db, "Brawler", "Upgrade", null, 23, (int)blazingAssaultDeckId, 1,
+                "Este luchador no puede ser Flanqueado ni Rodeado.", null, "card_bl23");
+        insertCardInternal(db, "Hidden Aid", "Upgrade", null, 24, (int)blazingAssaultDeckId, 1,
+                "Los luchadores enemigos adyacentes a este luchador están Flanqueados.", null, "card_bl24");
+        insertCardInternal(db, "Accurate", "Upgrade", null, 25, (int)blazingAssaultDeckId, 1,
+                "Golpe Certero: Después de hacer una tirada de Ataque para este luchador, puedes volver a tirar inmediatamente 1 dado de Ataque de esa tirada.", null, "card_bl25");
+        insertCardInternal(db, "Great Strength", "Upgrade", null, 26, (int)blazingAssaultDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen Doloroso.", null, "card_bl26");
+        insertCardInternal(db, "Deadly Aim", "Upgrade", null, 27, (int)blazingAssaultDeckId, 1,
+                "Las armas de este luchador tienen Atrapador.", null, "card_bl27");
+        insertCardInternal(db, "Sharpened Points", "Upgrade", null, 28, (int)blazingAssaultDeckId, 1,
+                "Las armas de este luchador tienen Perforante.", null, "card_bl28");
+        insertCardInternal(db, "Duellist", "Upgrade", null, 29, (int)blazingAssaultDeckId, 1,
+                "Jequeo: Inmediatamente después de que este luchador haya atacado, puedes empujar a este luchador 1 hexágono.", null, "card_bl29");
+        insertCardInternal(db, "Tough", "Upgrade", null, 30, (int)blazingAssaultDeckId, 2,
+                "No se pueden infligir más de 3 de daño a este luchador en el mismo turno.", null, "card_bl30");
+        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 31, (int)blazingAssaultDeckId, 2,
+                "Este luchador tiene +1 Salud.", null, "card_bl31");
+        insertCardInternal(db, "Keen Eye", "Upgrade", null, 32, (int)blazingAssaultDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen +1 dado de Ataque.", null, "card_bl32");
 
         // --- Inserción de Emberstone Sentinels Rivals Deck ---
         long emberstoneSentinelsDeckId = insertRivalDeckInternal(db, "Emberstone Sentinels Rivals Deck", "Mazo Universal", null, "UNIVERSAL", null);
 
         // --- Objetivos (Objectives) de Emberstone Sentinels ---
-        insertCardInternal(db, "Sally Forth", "Objective", "Surge", 1, (int)emberstoneSentinelsDeckId, 1, "Score this immediately after your opponent's Action step if a friendly fighter with any Charge tokens holds a treasure token in enemy territory.", null, "card_es1");
-        insertCardInternal(db, "Stand Firm", "Objective", "Surge", 2, (int)emberstoneSentinelsDeckId, 1, "Score this immediately after your opponent's Action step if a friendly fighter with any Stagger tokens holds a treasure token in enemy territory.", null, "card_es2");
-        insertCardInternal(db, "Step by Step", "Objective", "Surge", 3, (int)emberstoneSentinelsDeckId, 1, "Score this immediately after your opponent's Action step if a friendly fighter with any Move tokens holds a treasure token in enemy territory. If you are the underdog, that friendly fighter can have any Charge tokens instead.", null, "card_es3");
-        insertCardInternal(db, "Unassailable", "Objective", "Surge", 4, (int)emberstoneSentinelsDeckId, 1, "Score this immediately after an enemy fighter's Attack if a friendly fighter holding a treasure token was the target of that Attack.", null, "card_es4");
-        insertCardInternal(db, "Aggressive Defender", "Objective", "Surge", 5, (int)emberstoneSentinelsDeckId, 1, "Score this immediately after a friendly fighter's Attack if the attacker is holding a treasure token.", null, "card_es5");
-        insertCardInternal(db, "Careful Advance", "Objective", "Surge", 6, (int)emberstoneSentinelsDeckId, 1, "Score this immediately after a friendly fighter Moves if 2 or more friendly fighters that have Move tokens are in enemy territory.", null, "card_es6");
-        insertCardInternal(db, "Hold Treasure Token 1 or 2", "Objective", "End Phase", 7, (int)emberstoneSentinelsDeckId, 1, "Score this in an end phase if a friendly fighter holds treasure token 1 or 2.", null, "card_es7");
-        insertCardInternal(db, "Hold Treasure Token 3 or 4", "Objective", "End Phase", 8, (int)emberstoneSentinelsDeckId, 1, "Score this in an end phase if a friendly fighter holds treasure token 3 or 4.", null, "card_es8");
-        insertCardInternal(db, "Hold Treasure Token 5", "Objective", "End Phase", 9, (int)emberstoneSentinelsDeckId, 1, "Score this in an end phase if a friendly fighter holds treasure token 5.", null, "card_es9");
-        insertCardInternal(db, "Slow Advance", "Objective", "End Phase", 10, (int)emberstoneSentinelsDeckId, 2, "Score this in an end phase if your warband holds any treasure tokens in both neutral territory and enemy territory.", null, "card_es10");
-        insertCardInternal(db, "Iron Grasp", "Objective", "End Phase", 11, (int)emberstoneSentinelsDeckId, 2, "Score this in an end phase if your warband holds all of the treasure tokens in friendly territory and/or enemy territory.", null, "card_es11");
-        insertCardInternal(db, "Supremacy", "Objective", "End Phase", 12, (int)emberstoneSentinelsDeckId, 3, "Score this in an end phase if 2 or more friendly fighters with a total Bounty characteristic of 3 or more hold treasure tokens.", null, "card_es12");
+        insertCardInternal(db, "Sally Forth", "Objective", "Surge", 1, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si un luchador aliado con alguna ficha de Carga sostiene una ficha de tesoro en territorio enemigo.", null, "card_es1");
+        insertCardInternal(db, "Stand Firm", "Objective", "Surge", 2, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si un luchador aliado con alguna ficha de Tambaleo sostiene una ficha de tesoro en territorio enemigo.", null, "card_es2");
+        insertCardInternal(db, "Step by Step", "Objective", "Surge", 3, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta inmediatamente después del paso de Acción de tu oponente si un luchador aliado con alguna ficha de Movimiento sostiene una ficha de tesoro en territorio enemigo. Si eres el desventajado, ese luchador aliado puede tener fichas de Carga en su lugar.", null, "card_es3");
+        insertCardInternal(db, "Unassailable", "Objective", "Surge", 4, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador enemigo si un luchador aliado que sostiene una ficha de tesoro fue el objetivo de ese Ataque.", null, "card_es4");
+        insertCardInternal(db, "Aggressive Defender", "Objective", "Surge", 5, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta inmediatamente después del Ataque de un luchador aliado si el atacante sostiene una ficha de tesoro.", null, "card_es5");
+        insertCardInternal(db, "Careful Advance", "Objective", "Surge", 6, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador aliado se Mueva si 2 o más luchadores aliados con fichas de Movimiento están en territorio enemigo.", null, "card_es6");
+        insertCardInternal(db, "Hold Treasure Token 1 or 2", "Objective", "End Phase", 7, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta en una fase final si un luchador aliado sostiene la ficha de tesoro 1 o 2.", null, "card_es7");
+        insertCardInternal(db, "Hold Treasure Token 3 or 4", "Objective", "End Phase", 8, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta en una fase final si un luchador aliado sostiene la ficha de tesoro 3 o 4.", null, "card_es8");
+        insertCardInternal(db, "Hold Treasure Token 5", "Objective", "End Phase", 9, (int)emberstoneSentinelsDeckId, 1,
+                "Anota esta carta en una fase final si un luchador aliado sostiene la ficha de tesoro 5.", null, "card_es9");
+        insertCardInternal(db, "Slow Advance", "Objective", "End Phase", 10, (int)emberstoneSentinelsDeckId, 2,
+                "Anota esta carta en una fase final si tu banda sostiene fichas de tesoro tanto en territorio neutral como en territorio enemigo.", null, "card_es10");
+        insertCardInternal(db, "Iron Grasp", "Objective", "End Phase", 11, (int)emberstoneSentinelsDeckId, 2,
+                "Anota esta carta en una fase final si tu banda sostiene todas las fichas de tesoro en territorio aliado y/o en territorio enemigo.", null, "card_es11");
+        insertCardInternal(db, "Supremacy", "Objective", "End Phase", 12, (int)emberstoneSentinelsDeckId, 3,
+                "Anota esta carta en una fase final si 2 o más luchadores aliados con una característica total de Recompensa de 3 o más sostienen fichas de tesoro.", null, "card_es12");
 
         // --- Ardides (Gambits) de Emberstone Sentinels ---
-        insertCardInternal(db, "Switch Things Up", "Gambit", "Ploy", 13, (int)emberstoneSentinelsDeckId, null, "Pick 2 treasure tokens. Swap the positions of those treasure tokens.", null, "card_es13");
-        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 14, (int)emberstoneSentinelsDeckId, null, "Pick a friendly fighter. Push that fighter 1 hex.", null, "card_es14");
-        insertCardInternal(db, "The Extra Mile", "Gambit", "Ploy", 15, (int)emberstoneSentinelsDeckId, null, "Play this immediately after a friendly fighter Moves. Push that fighter 1 hex. That push must end on a feature token.", null, "card_es15");
-        insertCardInternal(db, "Settle In", "Gambit", "Ploy", 16, (int)emberstoneSentinelsDeckId, null, "Pick a friendly fighter on a feature token. Give that fighter a Guard token.", null, "card_es16");
-        insertCardInternal(db, "Healing Potion", "Gambit", "Ploy", 17, (int)emberstoneSentinelsDeckId, null, "Pick a friendly fighter. Heal that fighter. If you are the underdog, you can roll a Save dice. On a Block or Critical success, heal that fighter again.", null, "card_es17");
-        insertCardInternal(db, "Hidden Paths", "Gambit", "Ploy", 18, (int)emberstoneSentinelsDeckId, null, "Pick a friendly fighter in an edge hex. Remove that fighter from the battlefield, and then place that fighter in a different empty edge hex. Then, give that fighter a Move token, unless you are the underdog.", null, "card_es18");
-        insertCardInternal(db, "Confusion", "Gambit", "Ploy", 19, (int)emberstoneSentinelsDeckId, null, "Pick 2 adjacent fighters. Remove those fighters from the battlefield and then place each in the hex the other was removed from.", null, "card_es19");
-        insertCardInternal(db, "Hold the Line!", "Gambit", "Ploy", 20, (int)emberstoneSentinelsDeckId, null, "Fighters cannot be driven back. This effect persists until the end of the next Action step.", null, "card_es20");
-        insertCardInternal(db, "Shoulder Throw", "Gambit", "Ploy", 21, (int)emberstoneSentinelsDeckId, null, "Play this immediately after a friendly fighter's successful Attack if the target is adjacent. Remove the target from the battlefield, and then place them in a different empty hex adjacent to the attacker.", null, "card_es21");
-        insertCardInternal(db, "By the Numbers", "Gambit", "Ploy", 22, (int)emberstoneSentinelsDeckId, null, "Draw a number of Power cards equal to the number of treasure tokens held by your warband.", null, "card_es22");
+        insertCardInternal(db, "Switch Things Up", "Gambit", "Ploy", 13, (int)emberstoneSentinelsDeckId, null,
+                "Elige 2 fichas de tesoro. Intercambia las posiciones de esas fichas de tesoro.", null, "card_es13");
+        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 14, (int)emberstoneSentinelsDeckId, null,
+                "Elige un luchador aliado. Empuja a ese luchador 1 hexágono.", null, "card_es14");
+        insertCardInternal(db, "The Extra Mile", "Gambit", "Ploy", 15, (int)emberstoneSentinelsDeckId, null,
+                "Juega esta carta inmediatamente después de que un luchador aliado se Mueva. Empuja a ese luchador 1 hexágono. Ese empuje debe terminar sobre una ficha de elemento.", null, "card_es15");
+        insertCardInternal(db, "Settle In", "Gambit", "Ploy", 16, (int)emberstoneSentinelsDeckId, null,
+                "Elige un luchador aliado sobre una ficha de elemento. Dale a ese luchador una ficha de Guardia.", null, "card_es16");
+        insertCardInternal(db, "Healing Potion", "Gambit", "Ploy", 17, (int)emberstoneSentinelsDeckId, null,
+                "Elige un luchador aliado. Sana a ese luchador. Si eres el desventajado, puedes tirar un dado de Salvación. Con Escudo o éxito Crítico, sana a ese luchador otra vez.", null, "card_es17");
+        insertCardInternal(db, "Hidden Paths", "Gambit", "Ploy", 18, (int)emberstoneSentinelsDeckId, null,
+                "Elige un luchador aliado en un hexágono de borde. Retira a ese luchador del campo de batalla y colócalo en un hexágono de borde vacío diferente. Luego dale a ese luchador una ficha de Movimiento, a menos que seas el desventajado.", null, "card_es18");
+        insertCardInternal(db, "Confusion", "Gambit", "Ploy", 19, (int)emberstoneSentinelsDeckId, null,
+                "Elige 2 luchadores adyacentes. Retira a esos luchadores del campo de batalla y colócalos en el hexágono del que fue retirado el otro.", null, "card_es19");
+        insertCardInternal(db, "Hold the Line!", "Gambit", "Ploy", 20, (int)emberstoneSentinelsDeckId, null,
+                "Los luchadores no pueden ser empujados hacia atrás. Este efecto persiste hasta el final del siguiente paso de Acción.", null, "card_es20");
+        insertCardInternal(db, "Shoulder Throw", "Gambit", "Ploy", 21, (int)emberstoneSentinelsDeckId, null,
+                "Juega esta carta inmediatamente después del Ataque exitoso de un luchador aliado si el objetivo está adyacente. Retira al objetivo del campo de batalla y colócalo en un hexágono vacío diferente adyacente al atacante.", null, "card_es21");
+        insertCardInternal(db, "By the Numbers", "Gambit", "Ploy", 22, (int)emberstoneSentinelsDeckId, null,
+                "Roba un número de cartas de Poder igual al número de fichas de tesoro que sostiene tu banda.", null, "card_es22");
 
-        insertCardInternal(db, "Stubborn to the End", "Upgrade", null, 23, (int)emberstoneSentinelsDeckId, 1, "If this fighter is the target of an Attack, the attacker cannot use Overrun.", null, "card_es23");
-        insertCardInternal(db, "Inviolate", "Upgrade", null, 24, (int)emberstoneSentinelsDeckId, 1, "This fighter cannot be Flanked or Surrounded while they hold a treasure token.", null, "card_es24");
-        insertCardInternal(db, "Great Speed", "Upgrade", null, 25, (int)emberstoneSentinelsDeckId, 0, "This fighter has +1 Move.", null, "card_es25");
-        insertCardInternal(db, "Sharp Reflexes", "Upgrade", null, 26, (int)emberstoneSentinelsDeckId, 2, "This fighter has +1 Save, to a maximum of 2.", null, "card_es26");
-        insertCardInternal(db, "Brute Momentum", "Upgrade", null, 27, (int)emberstoneSentinelsDeckId, 1, "This fighter cannot be driven back while they have any Charge tokens.", null, "card_es27");
-        insertCardInternal(db, "Agile", "Upgrade", null, 28, (int)emberstoneSentinelsDeckId, 2, "Deft: After you make a Save roll for this fighter, you can immediately re-roll 1 Save dice in that Save roll.", null, "card_es28");
-        insertCardInternal(db, "Duellist", "Upgrade", null, 29, (int)emberstoneSentinelsDeckId, 1, "Footwork: Immediately after this fighter has Attacked, you can push this fighter 1 hex.", null, "card_es29");
-        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 30, (int)emberstoneSentinelsDeckId, 2, "This fighter has +1 Health.", null, "card_es30");
-        insertCardInternal(db, "Keen Eye", "Upgrade", null, 31, (int)emberstoneSentinelsDeckId, 2, "This fighter's melee weapons have +1 Attack dice.", null, "card_es31");
-        insertCardInternal(db, "Great Strength", "Upgrade", null, 32, (int)emberstoneSentinelsDeckId, 2, "This fighter's melee weapons have Grievous.", null, "card_es32");
+        insertCardInternal(db, "Stubborn to the End", "Upgrade", null, 23, (int)emberstoneSentinelsDeckId, 1,
+                "Si este luchador es el objetivo de un Ataque, el atacante no puede usar Exceso.", null, "card_es23");
+        insertCardInternal(db, "Inviolate", "Upgrade", null, 24, (int)emberstoneSentinelsDeckId, 1,
+                "Este luchador no puede ser Flanqueado ni Rodeado mientras sostenga una ficha de tesoro.", null, "card_es24");
+        insertCardInternal(db, "Great Speed", "Upgrade", null, 25, (int)emberstoneSentinelsDeckId, 0,
+                "Este luchador tiene +1 Movimiento.", null, "card_es25");
+        insertCardInternal(db, "Sharp Reflexes", "Upgrade", null, 26, (int)emberstoneSentinelsDeckId, 2,
+                "Este luchador tiene +1 Salvación, hasta un máximo de 2.", null, "card_es26");
+        insertCardInternal(db, "Brute Momentum", "Upgrade", null, 27, (int)emberstoneSentinelsDeckId, 1,
+                "Este luchador no puede ser empujado hacia atrás mientras tenga fichas de Carga.", null, "card_es27");
+        insertCardInternal(db, "Agile", "Upgrade", null, 28, (int)emberstoneSentinelsDeckId, 2,
+                "Ágil: Después de hacer una tirada de Salvación para este luchador, puedes volver a tirar inmediatamente 1 dado de Salvación de esa tirada.", null, "card_es28");
+        insertCardInternal(db, "Duellist", "Upgrade", null, 29, (int)emberstoneSentinelsDeckId, 1,
+                "Jequeo: Inmediatamente después de que este luchador haya atacado, puedes empujar a este luchador 1 hexágono.", null, "card_es29");
+        insertCardInternal(db, "Great Fortitude", "Upgrade", null, 30, (int)emberstoneSentinelsDeckId, 2,
+                "Este luchador tiene +1 Salud.", null, "card_es30");
+        insertCardInternal(db, "Keen Eye", "Upgrade", null, 31, (int)emberstoneSentinelsDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen +1 dado de Ataque.", null, "card_es31");
+        insertCardInternal(db, "Great Strength", "Upgrade", null, 32, (int)emberstoneSentinelsDeckId, 2,
+                "Las armas cuerpo a cuerpo de este luchador tienen Doloroso.", null, "card_es32");
 
         long pillageAndPlunderDeckId = insertRivalDeckInternal(db, "Pillage and Plunder Rivals Deck", "Mazo Universal", null, "UNIVERSAL", null);
-        insertCardInternal(db, "Broken Prospects", "Objective", "End Phase", 1, (int)pillageAndPlunderDeckId, 2, "Score this in an end phase if 3 or more different treasure tokens were Delved by your warband this battle round or if a treasure token held by an enemy fighter at the start of the battle round was Delved by your warband this battle round.", null, "card_pl1");
-        insertCardInternal(db, "Against the Odds", "Objective", "End Phase", 2, (int)pillageAndPlunderDeckId, 1, "Score this in an end phase if an odd-numbered treasure token was Delved by your warband this battle round.", null, "card_pl2");
-        insertCardInternal(db, "Lost in the Depths", "Objective", "End Phase", 3, (int)pillageAndPlunderDeckId, 1, "Score this in an end phase if no friendly fighters are adjacent and any friendly fighters are not slain.", null, "card_pl3");
-        insertCardInternal(db, "Desolate Homeland", "Objective", "End Phase", 4, (int)pillageAndPlunderDeckId, 1, "Score this in an end phase if there are 1 or fewer treasure tokens in friendly territory.", null, "card_pl4");
-        insertCardInternal(db, "Torn Landscape", "Objective", "End Phase", 5, (int)pillageAndPlunderDeckId, 2, "Score this in an end phase if there are 2 or fewer treasure tokens on the battlefield.", null, "card_pl5");
-        insertCardInternal(db, "Strip the Realm", "Objective", "End Phase", 6, (int)pillageAndPlunderDeckId, 3, "Score this in an end phase if there are no treasure tokens on the battlefield or if no enemy fighters hold any treasure tokens.", null, "card_pl6");
-        insertCardInternal(db, "Aggressive Claimant", "Objective", "Surge", 7, (int)pillageAndPlunderDeckId, 1, "Score this immediately after a friendly fighter's successful Attack if the target was in neutral territory, or the target was holding a treasure token when you picked them to be the target of that Attack and is no longer holding that treasure token.", null, "card_pl7");
-        insertCardInternal(db, "Claim the Prize", "Objective", "Surge", 8, (int)pillageAndPlunderDeckId, 1, "Score this immediately after a friendly fighter Delves in enemy territory. If you are the underdog, that Delve can be in friendly territory instead.", null, "card_pl8");
-        insertCardInternal(db, "Delving for Wealth", "Objective", "Surge", 9, (int)pillageAndPlunderDeckId, 1, "Score this immediately after your warband Delves for the third or subsequent time this combat phase.", null, "card_pl9");
-        insertCardInternal(db, "Share the Load", "Objective", "Surge", 10, (int)pillageAndPlunderDeckId, 1, "Score this immediately after a friendly fighter Moves, if that fighter and any other friendly fighters are each on feature tokens.", null, "card_pl10");
-        insertCardInternal(db, "Hostile Takeover", "Objective", "Surge", 11, (int)pillageAndPlunderDeckId, 1, "Score this immediately after the second or subsequent Attack made by your warband that was not part of a Charge.", null, "card_pl11");
-        insertCardInternal(db, "Careful Survey", "Objective", "Surge", 12, (int)pillageAndPlunderDeckId, 1, "Score this immediately after an Action step if there is a friendly fighter in each territory.", null, "card_pl12");
+        insertCardInternal(db, "Broken Prospects", "Objective", "End Phase", 1, (int)pillageAndPlunderDeckId, 2,
+                "Anota esta carta en una fase final si tu banda ha excavado 3 o más fichas de tesoro diferentes en esta ronda de batalla, o si una ficha de tesoro sostenida por un luchador enemigo al inicio de la ronda de batalla ha sido excavada por tu banda en esta ronda de batalla.", null, "card_pl1");
+        insertCardInternal(db, "Against the Odds", "Objective", "End Phase", 2, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta en una fase final si tu banda ha excavado una ficha de tesoro con número impar en esta ronda de batalla.", null, "card_pl2");
+        insertCardInternal(db, "Lost in the Depths", "Objective", "End Phase", 3, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta en una fase final si ningún luchador aliado está adyacente y hay al menos un luchador aliado que no esté eliminado.", null, "card_pl3");
+        insertCardInternal(db, "Desolate Homeland", "Objective", "End Phase", 4, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta en una fase final si hay 1 o menos fichas de tesoro en territorio aliado.", null, "card_pl4");
+        insertCardInternal(db, "Torn Landscape", "Objective", "End Phase", 5, (int)pillageAndPlunderDeckId, 2,
+                "Anota esta carta en una fase final si hay 2 o menos fichas de tesoro en el campo de batalla.", null, "card_pl5");
+        insertCardInternal(db, "Strip the Realm", "Objective", "End Phase", 6, (int)pillageAndPlunderDeckId, 3,
+                "Anota esta carta en una fase final si no hay fichas de tesoro en el campo de batalla o si ningún luchador enemigo sostiene fichas de tesoro.", null, "card_pl6");
+        insertCardInternal(db, "Aggressive Claimant", "Objective", "Surge", 7, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta inmediatamente después de un Ataque exitoso de un luchador aliado si el objetivo estaba en territorio neutral, o si el objetivo sostenía una ficha de tesoro cuando lo elegiste como objetivo de ese Ataque y ya no sostiene esa ficha de tesoro.", null, "card_pl7");
+        insertCardInternal(db, "Claim the Prize", "Objective", "Surge", 8, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador aliado excave en territorio enemigo. Si eres el desventajado, esa excavación puede ser en territorio aliado en su lugar.", null, "card_pl8");
+        insertCardInternal(db, "Delving for Wealth", "Objective", "Surge", 9, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta inmediatamente después de que tu banda excave por tercera vez o más en esta fase de combate.", null, "card_pl9");
+        insertCardInternal(db, "Share the Load", "Objective", "Surge", 10, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta inmediatamente después de que un luchador aliado se Mueva, si ese luchador y cualquier otro luchador aliado están cada uno sobre una ficha de elemento.", null, "card_pl10");
+        insertCardInternal(db, "Hostile Takeover", "Objective", "Surge", 11, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta inmediatamente después del segundo Ataque, o uno posterior, realizado por tu banda que no forme parte de una Carga.", null, "card_pl11");
+        insertCardInternal(db, "Careful Survey", "Objective", "Surge", 12, (int)pillageAndPlunderDeckId, 1,
+                "Anota esta carta inmediatamente después de un paso de Acción si hay un luchador aliado en cada territorio.", null, "card_pl12");
 
-        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 13, (int)pillageAndPlunderDeckId, null, "Pick a friendly fighter. Push that fighter 1 hex.", null, "card_pl13");
-        insertCardInternal(db, "Prideful Duellist", "Gambit", "Ploy", 14, (int)pillageAndPlunderDeckId, null, "Play this immediately after a friendly fighter's Attack if the attacker is in enemy territory. Heal the attacker.", null, "card_pl14");
-        insertCardInternal(db, "Commanding Stride", "Gambit", "Ploy", 15, (int)pillageAndPlunderDeckId, null, "Push your leader up to 3 hexes. That push must end in a starting hex.", null, "card_pl15");
-        insertCardInternal(db, "Crumbling Mine", "Gambit", "Ploy", 16, (int)pillageAndPlunderDeckId, null, "Pick a treasure token that is not held. Flip that treasure token.", null, "card_pl16");
-        insertCardInternal(db, "Explosive Charges", "Gambit", "Ploy", 17, (int)pillageAndPlunderDeckId, null, "Domain: Friendly fighters have +1 Move while using Charge abilities. This effect persists until the end of the battle round or until another Domain card is played.", null, "card_pl17");
-        insertCardInternal(db, "Wary Delver", "Gambit", "Ploy", 18, (int)pillageAndPlunderDeckId, null, "Pick a friendly fighter with any Charge tokens. Give that fighter a Guard token.", null, "card_pl18");
-        insertCardInternal(db, "Brash Scout", "Gambit", "Ploy", 19, (int)pillageAndPlunderDeckId, null, "Play this immediately after you make an Attack roll for a fighter in enemy territory. Re-roll 1 dice in that Attack roll. If you are the underdog, you can re-roll each dice in that Attack roll instead.", null, "card_pl19");
-        insertCardInternal(db, "Sudden Blast", "Gambit", "Ploy", 20, (int)pillageAndPlunderDeckId, null, "Pick an enemy fighter adjacent to a friendly fighter. Give that enemy fighter a Stagger token.", null, "card_pl20");
-        insertCardInternal(db, "Tunnelling Terror", "Gambit", "Ploy", 21, (int)pillageAndPlunderDeckId, null, "Pick a friendly fighter with no Move or Charge tokens. Remove that fighter from the battlefield, and then place that fighter in an empty stagger hex. Then, give that fighter a Charge token. If you are the underdog, you can give that fighter a Move token instead.", null, "card_pl21");
-        insertCardInternal(db, "Trapped Cache", "Gambit", "Ploy", 22, (int)pillageAndPlunderDeckId, null, "Pick an undamaged enemy fighter within 1 hex of a treasure token. Inflict 1 damage on that fighter.", null, "card_pl22");
+        insertCardInternal(db, "Sidestep", "Gambit", "Ploy", 13, (int)pillageAndPlunderDeckId, null,
+                "Elige un luchador aliado. Empuja a ese luchador 1 hexágono.", null, "card_pl13");
+        insertCardInternal(db, "Prideful Duellist", "Gambit", "Ploy", 14, (int)pillageAndPlunderDeckId, null,
+                "Juega esta carta inmediatamente después del Ataque de un luchador aliado si el atacante está en territorio enemigo. Sana al atacante.", null, "card_pl14");
+        insertCardInternal(db, "Commanding Stride", "Gambit", "Ploy", 15, (int)pillageAndPlunderDeckId, null,
+                "Empuja a tu líder hasta 3 hexágonos. Ese empuje debe terminar en un hexágono de salida.", null, "card_pl15");
+        insertCardInternal(db, "Crumbling Mine", "Gambit", "Ploy", 16, (int)pillageAndPlunderDeckId, null,
+                "Elige una ficha de tesoro que no esté sostenida. Voltea esa ficha de tesoro.", null, "card_pl16");
+        insertCardInternal(db, "Explosive Charges", "Gambit", "Ploy", 17, (int)pillageAndPlunderDeckId, null,
+                "Dominio: Los luchadores aliados tienen +1 Movimiento mientras usan habilidades de Carga. Este efecto persiste hasta el final de la ronda de batalla o hasta que se juegue otra carta de Dominio.", null, "card_pl17");
+        insertCardInternal(db, "Wary Delver", "Gambit", "Ploy", 18, (int)pillageAndPlunderDeckId, null,
+                "Elige un luchador aliado con alguna ficha de Carga. Dale a ese luchador una ficha de Guardia.", null, "card_pl18");
+        insertCardInternal(db, "Brash Scout", "Gambit", "Ploy", 19, (int)pillageAndPlunderDeckId, null,
+                "Juega esta carta inmediatamente después de hacer una tirada de Ataque para un luchador en territorio enemigo. Vuelve a tirar 1 dado de esa tirada de Ataque. Si eres el desventajado, puedes volver a tirar cada dado de esa tirada de Ataque en su lugar.", null, "card_pl19");
+        insertCardInternal(db, "Sudden Blast", "Gambit", "Ploy", 20, (int)pillageAndPlunderDeckId, null,
+                "Elige un luchador enemigo adyacente a un luchador aliado. Dale a ese luchador enemigo una ficha de Tambaleo.", null, "card_pl20");
+        insertCardInternal(db, "Tunnelling Terror", "Gambit", "Ploy", 21, (int)pillageAndPlunderDeckId, null,
+                "Elige un luchador aliado sin fichas de Movimiento ni Carga. Retira a ese luchador del campo de batalla y colócalo en un hexágono de Tambaleo vacío. Luego dale a ese luchador una ficha de Carga. Si eres el desventajado, puedes darle en su lugar una ficha de Movimiento.", null, "card_pl21");
+        insertCardInternal(db, "Trapped Cache", "Gambit", "Ploy", 22, (int)pillageAndPlunderDeckId, null,
+                "Elige un luchador enemigo sin heridas a 1 hexágono o menos de una ficha de tesoro. Inflige 1 de daño a ese luchador.", null, "card_pl22");
 
-        insertCardInternal(db, "Great Speed", "Upgrade", null, 23, (int)pillageAndPlunderDeckId, 0, "This fighter has +1 Move.", null, "card_pl23");
-        insertCardInternal(db, "Swift Step", "Upgrade", null, 24, (int)pillageAndPlunderDeckId, 1, "Quick: Immediately after this fighter has Charged, you can push this fighter 1 hex.", null, "card_pl24");
-        insertCardInternal(db, "Burrowing Strike", "Upgrade", null, 25, (int)pillageAndPlunderDeckId, 1, "Melee Attack action. Range 2, 2 Dice, 2 Damage. This weapon has +1 Attack dice while this fighter has any Stagger tokens or is on a feature token.", null, "card_pl25");
-        insertCardInternal(db, "Tough Enough", "Upgrade", null, 26, (int)pillageAndPlunderDeckId, 1, "While this fighter is in enemy territory, Save rolls for this fighter cannot be affected by Cleave and Ensnare.", null, "card_pl26");
-        insertCardInternal(db, "Canny Sapper", "Upgrade", null, 27, (int)pillageAndPlunderDeckId, 0, "Sneaky: Immediately after you play a Ploy in a Power step, you can remove this fighter from the battlefield. Place this fighter in an empty stagger hex or in an empty starting hex in friendly territory, and then discard this card.", null, "card_pl27");
-        insertCardInternal(db, "Impossibly Quick", "Upgrade", null, 28, (int)pillageAndPlunderDeckId, 1, "This fighter has +1 Save. Immediately discard this Upgrade after an enemy fighter's failed Attack if this fighter was the target.", null, "card_pl28");
-        insertCardInternal(db, "Linebreaker", "Upgrade", null, 29, (int)pillageAndPlunderDeckId, 1, "This fighter's weapons have Brutal.", null, "card_pl29");
-        insertCardInternal(db, "Excavating Blast", "Upgrade", null, 30, (int)pillageAndPlunderDeckId, 1, "Ranged Attack action. Range 3, 2 Dice, 1 Damage. This weapon has Stagger while this fighter is in enemy territory.", null, "card_pl30");
-        insertCardInternal(db, "Gloryseeker", "Upgrade", null, 31, (int)pillageAndPlunderDeckId, 1, "This fighter's melee weapons have Grievous if the target has a Health characteristic of 4 or more.", null, "card_pl31");
-        insertCardInternal(db, "Frenzy of Greed", "Upgrade", null, 32, (int)pillageAndPlunderDeckId, 2, "While this fighter is on a treasure token in enemy territory or is in a stagger hex, Save rolls for this fighter are not affected by Cleave and Ensnare and this fighter cannot be given Stagger tokens.", null, "card_pl32");
+        insertCardInternal(db, "Great Speed", "Upgrade", null, 23, (int)pillageAndPlunderDeckId, 0,
+                "Este luchador tiene +1 Movimiento.", null, "card_pl23");
+        insertCardInternal(db, "Swift Step", "Upgrade", null, 24, (int)pillageAndPlunderDeckId, 1,
+                "Rápido: Inmediatamente después de que este luchador haya realizado una Carga, puedes empujar a este luchador 1 hexágono.", null, "card_pl24");
+        insertCardInternal(db, "Burrowing Strike", "Upgrade", null, 25, (int)pillageAndPlunderDeckId, 1,
+                "Acción de Ataque cuerpo a cuerpo. Alcance 2, 2 Dados, 2 Daño. Esta arma tiene +1 dado de Ataque mientras este luchador tenga fichas de Tambaleo o esté sobre una ficha de elemento.", null, "card_pl25");
+        insertCardInternal(db, "Tough Enough", "Upgrade", null, 26, (int)pillageAndPlunderDeckId, 1,
+                "Mientras este luchador esté en territorio enemigo, las tiradas de Salvación para este luchador no pueden verse afectadas por Perforante ni Atrapador.", null, "card_pl26");
+        insertCardInternal(db, "Canny Sapper", "Upgrade", null, 27, (int)pillageAndPlunderDeckId, 0,
+                "Sigiloso: Inmediatamente después de jugar un Ardid en un paso de Poder, puedes retirar a este luchador del campo de batalla. Coloca a este luchador en un hexágono de Tambaleo vacío o en un hexágono de salida vacío en territorio aliado y luego descarta esta carta.", null, "card_pl27");
+        insertCardInternal(db, "Impossibly Quick", "Upgrade", null, 28, (int)pillageAndPlunderDeckId, 1,
+                "Este luchador tiene +1 Salvación. Descarta inmediatamente esta Mejora después del fallo de un Ataque de un luchador enemigo si este luchador fue el objetivo.", null, "card_pl28");
+        insertCardInternal(db, "Linebreaker", "Upgrade", null, 29, (int)pillageAndPlunderDeckId, 1,
+                "Las armas de este luchador tienen Brutal.", null, "card_pl29");
+        insertCardInternal(db, "Excavating Blast", "Upgrade", null, 30, (int)pillageAndPlunderDeckId, 1,
+                "Acción de Ataque a distancia. Alcance 3, 2 Dados, 1 Daño. Esta arma tiene Tambaleo mientras este luchador esté en territorio enemigo.", null, "card_pl30");
+        insertCardInternal(db, "Gloryseeker", "Upgrade", null, 31, (int)pillageAndPlunderDeckId, 1,
+                "Las armas cuerpo a cuerpo de este luchador tienen Doloroso si la característica de Salud del objetivo es 4 o más.", null, "card_pl31");
+        insertCardInternal(db, "Frenzy of Greed", "Upgrade", null, 32, (int)pillageAndPlunderDeckId, 2,
+                "Mientras este luchador esté sobre una ficha de tesoro en territorio enemigo o en un hexágono de Tambaleo, las tiradas de Salvación para este luchador no se ven afectadas por Perforante ni Atrapador y este luchador no puede recibir fichas de Tambaleo.", null, "card_pl32");
 
 
         long zarbagBandId = insertBandInternal(db, "Zarbag's Gitz",
@@ -945,7 +1299,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                         "\n" + //
                                         "Espadachin: Si el ataque tiene éxito, obtienes 1 ficha de botín. Si eres el rezagado o el objetivo estaba equipado con alguna mejora, obtienes 2 fichas de botín en lugar de 1.\n\n" +
                 "Puedes usar 1 de las siguientes habilidades inmediatamente después de elegir un arma a distancia como parte del ataque de tu líder. Cuando elijas la habilidad, puedes eliminar hasta 2 de tus fichas de botín. Solo puedes usar cada habilidad una vez por partida. \n\n" +
-                "Metralla del botín (Una vez por partida): Después de ese ataque, puedes elegir hasta otros 2 luchadores enemigos dentro de 2 hexágonos del objetivo. A continuación, tira un número de dados de ataque igual al número de fichas de botín que hayas eliminado. Si la tirada contiene algún martillo o crítico, inflige 1 punto de daño a cada uno de esos combatientes y dale al objetivo y a cada uno de esos combatientes una ficha de tambaleo.\n\n"+
+                "Metralla del botín (Una vez por partida): Después de ese ataque, puedes elegir hasta otros 2 luchadores enemigos dentro de 2 hexágonos del objetivo. A continuación, tira un número de dados de ataque igual al número de fichas de botín que hayas eliminado. Si la tirada contiene algún martillo o crítico, inflige 1 punto de daño a cada uno de esos luchadores y dale al objetivo y a cada uno de esos luchadores una ficha de tambaleo.\n\n"+
                 "Explosión de botín (Una vez por partida): Esa arma tiene +1 de daño y Romper para ese ataque. Si el objetivo es presionado, dale una ficha de tambaleo.\n\n"+
                 "Mortero de botín (Una vez por partida): Esa arma tiene +1 de daño y +X de alcance para ese ataque, donde X es el número de fichas de botín que hayas eliminado.",
                 "Destruccion", "blackpowders_buccaneers_0");
@@ -960,7 +1314,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Empoderados por el rencor: Empiezas la partida con 1 dado de forja demoníaca. \n\n" +
                 "En tu fase de poder, si un luchador aliado sin fichas de Tambaleo indaga una ficha de tesoro, obtienes 1 dado de forja demoníaca. Todos los dados de forja demoníaca se pierden al final de cada ronda de combate. \n\n" +
                 "Mejorar arsenal: Inmediatamente después de elegir un arma como parte de un ataque realizado por un Chaos Duardin aliado, puedes usar 1 dado de forja demoníaca en la tirada de ataque. Si lo haces, esa arma tiene +1 dado de ataque para ese ataque. \n\n" +
-                "Reforzar armería: Inmediatamente después de que un Chaos Duardin aliado sea elegido como objetivo de un ataque, puedes usar 1 dado de foja demoniaca en la tirada de salvación. Si lo haces, ese combatiente tiene +1 a la salvación para ese ataque. \n\n" +
+                "Reforzar armería: Inmediatamente después de que un Chaos Duardin aliado sea elegido como objetivo de un ataque, puedes usar 1 dado de foja demoniaca en la tirada de salvación. Si lo haces, ese luchador tiene +1 a la salvación para ese ataque. \n\n" +
                 "Conflagración infernal: Las armas a distancia de un Tokkor amigo (excluyendo las mejoras) tienen Doloroso si el objetivo está adyacente.\n\n"+
                 "Astucia de Hobgrot: Las tiradas de espadas y martillos son éxitos en una tirada de ataque para un Chaos Duardin amigo mientras el objetivo esté adyacente a un Grisk amigo.",
                 "Caos", "blood_of_the_bull_0");
@@ -980,10 +1334,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                                         "Desinspirar: Inmediatamente después de que un luchador aliado haya realizado un ataque con éxito, desinspira a ese luchador aliado.\n\n"+
                                         "Condensadores sagrados: Resta 1 a la distancia entre un atacante aliado y su objetivo por cada luchador aliado que se encuentre entre el atacante y el objetivo. Esos luchadores aliados son conductores.\n\n"+
                                         "Himno fulminante: Elige una de las siguientes habilidades al comienzo de la fase de combate. Mientras haya dos o más luchadores aliados, cada luchador puede usar esa habilidad.\n" + //
-                                                                                        "\n" + //
-                                                                                        "- Aura cargada: los combatientes aliados no pueden ser flanqueados.\n" + //
-                                                                                        "- Abandono temerario: cada vez que un combatiente aliado vaya a recibir una ficha de carga, puedes infligir 1 punto de daño a ese combatiente en lugar de darle una ficha de carga.\n" + //
-                                                                                        "- Dinamos fieles: las armas de los combatientes aliados tienen tambaleo.\n\n"+
+                                        "\n" + //
+                                                                                        "- Aura cargada: los luchadores aliados no pueden ser flanqueados.\n" + //
+                                                                                        "- Abandono temerario: cada vez que un luchador aliado vaya a recibir una ficha de carga, puedes infligir 1 punto de daño a ese luchador en lugar de darle una ficha de carga.\n" + //
+                                                                                        "- Dinamos fieles: las armas de los luchadores aliados tienen tambaleo.\n\n"+
                                         "Explosión crepitante (Una vez por partida): Usa esto en un paso de Poder. Elige un luchador aliado. Ese luchador se mueve.\n\n"+
                                         "Carga celestial (Una vez por partida): Usa esto inmediatamente después de tu paso de Acción. Elige un luchador aliado. Desinspíralo y luego inflige 1 punto de daño a un luchador enemigo adyacente.\n\n"+
                                         "Resurrección resplandeciente (Una vez por partida): Úsalo inmediatamente después de tu fase de Acción. Elige un luchador aliado que fuera conductor durante esa fase. Cura a ese luchador.",
@@ -1009,8 +1363,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Inspirar: Inspira a un número de luchadores amigos igual al de la ronda de batalla al comienzo de cada fase de combate.\n"+
                 "Desinspirar: Al comienzo de la ronda, desinspira a cada luchador amigo.\n\n"+
                 "Marea que arrolla (Habilidad Basica): Puedes usar esta habilidad si tu líder está en el campo de batalla y no tiene fichas de carga. Traza una línea recta desde el hexágono de tu líder que pase por el centro de un hexágono adyacente y llegue hasta el borde del campo de batalla. Inflige 1 punto de daño al primer luchador enemigo que cruce la línea y dale una ficha de Tambaleo. La línea termina si toca un hexágono bloqueado.\n\n"+
-                "Réplica mortal: Usa esto inmediatamente después de que un luchador enemigo falle un ataque dirigido a un Thrall aliado. Las armas de ese Thrall tienen Romper y Apresar durante el siguiente turno mientras ese combatiente enemigo sea el objetivo de un ataque.\n\n"+
-                "Tinta fantasmal: Úsalo inmediatamente después de que un combatiente enemigo falle un ataque dirigido a un Cephanyr aliado. Empuja a Cephanyr un número de hexágonos igual al de la ronda de combate.\n\n"+
+                "Réplica mortal: Usa esto inmediatamente después de que un luchador enemigo falle un ataque dirigido a un Thrall aliado. Las armas de ese Thrall tienen Romper y Apresar durante el siguiente turno mientras ese luchador enemigo sea el objetivo de un ataque.\n\n"+
+                "Tinta fantasmal: Úsalo inmediatamente después de que un luchador enemigo falle un ataque dirigido a un Cephanyr aliado. Empuja a Cephanyr un número de hexágonos igual al de la ronda de combate.\n\n"+
                 "Cosecha de almas (Una vez por partida): Usa esto en una fase de poder. Elige un luchador enemigo inspirado. A continuación, tu oponente debe elegir una de las siguientes opciones: desinspirar a ese luchador o robar cartas de poder iguales a la ronda de batalla.",
                 "Orden", "cyrenis_razors_0");
 
@@ -1029,7 +1383,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // --- Inserción de Da Kunnin' Krew ---
         long kunninBandId = insertBandInternal(db, "Da Kunnin' Krew",
                 "Inspirar: Tras un ataque exitoso de un luchador aliado, si el objetivo ha sido asesinado, flanqueado o rodeado, inspira al atacante y a cada luchador aliado adyacente al objetivo. \n\n" +
-                "Dolor en la rodilla: Si un Mannok o Torka aliado es el atacante, los secuaces aliados cuentan como 2 combatientes a la hora de determinar si un objetivo está flanqueado o rodeado.\n\n" + //
+                "Dolor en la rodilla: Si un Mannok o Torka aliado es el atacante, los secuaces aliados cuentan como 2 luchadores a la hora de determinar si un objetivo está flanqueado o rodeado.\n\n" + //
                 "Un plan astuto (Una vez por partida): Usa esto inmediatamente después de un paso de Acción si tu líder está en el campo de batalla. Empuja a cada esbirro amigo hasta un número de hexágonos igual al número de ronda de batalla.\n\n"+
                 "Trucos sucios (Una vez por partida): Usa esto inmediatamente antes de que tú o tu oponente hagáis una tirada de ataque o de salvación. Tu oponente debe declarar «Mejora» o «Ardid». Coge 3 cartas de poder de tu mano y barájalas boca abajo. Tu oponente debe elegir 1 de esas cartas. A continuación, revela cada una de esas cartas. Si la carta que ha elegido tu oponente coincide con lo que ha declarado, roba 1 carta de poder. De lo contrario, no se realiza la tirada de ataque o de salvación y debes establecer el resultado en cada dado.\n\n"+
                 "Acechadores tenebrosos (Una vez por partida): Úsalo inmediatamente después de que un luchador aliado sea elegido como objetivo de un ataque. Las tiradas de Flanqueado y Rodeado son éxitos en las tiradas de Salvacion realizadas por ese luchador para ese ataque.",
@@ -1055,13 +1409,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Inspirar: Inmediatamente después de infligir daño a un luchador enemigo con la habilidad Puñalada trapera, inspira al luchador aliado.\n\n"+
                 "Puñalada trapera: Un luchador aliado sin fichas de carga puede usar esta habilidad inmediatamente después de tu fase de acción. Elige un luchador enemigo que no sea vulnerable y que esté adyacente a ese luchador aliado y tira un dado de ataque. Si obtienes un martillo o un crítico, inflige 1 punto de daño a ese luchador enemigo. El mismo luchador no puede usar esta habilidad más de una vez por turno.\n\n"+
                 "¡Dos contra uno, idiota! (Una vez por partida): Úsalo inmediatamente después de tu fase de Acción. Puedes empujar a un luchador amigo 1 hexágono.\n\n"+
-                "Ladrón astuto (Una vez por parida): Úsala en un paso de Poder. Roba un número de cartas de Poder igual al número de combatientes enemigos dañados.\n\n"+
-                "Venenos repugnantes (Una vez por partida): Úsala inmediatamente después de un paso de Acción. Tira un dado por cada combatiente enemigo dañado. Si obtienes un resultado crítico, inflige 1 punto de daño a ese luchador.\n\n"+
+                "Ladrón astuto (Una vez por parida): Úsala en un paso de Poder. Roba un número de cartas de Poder igual al número de luchadores enemigos dañados.\n\n"+
+                "Venenos repugnantes (Una vez por partida): Úsala inmediatamente después de un paso de Acción. Tira un dado por cada luchador enemigo dañado. Si obtienes un resultado crítico, inflige 1 punto de daño a ese luchador.\n\n"+
                 "Tipejos arteros: En lugar de jugar un ardid en la fase de Poder de tu oponente, puedes descartar ardides para usar las habilidades que se indican a continuación. El número de Ardides que descartes determina qué habilidades se aplican en el siguiente turno. Los efectos son acumulativos y el efecto de cada habilidad dura hasta el final de tu siguiente turno.\n" + //
-                                        "\n" + //
-                                        "- Descartar 1: los combatientes amigos tienen +1 a Movimiento.\n" + //
-                                        "- Descartar 2: los combatientes enemigos están Flanqueados.\n" + //
-                                        "- Descartar 3: las armas de los combatientes amigos tienen +1 a los dados de Ataque.",
+                "\n" + //
+                                        "- Descartar 1: los luchadores amigos tienen +1 a Movimiento.\n" + //
+                                        "- Descartar 2: los luchadores enemigos están Flanqueados.\n" + //
+                                        "- Descartar 3: las armas de los luchadores amigos tienen +1 a los dados de Ataque.",
                 "Destruccion", "daggoks_stab_ladz_0");
 
         // Daggok Finksteala
@@ -1133,12 +1487,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // --- Inserción de Ylthari's Guardians ---
         long ylthariBandId = insertBandInternal(db, "Ylthari's Guardians",
                 "Inspirar: Después de que un luchador aliado use una habilidad básica, puedes colocar 1 carta de poder de tu mano o la carta superior de tu mazo de poder boca abajo junto a este warscroll, hasta un máximo de 3. Estas cartas ya no están en tu mano ni en tu mazo de poder y no se pueden revelar.\n"+
-                "Al final de tu turno o después de que un luchador enemigo sea asesinado, puedes colocar 1 ficha de crecimiento en cada una de esas cartas. Después de colocar la quinta ficha de crecimiento en la misma carta, elige un combatiente aliado. Inspira a ese combatiente, retira esas fichas de crecimiento y luego añade esa carta a tu mano.\n\n"+
+                "Al final de tu turno o después de que un luchador enemigo sea asesinado, puedes colocar 1 ficha de crecimiento en cada una de esas cartas. Después de colocar la quinta ficha de crecimiento en la misma carta, elige un luchador aliado. Inspira a ese luchador, retira esas fichas de crecimiento y luego añade esa carta a tu mano.\n\n"+
                 "Puedes usar 1 de las siguientes habilidades una vez por ronda de batalla.\n\n" + //
                 "El florecimiento: Usa esto inmediatamente después de tu fase de Acción. Elige un luchador aliado. Empuja a ese luchador X hexágonos, donde X es el número de luchadores aliados muertos. Si no hay luchadores aliados muertos, empuja a ese luchador 1 hexágono.\n\n"+
-                "La Cosecha: Usa esto inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Esa arma tiene +X dados de ataque para ese ataque, donde X es el número de combatientes aliados muertos. Si no hay combatientes aliados muertos, esa arma tiene +1 dado de ataque para ese ataque.\n\n"+
+                "La Cosecha: Usa esto inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Esa arma tiene +X dados de ataque para ese ataque, donde X es el número de luchadores aliados muertos. Si no hay luchadores aliados muertos, esa arma tiene +1 dado de ataque para ese ataque.\n\n"+
                 "El declive: Usa esto inmediatamente después de tu fase de Acción. Elige un luchador aliado. Retira ese luchador del campo de batalla y colócalo en un hexágono vacío adyacente a un luchador aliado.\n\n"+
-                "El crepusculo: Úsalo inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Esa arma tiene +X de daño para ese ataque, donde X es el número de combatientes aliados muertos.",
+                "El crepusculo: Úsalo inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Esa arma tiene +X de daño para ese ataque, donde X es el número de luchadores aliados muertos.",
                 "Orden", "yltharis_guardians_0");
 
         // Ylthari
@@ -1306,7 +1660,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Avance Mortek: Úsalo inmediatamente después de tu fase de acción si un Kainan o Khenta aliado ha usado una habilidad básica en esa fase de acción. Cada esbirro aliado puede moverse, pero cada uno debe terminar ese movimiento adyacente a uno o más esbirros aliados.\n\n" +
                 "Último aviso (Una vez por partida): Úsalo inmediatamente después de tu fase de acción. Los luchadores aliados no pueden ser elegidos como objetivo de un ataque en la siguiente fase de acción a menos que sean tu líder. Esta habilidad no se puede usar si Kainan es asesinado.\n\n" +
                 "Rangos inquebrantables por la disidencia (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte de un ataque cuerpo a cuerpo. Si el objetivo está flanqueado y/o rodeado, esa arma tiene Doloroso para ese ataque.\n\n" +
-                "Postura monolítica (Una vez por partida): Úsala inmediatamente después de tu fase de Acción. Elige un número de secuaces amigos igual o inferior al número de ronda de combate. Dale a cada uno de esos combatientes una ficha de Guardia.\n" +
+                "Postura monolítica (Una vez por partida): Úsala inmediatamente después de tu fase de Acción. Elige un número de secuaces amigos igual o inferior al número de ronda de combate. Dale a cada uno de esos luchadores una ficha de Guardia.\n" +
                 "Asalto implacable (Una vez por partida): Úsala inmediatamente después de tu fase de Acción. Elige un esbirro aliado con fichas de Movimiento y/o Carga. Retira las fichas de Movimiento y/o Carga de ese luchador." ,
                 "Ossiarch Bonereapers", "kainans_reapers_0");
 
@@ -1351,7 +1705,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Inspirar: Después de una fase de Acción, si un luchador aliado comenzó esa fase de Acción en territorio amigo y luego realizó un Ataque con éxito, inspira a ese luchador.\n\n"+
                 "Centinelas ágiles: Mientras se encuentran en territorio amigo, los luchadores aliados tienen la runa de vuelo y no pueden ser flanqueados (aunque sí pueden ser rodeados).\n\n"+
                 "La caza sin fin (Una vez por partida): Úsalo inmediatamente después de que un luchador amigo haya atacado. Puedes empujar al atacante hasta 2 hexágonos.\n\n"+
-                "Bolea de precisión (Una vez por partida): Úsala inmediatamente después del ataque a distancia de un Lenwythe aliado. Ese combatiente vuelve a atacar con la misma arma. El objetivo de ese ataque debe ser diferente al del primer ataque.\n\n"+
+                "Bolea de precisión (Una vez por partida): Úsala inmediatamente después del ataque a distancia de un Lenwythe aliado. Ese luchador vuelve a atacar con la misma arma. El objetivo de ese ataque debe ser diferente al del primer ataque.\n\n"+
                 "Orgullo del heraldo (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte del ataque de tu líder. Esa arma tiene Romper y Apresar para ese ataque.",
                 "Sylvaneth", "kurnoths_heralds_0");
 
@@ -1413,8 +1767,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long gorechosenBandId = insertBandInternal(db, "Gorechosen of Dromm",
                 "Inspirar: Después de una fase de Acción, si tienes 8 o más fichas de tributo de sangre, inspira a cada luchador amigo.\n\n"+
                 "El tributo de sangre: Inmediatamente después de se le inflija daño a un luchador, obtén 1 ficha de tributo de sangre.\n\n"+
-                "Ajuste de cuentas brutales: Inmediatamente después de que un combatiente enemigo sea asesinado, obtén un número de fichas de tributo de sangre igual a la característica de Recompensa de ese combatiente.\n\n"+
-                "Llamada de la sangre (Una vez por partida): Úsalo en una fase de Poder. Elige 2 combatientes sin fichas de Movimiento o Carga. Empuja a cada combatiente 1 hexágono para que queden adyacentes. Puedes descartar 1 de tus fichas de tributo de sangre antes de cada empujón. Si lo haces, puedes empujar a ese luchador 2 hexágonos en su lugar.\n\n"+
+                "Ajuste de cuentas brutales: Inmediatamente después de que un luchador enemigo sea asesinado, obtén un número de fichas de tributo de sangre igual a la característica de Recompensa de ese luchador.\n\n"+
+                "Llamada de la sangre (Una vez por partida): Úsalo en una fase de Poder. Elige 2 luchadores sin fichas de Movimiento o Carga. Empuja a cada luchador 1 hexágono para que queden adyacentes. Puedes descartar 1 de tus fichas de tributo de sangre antes de cada empujón. Si lo haces, puedes empujar a ese luchador 2 hexágonos en su lugar.\n\n"+
                 "Enfurecer (Una vez por partida): Úsalo en una fase de poder. Descarta 8 fichas de tributo de sangre y luego elige un luchador enemigo. Tu oponente resuelve una carga para ese luchador.\n\n"+
                 "Frenesí final (Una vez por partida): Úsala inmediatamente después de infligir daño a un luchador aliado si ese luchador fuera a morir. Descarta cualquier cantidad de tus fichas de tributo de sangre. Tira un dado de ataque por cada ficha descartada de esta manera. Con un critico, quita las fichas de daño de ese luchador hasta que quede vulnerable. Ese luchador muere al final de la ronda de combate.",
                 "Blades of Khorne", "gorechosen_of_dromm_0");
@@ -1434,7 +1788,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Te nombro...: Puedes usar esta habilidad una vez por ronda de combate antes de que un Loonknight aliado use una habilidad básica. Ese luchador queda nombrado hasta el final de la ronda de combate.\n\n"+
                 "Misión conquista el reino: Completa esta misión después de una fase de acción si tu banda controla 2 o más fichas de tesoro y controla más fichas de tesoro que la banda de tu oponente. Recompensa: puedes inspirar a un Loonknight aliado. Si un luchador aliado nombrado controla una ficha de tesoro cuando completas esta misión, también puedes inspirar a tu líder y luego robar hasta 2 cartas de poder.\n\n"+
                 "Misión avanza y golpea: Si eliges esta misión, los luchadores aliados nombrados tienen +1 de movimiento durante el resto de la partida. Completa esta misión después de un paso de acción si hay 2 o más luchadores aliados en territorio enemigo. Recompensa: puedes inspirar hasta a 2 Loonknights aliados. Si tu líder se encuentra en territorio enemigo cuando completas esta misión, también puedes inspirar a tu líder.\n\n"+
-                "Misión mata a las hordas: Si eliges esta misión, las armas cuerpo a cuerpo de los combatientes aliados tendrán +1 dado de ataque durante el resto de la partida. Completarás esta misión tras una fase de Acción si muere algún combatiente enemigo con una característica de Recompensa total de 2 o más. Recompensa: puedes inspirar a un luchador aliado. Si alguno de esos luchadores enemigos ha muerto por el ataque de un luchador aliado nombrado, puedes inspirar a un Loonknight aliado y a tu líder en su lugar.\n\n"+
+                "Misión mata a las hordas: Si eliges esta misión, las armas cuerpo a cuerpo de los luchadores aliados tendrán +1 dado de ataque durante el resto de la partida. Completarás esta misión tras una fase de Acción si muere algún luchador enemigo con una característica de Recompensa total de 2 o más. Recompensa: puedes inspirar a un luchador aliado. Si alguno de esos luchadores enemigos ha muerto por el ataque de un luchador aliado nombrado, puedes inspirar a un Loonknight aliado y a tu líder en su lugar.\n\n"+
                 "Misión matar al dedo aterrador: Si eliges esta misión, durante el resto de la partida, las armas cuerpo a cuerpo de los luchadores aliados nombrados tienen Doloroso si el objetivo tiene una característica de Recompensa de 2 o más. Completa esta misión tras una fase de Acción si un luchador enemigo con una característica de Recompensa de 2 o más es asesinado. Recompensa: puedes inspirar hasta a 2 Loonknights aliados y a tu líder.",
                 "Gloomspite Gitz", "grinkraks_looncourt_0");
 
@@ -1519,7 +1873,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         long myariBandId = insertBandInternal(db, "Myari's Purifiers",
                 "Inspirar: Después de realizar una tirada de ataque o una tirada de salvación para un luchador aliado, si todos los resultados han sido exitosos, inspira a ese luchador.\n\n"+
                 "Reserva de cuarzo éter: Después de desplegar a un luchador aliado, dale una ficha de cuarzo éter. Un luchador aliado que tenga una ficha de cuarzo éter puede usar la habilidad Sentidos agudizados:\n" + //
-                                        "Sentidos agudizados: úsala inmediatamente después de realizar una tirada de ataque o una tirada de salvación. Descarta la ficha de cuarzo etéreo de este combatiente. Vuelve a tirar cualquier dado de esa tirada de ataque o de salvación.\n\n"+
+                                        "Sentidos agudizados: úsala inmediatamente después de realizar una tirada de ataque o una tirada de salvación. Descarta la ficha de cuarzo etéreo de este luchador. Vuelve a tirar cualquier dado de esa tirada de ataque o de salvación.\n\n"+
                 "Corona cegadora: Si un Myari aliado tiene una ficha de cuarzo etéreo al comienzo de un turno, tiene +1 a la salvación hasta el final de ese turno.\n\n"+
                 "Resistente como una roca: Mientras un Bahannar aliado tenga una ficha de cuarzo etéreo, no puede ser empujado por las habilidades enemigas.\n\n"+
                 "Puntería impecable: Mientras una Senaela amiga tenga una ficha de cuarzo etéreo, sus armas a distancia tienen Brutal y Apresar.\n\n"+
@@ -1789,7 +2143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Destinado: Mientras un luchador aliado destinado sea asesinado, el otro luchador aliado destinado tiene +1 a Mover y sus armas tienen +1 a los dados de Ataque.\n\n"+
                 "Amor eterno: Úsalo en un paso de Poder. Elige 2 luchadores aliados destinados. Cura a 1 de esos luchadores y empuja al otro luchador hasta 3 hexágonos hacia el otro luchador.\n\n"+
                 "Exhumar: Elige un secuaz aliado muerto. Resucita a ese luchador y colócalo en un hexágono adyacente al luchador aliado que lo resucitó. Solo puedes usar esta habilidad si se elige al resolver la habilidad Rompetumbas.\n\n"+
-                "Desenterrar: Roba un número de cartas de poder igual al número de combatientes aliados muertos. Solo puedes usar esta habilidad si se elige al resolver la habilidad Rompetumbas.",
+                "Desenterrar: Roba un número de cartas de poder igual al número de luchadores aliados muertos. Solo puedes usar esta habilidad si se elige al resolver la habilidad Rompetumbas.",
                 "Soulblight Gravelords", "zondaras_gravebreakers_0");
 
         // Zondara Rivenheart
