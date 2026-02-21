@@ -12,7 +12,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "underworlds.db";
-    private static final int DATABASE_VERSION = 22; // Incrementado a 22 para asegurar regeneración limpia tras fixes de FK
+    private static final int DATABASE_VERSION = 23;
 
     // Tabla Fighters (Luchadores)
     public static final String TABLE_FIGHTERS = "fighters";
@@ -939,14 +939,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
         long blackpowderBandId = insertBandInternal(db, "Blackpowder's Buccaneers",
-                "Inspire: Immediately after you resolve a 'The Captain's Treasure' Power card, Inspire Gorlok Blackpowder. After an enemy fighter is slain by Gorlok, Inspire each other friendly fighter. \n" +
-                "The Captain's Treasure: Start with 2 gold tokens. Gain 1 when an enemy is slain by Gorlok. \n" +
-                "Spend Gold: \n" +
-                "- 1 Gold: Re-roll 1 Attack dice. \n" +
-                "- 1 Gold: Push a friendly minion 2 hexes. \n" +
-                "- 2 Gold: Heal 1 Gorlok. \n" +
-                "Light the Fuse: Peggz and Mange can use the tracker value for their ranged weapons. \n" +
-                "Monkey Business: Kagey can move through enemy fighters.",
+                "Inspirar: Después de retirar tu tercera ficha de botín o las siguientes, inspira a cada luchador amigo. \n\n" +
+                "Saquear y robar: Empiezas el juego con 1 ficha de botín. \n" +
+                "Si el arma de un luchador aliado tiene la marca de arma espadachin, tendrás acceso a la siguiente habilidad de arma:\n" + //
+                                        "\n" + //
+                                        "Espadachin: Si el ataque tiene éxito, obtienes 1 ficha de botín. Si eres el rezagado o el objetivo estaba equipado con alguna mejora, obtienes 2 fichas de botín en lugar de 1.\n\n" +
+                "Puedes usar 1 de las siguientes habilidades inmediatamente después de elegir un arma a distancia como parte del ataque de tu líder. Cuando elijas la habilidad, puedes eliminar hasta 2 de tus fichas de botín. Solo puedes usar cada habilidad una vez por partida. \n\n" +
+                "Metralla del botín (Una vez por partida): Después de ese ataque, puedes elegir hasta otros 2 luchadores enemigos dentro de 2 hexágonos del objetivo. A continuación, tira un número de dados de ataque igual al número de fichas de botín que hayas eliminado. Si la tirada contiene algún martillo o crítico, inflige 1 punto de daño a cada uno de esos combatientes y dale al objetivo y a cada uno de esos combatientes una ficha de tambaleo.\n\n"+
+                "Explosión de botín (Una vez por partida): Esa arma tiene +1 de daño y Romper para ese ataque. Si el objetivo es presionado, dale una ficha de tambaleo.\n\n"+
+                "Mortero de botín (Una vez por partida): Esa arma tiene +1 de daño y +X de alcance para ese ataque, donde X es el número de fichas de botín que hayas eliminado.",
                 "Destruccion", "blackpowders_buccaneers_0");
 
         insertFighterInternal(db, (int)blackpowderBandId, "Gorlok Blackpowder", "blackpowders_buccaneers_1");
@@ -955,13 +956,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         insertFighterInternal(db, (int)blackpowderBandId, "Mange", "blackpowders_buccaneers_4");
         insertFighterInternal(db, (int)blackpowderBandId, "Shreek", "blackpowders_buccaneers_5");
         long bloodBullBandId = insertBandInternal(db, "Blood of the Bull",
-                "Inspire: When you use a daemonforge dice in the Attack or Save roll for a friendly fighter, Inspire that fighter. \n" +
-                "Also, after an Attack by a friendly Chaos Duardin, if the target was adjacent to a friendly Grisk, Inspire that Grisk. \n" +
-                "Empowered by Spite: Start with 1 daemonforge dice. Power step: if fighter Delves a treasure token (no Stagger), gain 1 dice. Lost at end of round. \n" +
-                "Enhance Arsenal: Use 1 daemonforge dice for +1 Attack dice. \n" +
-                "Reinforce Armour: Use 1 daemonforge dice for +1 Save. \n" +
-                "Infernal Conflagration: Tokkor's ranged weapons have Grievous if target is adjacent. \n" +
-                "Hobgrot Cunning: Hammer and Sword are successes for Chaos Duardin if target is adjacent to Grisk.",
+                "Inspirar: Cuando uses un dado de forja demoniaca en la tirada de ataque o de salvación de un luchador aliado, después de ese ataque, inspira a ese luchador. Después de un ataque realizado por un Chaos Duardin aliado, si el objetivo estaba adyacente a un Grisk aliado, inspira a ese Grisk. \n\n" +
+                "Empoderados por el rencor: Empiezas la partida con 1 dado de forja demoníaca. \n\n" +
+                "En tu fase de poder, si un luchador aliado sin fichas de Tambaleo indaga una ficha de tesoro, obtienes 1 dado de forja demoníaca. Todos los dados de forja demoníaca se pierden al final de cada ronda de combate. \n\n" +
+                "Mejorar arsenal: Inmediatamente después de elegir un arma como parte de un ataque realizado por un Chaos Duardin aliado, puedes usar 1 dado de forja demoníaca en la tirada de ataque. Si lo haces, esa arma tiene +1 dado de ataque para ese ataque. \n\n" +
+                "Reforzar armería: Inmediatamente después de que un Chaos Duardin aliado sea elegido como objetivo de un ataque, puedes usar 1 dado de foja demoniaca en la tirada de salvación. Si lo haces, ese combatiente tiene +1 a la salvación para ese ataque. \n\n" +
+                "Conflagración infernal: Las armas a distancia de un Tokkor amigo (excluyendo las mejoras) tienen Doloroso si el objetivo está adyacente.\n\n"+
+                "Astucia de Hobgrot: Las tiradas de espadas y martillos son éxitos en una tirada de ataque para un Chaos Duardin amigo mientras el objetivo esté adyacente a un Grisk amigo.",
                 "Caos", "blood_of_the_bull_0");
 
         insertFighterInternal(db, (int)bloodBullBandId, "Zuldrakka the Hateful", "blood_of_the_bull_1");
@@ -974,7 +975,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Brethren of the Bolt ---
         long brethrenBandId = insertBandInternal(db, "Brethren of the Bolt",
-                "Inspire: When this fighter makes a successful Attack action with a Range 3+ weapon, or when a friendly fighter makes a successful Attack action with a Range 3+ weapon and this fighter is adjacent to the target.",
+                "Inspirar: Cada luchador aliado comienza la partida Inspirado.\n" + //
+                                        "Inspirar: Inmediatamente después de una fase de Acción en la que un luchador aliado haya sido un luchador conductor, inspira a ese luchador.\n"+
+                                        "Desinspirar: Inmediatamente después de que un luchador aliado haya realizado un ataque con éxito, desinspira a ese luchador aliado.\n\n"+
+                                        "Condensadores sagrados: Resta 1 a la distancia entre un atacante aliado y su objetivo por cada luchador aliado que se encuentre entre el atacante y el objetivo. Esos luchadores aliados son conductores.\n\n"+
+                                        "Himno fulminante: Elige una de las siguientes habilidades al comienzo de la fase de combate. Mientras haya dos o más luchadores aliados, cada luchador puede usar esa habilidad.\n" + //
+                                                                                        "\n" + //
+                                                                                        "- Aura cargada: los combatientes aliados no pueden ser flanqueados.\n" + //
+                                                                                        "- Abandono temerario: cada vez que un combatiente aliado vaya a recibir una ficha de carga, puedes infligir 1 punto de daño a ese combatiente en lugar de darle una ficha de carga.\n" + //
+                                                                                        "- Dinamos fieles: las armas de los combatientes aliados tienen tambaleo.\n\n"+
+                                        "Explosión crepitante (Una vez por partida): Usa esto en un paso de Poder. Elige un luchador aliado. Ese luchador se mueve.\n\n"+
+                                        "Carga celestial (Una vez por partida): Usa esto inmediatamente después de tu paso de Acción. Elige un luchador aliado. Desinspíralo y luego inflige 1 punto de daño a un luchador enemigo adyacente.\n\n"+
+                                        "Resurrección resplandeciente (Una vez por partida): Úsalo inmediatamente después de tu fase de Acción. Elige un luchador aliado que fuera conductor durante esa fase. Cura a ese luchador.",
                 "Orden", "brethren_of_the_bolt_0");
 
         // Pater Frewin
@@ -992,9 +1004,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Zacarias
         insertFighterInternal(db, (int)brethrenBandId, "Zacarias", "brethren_of_the_bolt_5");
 
-        // --- Inserción de Cyreni's Razors (Ampliación) ---
+        // --- Inserción de Cyreni's Razors  ---
         long cyreniBandId = insertBandInternal(db, "Cyreni's Razors",
-                "Inspire: At the end of an action phase, if there are no enemy fighters in your territory.",
+                "Inspirar: Inspira a un número de luchadores amigos igual al de la ronda de batalla al comienzo de cada fase de combate.\n"+
+                "Desinspirar: Al comienzo de la ronda, desinspira a cada luchador amigo.\n\n"+
+                "Marea que arrolla (Habilidad Basica): Puedes usar esta habilidad si tu líder está en el campo de batalla y no tiene fichas de carga. Traza una línea recta desde el hexágono de tu líder que pase por el centro de un hexágono adyacente y llegue hasta el borde del campo de batalla. Inflige 1 punto de daño al primer luchador enemigo que cruce la línea y dale una ficha de Tambaleo. La línea termina si toca un hexágono bloqueado.\n\n"+
+                "Réplica mortal: Usa esto inmediatamente después de que un luchador enemigo falle un ataque dirigido a un Thrall aliado. Las armas de ese Thrall tienen Romper y Apresar durante el siguiente turno mientras ese combatiente enemigo sea el objetivo de un ataque.\n\n"+
+                "Tinta fantasmal: Úsalo inmediatamente después de que un combatiente enemigo falle un ataque dirigido a un Cephanyr aliado. Empuja a Cephanyr un número de hexágonos igual al de la ronda de combate.\n\n"+
+                "Cosecha de almas (Una vez por partida): Usa esto en una fase de poder. Elige un luchador enemigo inspirado. A continuación, tu oponente debe elegir una de las siguientes opciones: desinspirar a ese luchador o robar cartas de poder iguales a la ronda de batalla.",
                 "Orden", "cyrenis_razors_0");
 
         // Cyreni
@@ -1011,8 +1028,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Da Kunnin' Krew ---
         long kunninBandId = insertBandInternal(db, "Da Kunnin' Krew",
-                "Inspirar: Cuando este guerrero realiza una acción de Ataque que tiene como objetivo a un guerrero con uno o más contadores de Herida. \n" +
-                "Astucia Kruleboy: Reacciones y trucos sucios para controlar el tablero.",
+                "Inspirar: Tras un ataque exitoso de un luchador aliado, si el objetivo ha sido asesinado, flanqueado o rodeado, inspira al atacante y a cada luchador aliado adyacente al objetivo. \n\n" +
+                "Dolor en la rodilla: Si un Mannok o Torka aliado es el atacante, los secuaces aliados cuentan como 2 combatientes a la hora de determinar si un objetivo está flanqueado o rodeado.\n\n" + //
+                "Un plan astuto (Una vez por partida): Usa esto inmediatamente después de un paso de Acción si tu líder está en el campo de batalla. Empuja a cada esbirro amigo hasta un número de hexágonos igual al número de ronda de batalla.\n\n"+
+                "Trucos sucios (Una vez por partida): Usa esto inmediatamente antes de que tú o tu oponente hagáis una tirada de ataque o de salvación. Tu oponente debe declarar «Mejora» o «Ardid». Coge 3 cartas de poder de tu mano y barájalas boca abajo. Tu oponente debe elegir 1 de esas cartas. A continuación, revela cada una de esas cartas. Si la carta que ha elegido tu oponente coincide con lo que ha declarado, roba 1 carta de poder. De lo contrario, no se realiza la tirada de ataque o de salvación y debes establecer el resultado en cada dado.\n\n"+
+                "Acechadores tenebrosos (Una vez por partida): Úsalo inmediatamente después de que un luchador aliado sea elegido como objetivo de un ataque. Las tiradas de Flanqueado y Rodeado son éxitos en las tiradas de Salvacion realizadas por ese luchador para ese ataque.",
                 "Destruccion", "da_kunnin_krew_0");
 
         // Mannok Da Kunnin
@@ -1032,7 +1052,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Daggok's Stab-ladz ---
         long daggokBandId = insertBandInternal(db, "Daggok's Stab-ladz",
-                "Inspire: Daggok: deals damage to a second or subsequent fighter in the same phase. Hurrk: a friendly fighter he supports makes a successful attack. Grakk: makes the Snag reaction. Jagz: an enemy fighter with 1+ Wounds is taken out of action.",
+                "Inspirar: Inmediatamente después de infligir daño a un luchador enemigo con la habilidad Puñalada trapera, inspira al luchador aliado.\n\n"+
+                "Puñalada trapera: Un luchador aliado sin fichas de carga puede usar esta habilidad inmediatamente después de tu fase de acción. Elige un luchador enemigo que no sea vulnerable y que esté adyacente a ese luchador aliado y tira un dado de ataque. Si obtienes un martillo o un crítico, inflige 1 punto de daño a ese luchador enemigo. El mismo luchador no puede usar esta habilidad más de una vez por turno.\n\n"+
+                "¡Dos contra uno, idiota! (Una vez por partida): Úsalo inmediatamente después de tu fase de Acción. Puedes empujar a un luchador amigo 1 hexágono.\n\n"+
+                "Ladrón astuto (Una vez por parida): Úsala en un paso de Poder. Roba un número de cartas de Poder igual al número de combatientes enemigos dañados.\n\n"+
+                "Venenos repugnantes (Una vez por partida): Úsala inmediatamente después de un paso de Acción. Tira un dado por cada combatiente enemigo dañado. Si obtienes un resultado crítico, inflige 1 punto de daño a ese luchador.\n\n"+
+                "Tipejos arteros: En lugar de jugar un ardid en la fase de Poder de tu oponente, puedes descartar ardides para usar las habilidades que se indican a continuación. El número de Ardides que descartes determina qué habilidades se aplican en el siguiente turno. Los efectos son acumulativos y el efecto de cada habilidad dura hasta el final de tu siguiente turno.\n" + //
+                                        "\n" + //
+                                        "- Descartar 1: los combatientes amigos tienen +1 a Movimiento.\n" + //
+                                        "- Descartar 2: los combatientes enemigos están Flanqueados.\n" + //
+                                        "- Descartar 3: las armas de los combatientes amigos tienen +1 a los dados de Ataque.",
                 "Destruccion", "daggoks_stab_ladz_0");
 
         // Daggok Finksteala
@@ -1049,7 +1078,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Borgit's Beastgrabbaz ---
         long borgitBandId = insertBandInternal(db, "Borgit's Beastgrabbaz",
-                "Inspire: After this fighter delves. Trophy Huntaz: Pick enemy (3+ HP) at start, +1 Attack die vs them. Da Bait: If minion slain, push leader towards enemy.",
+                "Inspirar: Después de que un luchador aliado indague, inspira a ese luchador.\n\n"+
+                "Cazador de trofeos: Al comienzo de tu primera fase de acción en la primera ronda de combate, elige a un luchador enemigo con una característica de salud de 3 o más para que sea el trofeo. Los ataques cuerpo a cuerpo que tengan como objetivo al trofeo tienen +1 dado de ataque.\n\n"+
+                "Cebo: Inmediatamente después de que un esbirro aliado sea asesinado, empuja a tu líder un número de hexágonos igual a la característica de Salud del esbirro asesinado. Ese empujón debe terminar adyacente a un luchador enemigo.\n\n"+
+                "Gittish Taktikz (Una vez por partida): Usa esto inmediatamente después de un ataque exitoso de un Uglug aliado o un Borgit aliado. Hasta el final de la ronda de batalla, el objetivo de ese ataque es el mugginz. Las armas cuerpo a cuerpo de los secuaces aliados tienen critico Doloroso cuando apuntan al mugginz.\n\n"+
+                "Presencia tranquilizadora (Una vez por partida): Úsala inmediatamente después de tu fase de Acción si un Uglug aliado ha usado alguna habilidad básica en esa fase. Puedes empujar a cada esbirro aliado hasta 3 hexágonos. Cada luchador empujado de esta manera debe terminar ese empujón adyacente a un Uglug aliado.\n\n"+
+                "Apuñálalos bien (Una vez por partida): Usa esta habilidad inmediatamente después de tu fase de Acción si un esbirro aliado ha usado alguna habilidad básica en esa fase. Hasta el final de la siguiente fase de Acción, la primera vez que un luchador enemigo sea empujado, colocado o entre en cualquier hexágono adyacente a un esbirro aliado, inflige 1 punto de daño a ese luchador.",
                 "Destruccion", "borgits_beastgrabbaz_0");
 
         // Borgit Wolf-Killa
@@ -1066,11 +1100,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Rigg & Shamm
         insertFighterInternal(db, (int)borgitBandId, "Rigg & Shamm", "borgits_beastgrabbaz_5");
-
+//VOY POR AQUI
         // --- Inserción de Elathain's Soulraid ---
         long elathainBandId = insertBandInternal(db, "Elathain's Soulraid",
-                "Inspirar: Todos los guerreros se inspiran en la Ronda 2. \n" +
-                "Marea Creciente: Pueden mover/cargar incluso con ficha de movimiento.",
+                "Inspirar: Inspira a cada luchador aliado al comienzo de la segunda ronda de combate.\n" + //
+                                        "Desinspira a cada luchador aliado al comienzo de la tercera ronda de combate. \n\n" +
+                "Marea de muerte: \n"+
+                "Inundación: En la primera ronda de combate, inmediatamente después del ataque cuerpo a cuerpo de un luchador enemigo, dale al atacante una ficha de Tambaleo.\n"+
+                "Marea alta: En la segunda ronda de combate, los luchadores aliados tienen +1 a Movimiento.\n"+
+                "Marea baja En la tercera ronda de combate, las armas cuerpo a cuerpo de los luchadores aliados (excepto las mejoras) tienen Forcejeo.\n\n"+
+                "Arpón de marea: Usa esto inmediatamente después de elegir a Tammael para cargar. Las armas cuerpo a cuerpo de ese luchador (excluyendo las mejoras) tienen +1 dado de ataque para esa carga.\n\n"+
+                "Cosecha de almas: Úsalo inmediatamente después de que un luchador enemigo sea asesinado por tu líder con un arma que no sea una mejora, si un Tammael aliado esta muerto. Resucita a ese Tammael aliado y colócalo en un hexágono inicial en territorio aliado.\n\n"+
+                "Depredadores del mar etéreo: Úsalo inmediatamente después de que un Idoneth amigo use una habilidad básica. Empuja a cada esbirro amigo 1 hexágono más cerca de ese luchador.\n\n"+
+                "Formas fantasmales: Inmediatamente después de que un luchador enemigo realice un ataque exitoso que tenga como objetivo a un Fuirann amigo, ese Fuirann amigo puede usar Resistir.",
                 "Orden", "elathains_soulraid_0");
 
         // Elathain
@@ -1090,7 +1132,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Ylthari's Guardians ---
         long ylthariBandId = insertBandInternal(db, "Ylthari's Guardians",
-                "Inspire: A wound token is removed from this fighter (even if they have none).",
+                "Inspirar: Después de que un luchador aliado use una habilidad básica, puedes colocar 1 carta de poder de tu mano o la carta superior de tu mazo de poder boca abajo junto a este warscroll, hasta un máximo de 3. Estas cartas ya no están en tu mano ni en tu mazo de poder y no se pueden revelar.\n"+
+                "Al final de tu turno o después de que un luchador enemigo sea asesinado, puedes colocar 1 ficha de crecimiento en cada una de esas cartas. Después de colocar la quinta ficha de crecimiento en la misma carta, elige un combatiente aliado. Inspira a ese combatiente, retira esas fichas de crecimiento y luego añade esa carta a tu mano.\n\n"+
+                "Puedes usar 1 de las siguientes habilidades una vez por ronda de batalla.\n\n" + //
+                "El florecimiento: Usa esto inmediatamente después de tu fase de Acción. Elige un luchador aliado. Empuja a ese luchador X hexágonos, donde X es el número de luchadores aliados muertos. Si no hay luchadores aliados muertos, empuja a ese luchador 1 hexágono.\n\n"+
+                "La Cosecha: Usa esto inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Esa arma tiene +X dados de ataque para ese ataque, donde X es el número de combatientes aliados muertos. Si no hay combatientes aliados muertos, esa arma tiene +1 dado de ataque para ese ataque.\n\n"+
+                "El declive: Usa esto inmediatamente después de tu fase de Acción. Elige un luchador aliado. Retira ese luchador del campo de batalla y colócalo en un hexágono vacío adyacente a un luchador aliado.\n\n"+
+                "El crepusculo: Úsalo inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Esa arma tiene +X de daño para ese ataque, donde X es el número de combatientes aliados muertos.",
                 "Orden", "yltharis_guardians_0");
 
         // Ylthari
@@ -1107,7 +1155,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Emberwatch ---
         long emberwatchBandId = insertBandInternal(db, "The Emberwatch",
-                "Inspire: Varies by fighter.",
+                "Inspirar: Después de un paso de Acción, si un luchador aliado comenzó ese paso de Acción en territorio enemigo y utilizó una habilidad básica, inspira a ese luchador.\n\n"+
+                "¡Me quedo solo!: Puedes usar esto en el último paso de poder de una ronda de batalla. Elige un luchador aliado que se encuentre en un territorio diferente al de los demás luchadores aliados. Empuja a ese luchador 1 hexágono. Ese empujón no puede terminar adyacente a otro luchador aliado. Solo puedes usar esta habilidad una vez por ronda de batalla.\n\n"+
+                "Vanguard Dash (Una vez por partida): Usa esto inmediatamente después de tu paso de Acción. Elige un luchador aliado. Retira a ese luchador del campo de batalla y luego colócalo en un hexágono vacío del borde.\n\n"+
+                "Centinelas mortales (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte de un ataque. Esa arma tiene +1 de alcance para ese ataque.\n\n"+
+                "Aves rapaces de Sigmar (Una vez por partida): Usa esto inmediatamente después del ataque exitoso de un luchador aliado si el objetivo es vulnerable. Infringe 1 punto de daño al objetivo.",
                 "Orden", "the_emberwatch_0");
 
         // Ardorn Flamerunner
@@ -1121,7 +1173,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Zikkit's Tunnelpack ---
         long zikkitBandId = insertBandInternal(db, "Zikkit's Tunnelpack",
-                "Inspire: Varies by fighter (often related to upgrades or damage).",
+                "Inspirar: Después de una fase de Acción, si un luchador aliado ha sufrido daño o ha sido asesinado en esa fase, elige a otro luchador aliado. Inspira a ese luchador.\n\n"+
+                "¡Más y más poder!: Úsalo inmediatamente al comienzo de tu fase de Acción si cada luchador aliado tiene una ficha de Carga. Elige un luchador amigo. Retira las fichas de Movimiento y/o Carga de ese luchador. Después de ese paso de Acción, tira un dado de Ataque. Con un Martillo o un Crítico, ese luchador muere.\n\n"+
+                "Escurridizo (Una vez por partida): Usa esto inmediatamente después de tu paso de Acción. Elige un luchador aliado que no tenga fichas de Movimiento o Carga. Ese luchador se mueve.\n\n"+
+                "Carga deformada (Una vez por partida): Usa esto inmediatamente después de elegir un arma como parte de un ataque. Esa arma tiene las habilidades Romper, Apresar y Brutal para ese ataque. Después de resolver ese ataque, tira un dado de ataque. Con una espada o un crítico, inflige 2 puntos de daño al atacante.\n\n"+
+                "¡Kaboom! (Una vez por partida): Elige un esbirro aliado sin fichas de Carga para usar esta habilidad. Ese esbirro se mueve. A continuación, tira un número de dados de Ataque igual al número de ronda de batalla por cada luchador que se encuentre a 2 hexágonos de ese esbirro. Si la tirada contiene algún Martillo, inflige 1 punto de daño a ese luchador. Si la tirada contiene algún Crítico, inflige 2 puntos de daño a ese luchador. A continuación, ese esbirro muere.",
                 "Chaos", "zikkits_tunnelpack_0");
 
         // Zikkit Rockgnaw
@@ -1141,7 +1197,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Thricefold Discord ---
         long thricefoldBandId = insertBandInternal(db, "The Thricefold Discord",
-                "Inspire: Attack fails or wound token removed or fighter out of action.",
+                "Inspirar: Después de una tirada de ataque o de salvación de un luchador aliado que no contenga éxitos, o después de que un luchador aliado sea asesinado, inspira a otro luchador aliado.\n\n"+
+                "Banquete irresistible (Una vez por partida): Úsalo en tu fase de poder. Descarta 1 dado de tentación y luego inflige 1 punto de daño a un luchador enemigo que no sea vulnerable.\n\n"+
+                "Sentidos sublimes (Una vez por partida): Úsalo en tu fase de Poder. Descarta 1 dado de tentación y luego dale una ficha de Guardia a un luchador aliado.\n\n"+
+                "Pavane de Slaanesh (Una vez por partida): Úsalo en tu fase de Poder. Descarta 1 dado de tentación y luego elige un luchador aliado. Las tiradas de salvación de ese luchador no pueden verse afectadas por Romper y Apresar en el siguiente turno.\n\n"+
+                "Tentaciones de Slaanesh: Al comienzo de la primera fase de Acción de cada ronda de batalla, obtienes una reserva de 6 dados de tentación.\n" + //
+                                        "\n" + //
+                                        "Al final de la ronda de batalla, se pierden todos los dados de tentación que no se hayan ofrecido.\n" + //
+                                        "\n" + //
+                                        "Tentar...: Una vez por turno, inmediatamente después de que tu oponente falle una tirada de ataque, puedes ofrecerle un dado de tentación.\n" + //
+                                        "\n" + //
+                                        "Aceptar: Si tu oponente acepta tu oferta, debe sustituir 1 resultado fallido de esa tirada de ataque por un resultado exitoso (solo Martillo o Espadas). Los dados de ataque sustituidos de esta manera no se pueden volver a tirar ni modificar. A continuación, inmediatamente después de que se haya resuelto ese ataque, puedes elegir un luchador amigo que no fuera el objetivo. Empuja a ese luchador 1 hexágono.\n" + //
+                                        "\n" + //
+                                        "Rechazar: Si tu oponente rechaza tu oferta, inflige 1 punto de daño al atacante inmediatamente después de que se haya resuelto el ataque.",
                 "Chaos", "the_thricefold_discord_0");
 
         // Vexmor
@@ -1155,7 +1223,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Jaws of Itzl ---
         long jawsBandId = insertBandInternal(db, "Jaws of Itzl",
-                "Inspire: Savage Mauling or other conditions.",
+                "Inspirar: Después de infligir daño a un luchador enemigo en la fase de poder o en la fase de acción de tu oponente, elige un luchador amigo. Inspira a ese luchador.\n\n"+
+                "Luchadores depredadores: Úsalo inmediatamente después de que un luchador enemigo falle un ataque cuerpo a cuerpo si el objetivo era un saurus amigo y la tirada de salvación contenía algun escudo. Inflige 1 punto de daño a ese luchador enemigo.\n\n"+
+                "Control instintivo: Úsalo inmediatamente después de elegir un objetivo como parte de un ataque realizado por un saurus amigo. Elige un esbirro amigo sin fichas de Movimiento o Carga. Ese luchador puede moverse.\n\n"+
+                "Atacado salvaje (Una vez por partida): Úsalo en una fase de Poder. Elige un luchador enemigo adyacente a un saurus amigo dañado que no tenga fichas de Carga. Tira un dado de Ataque por cada ficha de daño que tenga ese luchador amigo. Infringe a ese luchador enemigo una cantidad de daño igual al número de espadas y criticos de la tirada. Cada vez que un luchador enemigo muera por esta habilidad, puedes usar esta habilidad una vez más en esta partida.\n\n"+
+                "Obstinado (Una vez por partida): Usa esto en un paso de Poder. Elige un saurio aliado. Ese luchador no podrá ser presionado hasta el final de la ronda de combate.",
                 "Orden", "jaws_of_itzl_0");
 
         // Kro-Jax
@@ -1172,7 +1244,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Grandfather's Gardeners ---
         long gardenersBandId = insertBandInternal(db, "Grandfather's Gardeners",
-                "Inspire: Spread the garden.",
+                "Inspirar: Después de un paso de Acción, si un luchador aliado es vulnerable, inspira a ese luchador.\n\n"+
+                "Plaga floreciente: Cuando un luchador aliado tiene la runa Jardinero en lugar de una característica de daño, es igual al espacio actual en tu marcador.\n\n"+
+                "Imperturbable: No se puede infligir más de 2 puntos de daño a los luchadores aliados sin inspiración en el mismo turno.\n\n"+
+                "Cosechar: Utilízalo inmediatamente después de colocar tu ficha en este espacio. Elige un luchador aliado. Cura a ese luchador.\n\n"+
+                "En la fase de «Preparación» de las bandas de guerra, coloca una ficha genérica en el espacio «Inicio» del marcador de este warscroll. Avanza esa ficha 1 espacio en el sentido de las agujas del reloj inmediatamente:\n" + //
+                                        "- Después de tu turno.\n" + //
+                                        "- Después de infligir daño a un luchador aliado.\n" + //
+                                        "- Después de tu turno si tu banda de guerra tiene más fichas de tesoro que tu oponente.",
                 "Chaos", "grandfathers_gardeners_0");
 
         // Phleghmus
@@ -1192,7 +1271,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Knives of the Crone ---
         long knivesBandId = insertBandInternal(db, "Knives of the Crone",
-                "Inspire: Prophecy fulfilled.",
+                "Inspirar: Si la Sabiduría predicha se predice tras un ataque exitoso de un luchador aliado como resultado de la habilidad Visiones en la sangre, inspira a ese luchador.\n\n"+
+                "Visiones de la sangre: Úsalo inmediatamente después de un ataque exitoso de un luchador aliado. Haz una tirada de profecía (consulta Rituales de profecía).\n\n"+
+                "Rituales de profecia: Al comienzo de la primera fase de acción de cada ronda de combate, puedes realizar una tirada de profecía lanzando 4 dados de ataque.\n" + //
+                                        "Si la tirada contiene 1 de los resultados de la tabla de profecías, esa profecía se predice.\n" + //
+                                        "Si la tirada contiene 2 resultados diferentes de la tabla de profecías, ambas profecías se predicen.\n" + //
+                                        "Si la tirada contiene 3 símbolos iguales, puedes elegir 1 profecía de la tabla de profecías. Esa profecía se predice.\n" + //
+                                        "Si la tirada contiene 4 símbolos iguales, puedes elegir 2 profecías diferentes de la tabla de profecías. Ambas profecías se predicen.\n" + //
+                                        "•\n" + //
+                                        "Si la tirada contiene algun critico, puedes sustituirlo por otro símbolo de tu elección .\n" + //
+                                        "Cuando se predice una profecía, utiliza inmediatamente su habilidad.\n\n"+
+                "TABLA DE PROFECÍAS\n"+
+                "Matanza predicha: la próxima vez que elijas un arma cuerpo a cuerpo como parte de un ataque en esta ronda de combate, esa arma tendrá un golpe crítico doloroso para ese ataque.\n"+
+                "Sabiduría predicha: Mira la carta superior de tu mazo de objetivos. Coloca esa carta en la parte superior o inferior de ese mazo.\n"+
+                "Protección predicha: La próxima vez que hagas una tirada de salvación en esta ronda de batalla, puedes volver a tirar inmediatamente 1 dado de salvación en esa tirada de salvación.",
                 "Orden", "knives_of_the_crone_0");
 
         // Kaerna Vix
@@ -1210,13 +1302,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Kainan's Reapers ---
         long kainanBandId = insertBandInternal(db, "Kainan's Reapers",
-                "Inspirar: Recolecta 3+ contadores de Diezmo.\n" +
-                "Diezmo de Hueso: Después de que un luchador enemigo sea eliminado, gana un número de fichas de diezmo de hueso igual a su característica de Recompensa. Después de tu paso de Acción, puedes elegir un luchador amigo y retirar un número de fichas de diezmo de hueso igual a su característica de Recompensa. Entonces, Inspira a ese luchador.\n" +
-                "Avance Mortek: Usa esto inmediatamente después de tu paso de Acción si Kainan o Khenta amigos usaron una habilidad Principal en ese paso de Acción. Cada esbirro amigo puede Moverse, pero cada uno debe terminar ese Movimiento adyacente a 1 o más luchadores amigos.\n" +
-                "Ultimátum Temible: Usa esto inmediatamente después de tu paso de Acción. Los luchadores amigos no pueden ser elegidos como objetivo de un Ataque en el siguiente paso de Acción a menos que sean tu líder. Solo puedes usar esta habilidad una vez por partida.\n" +
-                "Filas Inquebrantables: Usa esto inmediatamente después de elegir un arma como parte de un Ataque cuerpo a cuerpo. Si el objetivo está Flanqueado y/o Rodeado, ese arma tiene Heridas Graves para ese Ataque. Solo puedes usar esta habilidad una vez por partida.\n" +
-                "Postura de Monolito: Usa esto inmediatamente después de tu paso de Acción. Elige un número de esbirros amigos igual o menor al número de ronda de batalla. Dale a cada uno de esos luchadores una ficha de Guardia. Solo puedes usar esta habilidad una vez por partida.\n" +
-                "Asalto Implacable: Usa esto inmediatamente después de tu paso de Acción. Elige un esbirro amigo con cualquier ficha de Movimiento y/o Carga. Retira las fichas de Movimiento y/o Carga de ese luchador. Solo puedes usar esta habilidad una vez por partida.",
+                "Inspirar: Después de matar a un luchador enemigo, obtén un número de fichas de tributo óseo igual a su característica de Recompensa. Después de tu fase de Acción, puedes elegir un luchador aliado y retirar un número de fichas de tributo óseo igual a su característica de Recompensa. A continuación, inspira a ese luchador.\n\n" +
+                "Avance Mortek: Úsalo inmediatamente después de tu fase de acción si un Kainan o Khenta aliado ha usado una habilidad básica en esa fase de acción. Cada esbirro aliado puede moverse, pero cada uno debe terminar ese movimiento adyacente a uno o más esbirros aliados.\n\n" +
+                "Último aviso (Una vez por partida): Úsalo inmediatamente después de tu fase de acción. Los luchadores aliados no pueden ser elegidos como objetivo de un ataque en la siguiente fase de acción a menos que sean tu líder. Esta habilidad no se puede usar si Kainan es asesinado.\n\n" +
+                "Rangos inquebrantables por la disidencia (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte de un ataque cuerpo a cuerpo. Si el objetivo está flanqueado y/o rodeado, esa arma tiene Doloroso para ese ataque.\n\n" +
+                "Postura monolítica (Una vez por partida): Úsala inmediatamente después de tu fase de Acción. Elige un número de secuaces amigos igual o inferior al número de ronda de combate. Dale a cada uno de esos combatientes una ficha de Guardia.\n" +
+                "Asalto implacable (Una vez por partida): Úsala inmediatamente después de tu fase de Acción. Elige un esbirro aliado con fichas de Movimiento y/o Carga. Retira las fichas de Movimiento y/o Carga de ese luchador." ,
                 "Ossiarch Bonereapers", "kainans_reapers_0");
 
         // Mir Kainan
@@ -1225,22 +1316,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Binar Khenta
         insertFighterInternal(db, (int)kainanBandId, "Binar Khenta", "kainans_reapers_2");
 
-        // Morteks (Generic stats for simplicity, referencing specific names)
-        String[] morteks = {"Senha", "Karu", "Nohem", "Hakor"};
-        int mortekImgIdx = 3;
-        for (String mortekName : morteks) {
-            insertFighterInternal(db, (int)kainanBandId, mortekName, "kainans_reapers_" + mortekImgIdx);
-            mortekImgIdx++; // Assuming images are sequential or reused
-        }
+        // Morteks
+        insertFighterInternal(db, (int)kainanBandId, "Senha", "kainans_reapers_3");
+        insertFighterInternal(db, (int)kainanBandId, "Karu", "kainans_reapers_4");
+        insertFighterInternal(db, (int)kainanBandId, "Nohem", "kainans_reapers_5");
+        insertFighterInternal(db, (int)kainanBandId, "Hakor", "kainans_reapers_6");
 
         // --- Inserción de Khagra's Ravagers ---
         long khagraBandId = insertBandInternal(db, "Khagra's Ravagers",
-                "Inspirar: Después del último paso de Acción de una ronda de batalla, si hay 2 o más fichas de objetivo profanadas, Inspira a cada luchador amigo. \n" +
-                "Reino Arrasado: Puedes usar esta habilidad una vez por paso de Poder. Elige una ficha de objetivo controlada por un luchador amigo. Esa ficha de objetivo queda profanada hasta que sea volteada. \n" +
-                "Profanación Ritual: Inmediatamente después de que un luchador enemigo sea eliminado, si el atacante o el objetivo controlaban una ficha de objetivo, puedes elegir esa ficha de objetivo. Esa ficha de objetivo queda profanada hasta que sea volteada. \n" +
-                "Aprobación Oscura: Usa esto en un paso de Poder. Roba 1 carta de Poder por cada ficha de objetivo profanada. \n" +
-                "El Ojo de los Dioses: Elige 1 de lo siguiente: +1 a la Defensa para un objetivo amigo que controle un objetivo, o +1 Dado de ataque para un arma que tenga como objetivo a un enemigo que controle un objetivo. \n" +
-                "Avance Arrasador: Usa esto en un paso de Poder. Elige un luchador amigo. Empuja a ese luchador hasta un número de hexágonos igual al número de fichas de objetivo profanadas.",
+                "Inspirar: Después del último paso de Acción en una ronda de batalla, si hay 2 o más fichas de tesoro profanadas, inspira a cada luchador amigo. \n\n" +
+                "Reino Arrasado: Puedes usar esta habilidad una vez por paso de Poder. Elige una ficha de tesoro que controle un luchador amigo. Esa ficha de tesoro queda profanada hasta que se voltee. \n\n" +
+                "Profanación Ritual:  Inmediatamente después de que un luchador enemigo sea asesinado, si el atacante o el objetivo controlaba una ficha de tesoro, puedes elegir esa ficha de tesoro. Esa ficha de tesoro queda profanada hasta que se dé la vuelta. \n\n" +
+                "Aprobación Oscura (Una vez por partida): Úsalo en una fase de Poder. Roba 1 carta de Poder por cada ficha de tesoro profanada. \n\n" +
+                "El Ojo de los Dioses (Una vez por aprtida): Elige 1 de las siguientes opciones:\n\n" + //
+                                        "Úsalo inmediatamente después de que un luchador amigo que controle una ficha de tesoro sea elegido como objetivo de un ataque. El objetivo tiene +1 a la tirada de salvación para ese ataque.\n\n" + //
+                                        "Úsalo inmediatamente después de elegir a un luchador enemigo que controle una ficha de tesoro como objetivo de un ataque. El arma que elegiste para ese ataque tiene +1 dado de ataque para ese ataque. \n\n" +
+                "Avance devastador (Una vez por aprtida): Úsalo en una fase de Poder. Elige un luchador aliado. Empuja a ese luchador un número de hexágonos igual al número de fichas de tesoro profanadas. Ese empujón debe terminar en una ficha de tesoro y/o adyacente a un luchador enemigo.",
                 "Slaves to Darkness", "khagras_ravagers_0");
 
         // Khagra the Usurper
@@ -1257,7 +1348,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Kurnoth's Heralds ---
         long kurnothBandId = insertBandInternal(db, "Kurnoth's Heralds",
-                "Inspire: Attack from friendly territory.",
+                "Inspirar: Después de una fase de Acción, si un luchador aliado comenzó esa fase de Acción en territorio amigo y luego realizó un Ataque con éxito, inspira a ese luchador.\n\n"+
+                "Centinelas ágiles: Mientras se encuentran en territorio amigo, los luchadores aliados tienen la runa de vuelo y no pueden ser flanqueados (aunque sí pueden ser rodeados).\n\n"+
+                "La caza sin fin (Una vez por partida): Úsalo inmediatamente después de que un luchador amigo haya atacado. Puedes empujar al atacante hasta 2 hexágonos.\n\n"+
+                "Bolea de precisión (Una vez por partida): Úsala inmediatamente después del ataque a distancia de un Lenwythe aliado. Ese combatiente vuelve a atacar con la misma arma. El objetivo de ese ataque debe ser diferente al del primer ataque.\n\n"+
+                "Orgullo del heraldo (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte del ataque de tu líder. Esa arma tiene Romper y Apresar para ese ataque.",
                 "Sylvaneth", "kurnoths_heralds_0");
 
         // Ylarin
@@ -1271,7 +1366,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Mollog's Mob ---
         long mollogBandId = insertBandInternal(db, "Mollog's Mob",
-                "Inspire: Mollog takes 3+ damage.",
+                "Inspirar: Después de que tu líder reciba una ficha de daño, si tiene 4 o más fichas de daño, inspira a cada luchador amigo.\n\n"+
+                "Acechador: Cuando despliegues un Stalagsquig amigo, puedes colocarlo en un hexágono vacío que no contenga una ficha de característica y que no sea un hexágono inicial en territorio enemigo. Un Stalagsquig amigo no puede moverse, ser empujado ni ser retirado del campo de batalla a menos que sea asesinado. Siempre se considera que tiene una ficha de carga.\n\n"+
+                "Regeneración Troggot: Úsalo al final de cada ronda de batalla después de seguir la secuencia de la fase final. Cura a tu líder.\n\n"+
+                "Peligros antinaturales: Al comienzo del primer paso de acción de cada ronda de batalla, elige una de las siguientes opciones:\n"+
+                                        "Hasta el final de la ronda de batalla, los luchadores enemigos adyacentes a un esbirro amigo quedan rodeados.\n" + //
+                                        "Hasta el final de la ronda de combate, cada vez que un luchador enemigo sea colocado, empujado o entre en un hexágono adyacente a un esbirro amigo, dale a ese luchador enemigo una ficha de tambaleo.\n" + //
+                                        "Hasta el final de la ronda de combate, la primera vez que cada luchador enemigo sea colocado, empujado o entre en un hexágono adyacente a un esbirro amigo, tira un dado de Ataque. Con un martillo o critico , inflige 1 daño a ese luchador.\n\n"+
+                "Seguir: Úsalo inmediatamente después de que tu líder se mueva. Elige a otro luchador aliado. Empuja a ese luchador hasta 2 hexágonos. Ese empujón debe terminar adyacente a tu líder o adyacente a un luchador enemigo que esté adyacente a tu líder.\n\n"+
+                "Infestación (Una vez por partida): Úsalo en una fase de poder. Elige un esbirro aliado muerto. Resucita a ese luchador, colócalo en un hexágono inicial vacío y dale una ficha de carga.",
                 "Gloomspite Gitz", "mollogs_mob_0");
 
         // Mollog the Mighty
@@ -1288,24 +1391,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Ephilim's Pandaemonium ---
         long ephilimBandId = insertBandInternal(db, "Ephilim's Pandaemonium",
-                "Inspire: Raise enough Inspired Minions.",
+                "Inspirar: Si hay 2 o más esbirros aliados inspirados, inspira a tu líder.\n\n"+
+                "Cambio glorioso: Inmediatamente después del primer paso de acción de cada ronda de batalla, elige un esbirro aliado. Inspira a ese luchador. A continuación, elige un esbirro aliado. Dale a ese luchador una ficha de tambaleo.\n\n"+
+                "Succionador de poder: Inmediatamente después de que un esbirro aliado dentro de 2 hexágonos de tu líder sea asesinado, puedes robar 1 carta de Poder.\n\n"+
+                "Abominaciones invocadas: Usa esto inmediatamente después de tu último paso de acción de cada ronda si tu líder no esta muerto. Elige un esbirro aliado asesinado. Resucita a ese luchador y colócalo en un hexágono inicial en territorio aliado. A continuación, inflige daño a ese luchador hasta que sea vulnerable.\n\n"+
+                "Fuegos del cambio (Una vez por partida): Úsalo inmediatamente después de un ataque a distancia exitoso de un luchador amigo. Dale a cada luchador enemigo adyacente al objetivo 1 ficha de deformación. Después del primer paso de acción de tu oponente en la siguiente ronda de batalla, retira cada ficha de deformación de cada luchador enemigo, una por una. Después de retirar las fichas de un luchador de esta manera, inflige 1 punto de daño a ese luchador.\n\n"+
+                "Mutaciones compartidas (Una vez por partida): Úsala inmediatamente después de tu fase de Acción. Inflige 1 punto de daño a cada luchador enemigo adyacente a cualquier esbirro amigo .",
                 "Disciples of Tzeentch", "ephilims_pandaemonium_0"); // Assuming image exists
 
         // Ephilim
         insertFighterInternal(db, (int)ephilimBandId, "Ephilim the Unknowable", "ephilims_pandaemonium_1");
 
         // Minions (Apo'trax, Spawnmaw, Kindlefinger, Flamespooler)
-        String[] ephilimMinions = {"Apo'trax", "Spawnmaw", "Kindlefinger", "Flamespooler"};
-        int ephMinIdx = 2;
-        for (String minion : ephilimMinions) {
-            insertFighterInternal(db, (int)ephilimBandId, minion, "ephilims_pandaemonium_" + ephMinIdx);
-            ephMinIdx++;
-        }
+        insertFighterInternal(db, (int)ephilimBandId, "Apo'trax", "ephilims_pandaemonium_2");
+        insertFighterInternal(db, (int)ephilimBandId, "Spawnmaw", "ephilims_pandaemonium_3");
+        insertFighterInternal(db, (int)ephilimBandId, "Kindlefinger", "ephilims_pandaemonium_4");
+        insertFighterInternal(db, (int)ephilimBandId, "Flamespooler", "ephilims_pandaemonium_5");
 
 
         // --- Inserción de Gorechosen of Dromm ---
         long gorechosenBandId = insertBandInternal(db, "Gorechosen of Dromm",
-                "Inspire: Ultimate act of violence.",
+                "Inspirar: Después de una fase de Acción, si tienes 8 o más fichas de tributo de sangre, inspira a cada luchador amigo.\n\n"+
+                "El tributo de sangre: Inmediatamente después de se le inflija daño a un luchador, obtén 1 ficha de tributo de sangre.\n\n"+
+                "Ajuste de cuentas brutales: Inmediatamente después de que un combatiente enemigo sea asesinado, obtén un número de fichas de tributo de sangre igual a la característica de Recompensa de ese combatiente.\n\n"+
+                "Llamada de la sangre (Una vez por partida): Úsalo en una fase de Poder. Elige 2 combatientes sin fichas de Movimiento o Carga. Empuja a cada combatiente 1 hexágono para que queden adyacentes. Puedes descartar 1 de tus fichas de tributo de sangre antes de cada empujón. Si lo haces, puedes empujar a ese luchador 2 hexágonos en su lugar.\n\n"+
+                "Enfurecer (Una vez por partida): Úsalo en una fase de poder. Descarta 8 fichas de tributo de sangre y luego elige un luchador enemigo. Tu oponente resuelve una carga para ese luchador.\n\n"+
+                "Frenesí final (Una vez por partida): Úsala inmediatamente después de infligir daño a un luchador aliado si ese luchador fuera a morir. Descarta cualquier cantidad de tus fichas de tributo de sangre. Tira un dado de ataque por cada ficha descartada de esta manera. Con un critico, quita las fichas de daño de ese luchador hasta que quede vulnerable. Ese luchador muere al final de la ronda de combate.",
                 "Blades of Khorne", "gorechosen_of_dromm_0");
 
         // Dromm
@@ -1319,23 +1430,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Grinkrak's Looncourt ---
         long grinkrakBandId = insertBandInternal(db, "Grinkrak's Looncourt",
-                "Inspire: Complete Quest objectives.",
+                "Misiones: Antes de que un luchador aliado utilice una habilidad básica, puedes elegir una misión que aún no hayas intentado. Una vez completada la misión, utiliza inmediatamente su habilidad de recompensa. No puedes intentar varias misiones al mismo tiempo. Puedes abandonar una misión en una fase de poder en lugar de jugar una carta de poder.\n\n"+
+                "Te nombro...: Puedes usar esta habilidad una vez por ronda de combate antes de que un Loonknight aliado use una habilidad básica. Ese luchador queda nombrado hasta el final de la ronda de combate.\n\n"+
+                "Misión conquista el reino: Completa esta misión después de una fase de acción si tu banda controla 2 o más fichas de tesoro y controla más fichas de tesoro que la banda de tu oponente. Recompensa: puedes inspirar a un Loonknight aliado. Si un luchador aliado nombrado controla una ficha de tesoro cuando completas esta misión, también puedes inspirar a tu líder y luego robar hasta 2 cartas de poder.\n\n"+
+                "Misión avanza y golpea: Si eliges esta misión, los luchadores aliados nombrados tienen +1 de movimiento durante el resto de la partida. Completa esta misión después de un paso de acción si hay 2 o más luchadores aliados en territorio enemigo. Recompensa: puedes inspirar hasta a 2 Loonknights aliados. Si tu líder se encuentra en territorio enemigo cuando completas esta misión, también puedes inspirar a tu líder.\n\n"+
+                "Misión mata a las hordas: Si eliges esta misión, las armas cuerpo a cuerpo de los combatientes aliados tendrán +1 dado de ataque durante el resto de la partida. Completarás esta misión tras una fase de Acción si muere algún combatiente enemigo con una característica de Recompensa total de 2 o más. Recompensa: puedes inspirar a un luchador aliado. Si alguno de esos luchadores enemigos ha muerto por el ataque de un luchador aliado nombrado, puedes inspirar a un Loonknight aliado y a tu líder en su lugar.\n\n"+
+                "Misión matar al dedo aterrador: Si eliges esta misión, durante el resto de la partida, las armas cuerpo a cuerpo de los luchadores aliados nombrados tienen Doloroso si el objetivo tiene una característica de Recompensa de 2 o más. Completa esta misión tras una fase de Acción si un luchador enemigo con una característica de Recompensa de 2 o más es asesinado. Recompensa: puedes inspirar hasta a 2 Loonknights aliados y a tu líder.",
                 "Gloomspite Gitz", "grinkraks_looncourt_0");
 
         // Grinkrak
         insertFighterInternal(db, (int)grinkrakBandId, "Grinkrak the Great", "grinkraks_looncourt_1");
 
-        // The Looncourt (Generic stats for minions)
-        String[] looncourt = {"Snorbo da Spore", "Pokin' Snark", "Pointy Burk", "Moonface Nagz", "Skolko and Pronk", "Grib"};
-        int loonIdx = 2;
-        for (String loon : looncourt) {
-            insertFighterInternal(db, (int)grinkrakBandId, loon, "grinkraks_looncourt_" + loonIdx);
-            loonIdx++;
-        }
+        // The Looncourt
+        insertFighterInternal(db, (int)grinkrakBandId, "Snorbo da Spore", "grinkraks_looncourt_2");
+        insertFighterInternal(db, (int)grinkrakBandId, "Pokin' Snark", "grinkraks_looncourt_3");
+        insertFighterInternal(db, (int)grinkrakBandId, "Pointy Burk", "grinkraks_looncourt_4");
+        insertFighterInternal(db, (int)grinkrakBandId, "Moonface Nagz", "grinkraks_looncourt_5");
+        insertFighterInternal(db, (int)grinkrakBandId, "Skolko and Pronk", "grinkraks_looncourt_6");
+        insertFighterInternal(db, (int)grinkrakBandId, "Grib", "grinkraks_looncourt_7");
 
         // --- Inserción de Hexbane's Hunters ---
         long hexbaneBandId = insertBandInternal(db, "Hexbane's Hunters",
-                "Inspire: (Hexbane) Attack takes enemy out of action. (Others) Various conditions linked to Hexbane or deaths.",
+                "Inspirar: Después de que un agente Azyrite aliado sea asesinado, puedes elegir un agente Azyrite aliado. Inspira a ese luchador. Después de que un Pock aliado sea asesinado, inspira a cada esbirro aliado.\n\n"+
+                "Herramientas del oficio: Suma la característica de recompensa total de los agentes Azyrite aliados asesinados a tus puntos de gloria totales para determinar cuántas mejoras pueden equipar los luchadores aliados.\n\n"+
+                "Marcado para la venganza: Inmediatamente después de que un agente Azyrite aliado sea asesinado por un luchador enemigo, ese luchador enemigo queda marcado. Los demás luchadores enemigos marcados dejan de estarlo. Puedes volver a tirar 1 dado en una tirada de ataque si el objetivo está marcado. Después de que un luchador enemigo marcado sea asesinado, puedes eliminar todas las fichas de movimiento y/o carga de un luchador aliado o robar 1 carta de poder.\n\n"+
+                "Manada unida: Inmediatamente después de que el primer esbirro amigo sea asesinado, debes sumar 1 a la característica Recompensa del otro esbirro amigo.\n\n"+
+                "Sabuesos leales: Úsalo inmediatamente después de que un agente Azyrite aliado se mueva. Elige un esbirro aliado sin fichas de Carga. Ese luchador puede moverse.\n\n"+
+                "Guardián de la sangre del mártir (Una vez por partida): Úsalo inmediatamente después de que un agente azyrita aliado sea elegido como objetivo de un ataque. El atacante no puede usar habilidades de arma para ese ataque.",
                 "Order of Azyr", "hexbanes_hunters_0");
 
         // Haskel Hexbane
@@ -1358,7 +1479,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Ironsoul's Condemners ---
         long ironsoulBandId = insertBandInternal(db, "Ironsoul's Condemners",
-                "Inspire: Roll a Crit in attack or defence.",
+                "Inspirar: Inmediatamente después de realizar una tirada de ataque o una tirada de salvación para un luchador aliado, si dicha tirada incluía algun critico, inspira a ese luchador.\n\n"+
+                "Bastion contra la oscuridad: Los luchadores aliados sin fichas de Movimiento y/o Carga no pueden ser presionados.\n\n"+
+                "Golpe castigador (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte de un ataque de un Brodus aliado. Esa arma tiene +X dados de ataque, donde X es igual a la ronda de batalla.\n\n"+
+                "Escudo cargado de éter (Una vez por partida): Úsalo inmediatamente después de que tu oponente elija un arma como parte de un ataque que tenga como objetivo un escudo etérico aliado. Las habilidades de las armas no se pueden usar para ese ataque.\n\n"+
+                "Maza cargada de energía etérea (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte de un ataque de un escudo etéreo amigo. Esa arma tiene +1 de alcance para ese ataque.",
                 "Stormcast Eternals", "ironsouls_condemners_0");
 
         // Gwynne Ironsoul
@@ -1372,7 +1497,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Morgok's Krushas ---
         long morgokBandId = insertBandInternal(db, "Morgok's Krushas",
-                "Inspire: Have 2+ WAAAGH! counters.",
+                "Inspirar: En una fase de poder, en lugar de jugar una carta de poder, puedes elegir un luchador aliado con 3 o más fichas de Waaagh! Quita 3 fichas de Waaagh! de ese luchador y luego inspíralo.\n\n"+
+                "Energía ¡WAAAGH!: Úsalo inmediatamente después de que un luchador amigo ataque o un luchador enemigo ataque y un luchador amigo sea el objetivo de ese ataque. Dale a ese luchador amigo una ficha Waaagh!\n\n"+
+                "Tierra muerta (Una vez por partida): Úsalo inmediatamente después de que se inflija daño a un luchador amigo con fichas Waaagh! como parte de un ataque. Retira hasta 2 fichas Waaagh! de ese luchador. Por cada ficha Waaagh! que retires, elige 1 de las siguientes opciones:.\n" + //
+                                        " Dale a ese luchador amigo una ficha de Guardia.\n"+
+                                        " Dale al atacante una ficha de tambaleo.\n\n"+
+                "¡Cállate, enano! (Una vez por partida): Úsalo inmediatamente después de que un oponente juegue un ardid. Retira hasta 2 fichas de ¡Waaagh! de un luchador aliado y luego tira un dado de Ataque por cada ficha que hayas retirado. Si la tirada contiene un martillo o un critico, ese ardid no tiene efecto.\n\n"+
+                "¡Muévete, gitz! (Una vez por partida): Úsalo en una fase de Poder. Dale a tu líder una ficha de Carga. A continuación, empuja a cada luchador aliado hasta un número de hexágonos igual al número de ronda de batalla.",
                 "Ironjawz", "morgoks_krushas_0");
 
         // Morgok
@@ -1386,7 +1517,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Myari's Purifiers ---
         long myariBandId = insertBandInternal(db, "Myari's Purifiers",
-                "Inspire: Roll contains only successes.",
+                "Inspirar: Después de realizar una tirada de ataque o una tirada de salvación para un luchador aliado, si todos los resultados han sido exitosos, inspira a ese luchador.\n\n"+
+                "Reserva de cuarzo éter: Después de desplegar a un luchador aliado, dale una ficha de cuarzo éter. Un luchador aliado que tenga una ficha de cuarzo éter puede usar la habilidad Sentidos agudizados:\n" + //
+                                        "Sentidos agudizados: úsala inmediatamente después de realizar una tirada de ataque o una tirada de salvación. Descarta la ficha de cuarzo etéreo de este combatiente. Vuelve a tirar cualquier dado de esa tirada de ataque o de salvación.\n\n"+
+                "Corona cegadora: Si un Myari aliado tiene una ficha de cuarzo etéreo al comienzo de un turno, tiene +1 a la salvación hasta el final de ese turno.\n\n"+
+                "Resistente como una roca: Mientras un Bahannar aliado tenga una ficha de cuarzo etéreo, no puede ser empujado por las habilidades enemigas.\n\n"+
+                "Puntería impecable: Mientras una Senaela amiga tenga una ficha de cuarzo etéreo, sus armas a distancia tienen Brutal y Apresar.\n\n"+
+                "Golpe magistral: Mientras un Ailenn amigo tenga una ficha de cuarzo etéreo, cuando ataque con un arma cuerpo a cuerpo, el objetivo esta Flanqueado.",
                 "Lumineth Realm-lords", "myaris_purifiers_0");
 
         // Myari Lightcaller
@@ -1403,9 +1540,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Rippa's Snarlfangs ---
         long rippaBandId = insertBandInternal(db, "Rippa's Snarlfangs",
-                "Inspirar: Rippa: Tiene 2 o más mejoras. Stabbit/Mean-Eye: El líder es objetivo de un ataque. \n" +
-                "Salto Feroz: La banda puede atacar desde 6\" (en lugar de 3\") y moverse 3\" extra. \n" +
-                "Mordiscos de Snarlfang: Reacción. Después de una acción de Ataque, realiza un ataque extra con el Snarlfang.",
+                "Inspirar: Después de un paso de poder, si un luchador aliado está equipado con 2 o más mejoras, inspira a ese luchador. Después de que un luchador aliado ataque de nuevo como resultado de la habilidad de arma «Fauces de Snarlfang», si ese ataque tiene éxito, inspira a ese luchador. \n\n" +
+                "Si el arma de un luchador aliado tiene la habilidad de arma Fauces de Snarlfang, puedes usar la siguiente habilidad de arma: \n" +
+                "Fauces de Snarlfang: Si el ataque tiene éxito, el atacante puede volver a atacar inmediatamente utilizando el arma correspondiente que se indica a continuación. El objetivo de ese ataque debe ser el mismo que el del primer ataque. Estas armas no se pueden modificar.\n\n"+
+                "Tácticas de manada (Una vez por partida): Utiliza esto en tu fase de poder. Elige un luchador enemigo. Empuja a cada luchador amigo 1 hexágono más cerca de ese luchador.\n\n"+
+                "Olor a debilidad (Una vez por partida): Usa esto en un paso de poder. En el siguiente turno, las tiradas de flaqueado y rodeado no cuentan como éxitos en las tiradas de ataque o de salvación para los luchadores enemigos adyacentes a cualquier luchador amigo.\n\n"+
+                "Agacharse y esquivar (Una vez por partida): Úsalo inmediatamente después de que un luchador aliado sea elegido como objetivo de un ataque. Las tiradas de salvación realizadas por ese luchador para ese ataque cuentan como si tuvieran más criticos que la tirada de ataque a efectos de presionar.",
                 "Gloomspite Gitz", "rippas_snarlfangs_0");
 
         // Rippa Narkbad
@@ -1419,12 +1559,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Sepulchral Guard ---
         long sepulchralBandId = insertBandInternal(db, "Sepulchral Guard",
-                "Inspirar: Inmediatamente después de dar a un luchador amigo una ficha de Resurrección, Inspira a ese luchador. Después de dar a luchadores amigos 3+ fichas de Resurrección, Inspira a tu líder. \n" +
-                "¡Adelante!: Elige al líder (sin Carga). Elige hasta otros 2 luchadores amigos. Esos luchadores se Mueven inmediatamente. \n" +
-                "¡Levantaos!: Elige al líder (sin Carga). Elige hasta 2 luchadores amigos eliminados. Resucítalos y colócalos en hexágonos iniciales vacíos en tu territorio. \n" +
-                "Manos Aferradoras (Una vez por partida): Después de elegir un objetivo para un Ataque, ese objetivo está Rodeado para ese Ataque. \n" +
-                "Reforma Sorprendente (Una vez por partida): Paso de poder. Coloca al líder adyacente a 2 luchadores amigos. Dale al líder una ficha de Carga. \n" +
-                "Metralla de Hueso (Una vez por partida): Después de que un luchador amigo (sin ficha de Resurrección) sea eliminado por un Ataque cuerpo a cuerpo, inflige 1 de daño al atacante.",
+                "Inspirar: Inmediatamente después de dar una ficha de resucitado a un luchador aliado, inspira a ese luchador. Después de dar a los luchadores aliados tres o más fichas de resucitado, inspira a tu líder. \n\n" +
+                "¡Adelante! (accion Basica): Elige a tu líder para usar esta habilidad si no tiene fichas de Carga. Elige hasta otros 2 luchadores aliados. Esos luchadores se mueven inmediatamente. \n\n" +
+                "¡Levantaos! (accion Basica): Elige a tu líder (MM) para usar esta habilidad si no tiene fichas de Carga. Elige hasta 2 luchadores aliados muertos. Resucita a esos luchadores y colócalos en diferentes hexágonos de inicio vacíos de tu territorio. \n\n" +
+                "Manos agarradoras: (Una vez por partida): Usa esto inmediatamente después de elegir un objetivo como parte de un ataque. Ese objetivo queda rodeado para ese ataque. \n\n" +
+                "Reforma Sorprendente (Una vez por partida): Úsalo en tu fase de Poder. Retira a tu líder del campo de batalla y colócalo en un hexágono vacío adyacente a 2 luchadores amigos. A continuación, dale a tu líder una ficha de Carga. \n\n" +
+                "Metralla ósea: (Una vez por partida): Úsala inmediatamente después de que un luchador amigo sin fichas de resucitado sea asesinado por un ataque cuerpo a cuerpo realizado por un luchador enemigo. Inflige 1 punto de daño a ese luchador enemigo.",
                 "Soulblight Gravelords", "sepulchral_guard_0");
 
         // Sepulchral Warden
@@ -1450,8 +1590,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Sons of Velmorn ---
         long velmornBandId = insertBandInternal(db, "Sons of Velmorn",
-                "Inspirar: Realiza un ataque con Crítico o apoya a un amigo que saque Crítico. \n" +
-                "Comando Mortal: Reacción. Después de un ataque exitoso de un amigo con fichas de Apoyo, otro amigo adyacente al objetivo puede atacar.",
+                "Inspirar: Tras un ataque exitoso de un luchador aliado, inspira al atacante y a cada luchador aliado adyacente al objetivo. \n\n" +
+                "Orden Mortal: Úsala inmediatamente después de que tu líder utilice una habilidad básica. Dale a ese luchador una ficha de orden. \n" + //
+                                        "Mientras tu líder tenga fichas de mando, cada vez que realices una tirada de ataque para un Grave Guard aliado, tu líder se considerará adyacente al objetivo. Retira todas las fichas de mando al final de cada ronda de batalla.\n\n"+
+                "Resurgir: Elige a tu líder para usar esta habilidad si no tiene fichas de carga. Quítale 1 ficha de mando y luego elige a un Grave Guard aliado muerto. Resucita a ese luchador y colócalo en un hexágono inicial en territorio aliado. \n\n"+
+                "¡Levantad los escudos!: Usa esto inmediatamente después del ataque de un luchador enemigo si el objetivo era un baluarte amigo y la tirada de salvación contenía algun critico. Dale a ese luchador amigo una ficha de guardia.\n\n"+
+                "La maldición de Velmorn: Úsala inmediatamente después de que un luchador aliado con una ficha de Resucitado sea asesinado por un atacante adyacente a él. Inflige 1 punto de daño al atacante.\n\n"+
+                "Rapidez sorpresa (Una vez por partida): Úsalo en una fase de Poder. Los luchadores aliados tienen +2 a Movimiento en el siguiente turno.",
                 "Soulblight Gravelords", "sons_of_velmorn_0");
 
         // King Velmorn
@@ -1471,7 +1616,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Farstriders ---
         long farstridersBandId = insertBandInternal(db, "The Farstriders",
-                "Inspire: Make two attack actions in a phase.",
+                "Inspirar: Inmediatamente después del segundo ataque de un luchador aliado en la misma fase de combate y de haber elegido un arma diferente para esos ataques, inspira a ese luchador.\n\n"+
+                "Vanguardia: Úsalo inmediatamente después de que un luchador aliado vulnerable inspirado en territorio enemigo haya usado una habilidad básica. Elige una opción:.\n" + //
+                                        "- Desinspira y cura a ese luchador. Durante el resto de la ronda de combate, este luchador no puede ser curado ni inspirado.\n" + //
+                                        "- Elige un luchador enemigo dentro de 3 hexágonos de este luchador y tira un número de dados de ataque igual al de la ronda de combate. Con una tirada de o más, inflige 1 punto de daño a ese luchador.\n\n"+
+                "Explorador de elite (Una vez por partida): Úsala inmediatamente después de tu fase de acción. Empuja a cada luchador aliado un número de hexágonos igual al de la ronda de combate. Esos empujones deben terminar en territorio enemigo.\n\n"+
+                "¡Adelante, vanguardia! (Una vez por partida): Úsala inmediatamente después de tu fase de acción. Elige un luchador aliado que no se encuentre en territorio enemigo y que no esté adyacente a ningún luchador enemigo. Ese luchador aliado puede moverse.\n\n"+
+                "Detrás de las líneas enemigas (Una vez por partida): Úsalo inmediatamente después de tu fase de acción. Elige un luchador aliado dañado en territorio enemigo. Dale a ese luchador una ficha de guardia.",
                 "Stormcast Eternals", "the_farstriders_0");
 
         // Sanson Farstrider
@@ -1485,7 +1636,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Headsmen's Curse ---
         long headsmenBandId = insertBandInternal(db, "The Headsmen's Curse",
-                "Inspire: 3+ Condemned counters on card.",
+                "Inspirar: Después de una fase de Acción, si se ha infligido daño a algún luchador enemigo condenado por el ataque de un luchador amigo, inspira a ese luchador amigo.\n\n"+
+                "Juicio y Ejecución: Al comienzo de tu primera fase de Acción en cada ronda de batalla, puedes elegir a un luchador enemigo que se encuentre a 5 hexágonos de un Scriptor of the Sentence amigo para condenarlo durante esa ronda de batalla. Después de que un luchador enemigo condenado sea asesinado, puedes robar un número de cartas de poder igual a la característica de recompensa de ese luchador.\n\n"+
+                "Deber eterno (Una vez por partida): Úsalo inmediatamente después de que un luchador enemigo sea asesinado por el arma de tu líder. Elige un luchador aliado muerto. Resucita a ese luchador y colócalo en un hexágono vacío adyacente a tu líder.\n\n"+
+                "Afilar la espada (Una vez por partida): Úsala inmediatamente después de elegir un arma como parte del ataque de tu líder si está adyacente a un Sharpener of the Blade aliado. Esa arma tiene Doloroso para ese ataque.\n\n"+
+                "Desencarnarse (Una vez por partida, habilidad Basica): Elige un luchador aliado para usar esta habilidad básica. Retira ese luchador del campo de batalla y colócalo en un hexágono vacío.\n\n"+
+                "Corte risueña (Una vez por partida): Úsala inmediatamente después de elegir a un luchador enemigo como objetivo de un ataque si ese luchador está flanqueado y/o rodeado. Las tiradas de espadas y martillo son éxitos en esa tirada de ataque.",
                 "Nighthaunt", "the_headsmens_curse_0");
 
         // Wielder of the Blade
@@ -1502,7 +1658,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Shadeborn ---
         long shadebornBandId = insertBandInternal(db, "The Shadeborn",
-                "Inspire: Attack enemy in cover or be in cover.",
+                "Inspirar: Inmediatamente después de que un luchador aliado ataque a un luchador enemigo dañado, inspira a ese luchador aliado.\n\n"+
+                "Marca sombía: Cada vez que realices una tirada de salvación para un luchador aliado en territorio enemigo o en una ficha de cobertura, puedes volver a tirar 1 dado de salvación en esa tirada.\n\n"+
+                "Gloomweb Hex (Una vez por partida): Úsalo en un paso de poder. Los luchadores enemigos que estén adyacentes o sobre una ficha de rasgo en el siguiente turno tienen -1 dados de salvación.\n\n"+
+                "Lamprea oscura (Una vez por partida): Úsalo en una fase de poder. Elige un luchador enemigo que no sea vulnerable y que se encuentre a 3 hexágonos de un luchador amigo. Infringe 1 punto de daño a ese luchador.\n\n"+
+                "Oscuridad impenetrable (Una vez por partida): Úsalo en una fase de poder. Dale a cada luchador amigo una ficha de sombra. Los luchadores con fichas de sombra se tratan como si estuvieran en una ficha de cobertura. Retira todas las fichas de sombra al final de la ronda de combate.\n\n"+
+                "Emboscada en las sombras (Una vez por partida): Usa esta habilidad inmediatamente después de que un luchador aliado sea elegido para moverse si ese luchador se encuentra sobre una ficha de cobertura. Retira a ese luchador del campo de batalla y colócalo en un hexágono vacío en territorio enemigo. A continuación, dale a ese luchador una ficha de movimiento.",
                 "Daughters of Khaine", "the_shadeborn_0");
 
         // Slythael Shadestalker
@@ -1519,8 +1680,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Skinnerkin ---
         long skinnerkinBandId = insertBandInternal(db, "The Skinnerkin",
-                "Inspirar: 3+ contadores de Anca en la tarjeta de banda. \n" +
-                "Recolección: Gana contadores al eliminar enemigos o controlar objetivos.",
+                "Inspirar: Después de obtener tu tercera ficha de cuarto trasero o las siguientes, inspira a cada luchador aliado. \n\n" +
+                "Cortes de primera calidad: Inmediatamente después de que un luchador enemigo flanqueado o rodeado sea asesinado, obtén una ficha de muslo. Inmediatamente después de que un chef aliado realice un ataque con éxito, obtén una ficha de muslo. Si el arma de un luchador aliado tiene la runa, tienes acceso a la siguiente habilidad de arma:\n" + //
+                                        "Filete: si el ataque tuvo éxito, obtén una ficha de muslo.\n\n"+
+                "Garras afiladas: Úsalo inmediatamente después de que un Carnskyr amigo se mueva. Elige un luchador enemigo en un hexágono por el que haya pasado el Carnskyr y tira un dado de ataque. Con un martillo, inflige 1 punto de daño a ese luchador y obtén una ficha de muslo. Con una espada o un critico, puedes empujar a ese luchador hasta 1 hexágono.\n\n"+
+                "Puedes usar 1 de las siguientes habilidades por turno.\n"+
+                "Prueba de sabor: Úsala inmediatamente después de resolver una habilidad básica para un luchador aliado. Descarta una ficha de muslo y luego inspira a ese luchador.\n"+
+                "¡Este está arruinado, tráeme otro!: Úsalo inmediatamente después de realizar una tirada de ataque para un luchador aliado. Descarta una ficha de muslo y luego vuelve a tirar 1 dado de ataque en esa tirada de ataque.\n"+
+                "¡El rey tiene hambre!: Úsalo inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Descarta una ficha de muslo. Esa arma tiene Doloroso para ese ataque.\n"+
+                "Mordisco rápido: Úsalo en una fase de poder. Descarta una ficha de muslo y elige a un luchador aliado. Cura a ese luchador.",
                 "Flesh-eater Courts", "the_skinnerkin_0");
 
         // Gristla Tenderhooke
@@ -1540,7 +1708,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de The Starblood Stalkers ---
         long starbloodBandId = insertBandInternal(db, "The Starblood Stalkers",
-                "Inspire: Hold 3 or more objectives.",
+                "Inspirar: Después de una fase de Poder, si tu banda controla 3 o más fichas de tesoro, inspira a cada luchador amigo.\n\n"+
+                "Agilidad de los Skink: Inmediatamente después de realizar una tirada de Salvación como parte de un ataque cuerpo a cuerpo para un skink amigo sin fichas de Carga en territorio amigo, puedes volver a tirar 1 dado de Salvación en esa tirada.\n\n"+
+                "El adivino (acción Basica): Elige una ficha de rasgo dentro de 3 hexágonos de tu líder. Dale la vuelta a esa ficha de rasgo o inflige 1 punto de daño a un luchador enemigo que se encuentre en esa ficha de rasgo o adyacente a ella. Esta habilidad solo se puede usar una vez por ronda de batalla.\n\n"+
+                "El Baluarte Celestial (Una vez por partida): Úsala en tu fase de poder. Los luchadores amigos no pueden ser presioandos hasta el final de la ronda de combate o hasta que algún jugador use una habilidad de Asterismo.\n\n"+
+                "El Gran Dragón (Una vez por partida): Úsalo en tu fase de poder. Las armas cuerpo a cuerpo de los luchadores aliados tienen +1 dado de ataque hasta el final de la ronda de combate o hasta que algún jugador use una habilidad Asterismo.\n\n"+
+                "El corcel del cazador (Una vez por partida): Úsalo en tu fase de poder. Los luchadores aliados tienen +1 a Movimiento hasta el final de la ronda de combate o hasta que cualquier jugador use una habilidad Asterismo.",
                 "Seraphon", "the_starblood_stalkers_0");
 
         // Kixi-Taka the Diviner
@@ -1563,7 +1736,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Thundrik's Profiteers ---
         long thundrikBandId = insertBandInternal(db, "Thundrik's Profiteers",
-                "Inspire: Score a goal.",
+                "Inspirar: Después de puntuar una carta de objetivo, si hay un líder aliado en el campo de batalla, puedes elegir un luchador aliado. Inspira a ese luchador.\n\n"+
+                "ES MÍO, JUSTO Y LEGÍTIMO: Mientras un luchador aliado tenga una ficha de tesoro y no haya luchadores enemigos adyacentes a él, ese luchador no puede ser empujado por habilidades enemigas.\n\n"+
+                "Aislamiento atmosférico: Úsalo inmediatamente después de tu fase de Acción si un líder aliado ha usado alguna habilidad básica en esa fase. Hasta el final de la siguiente fase de Acción, cada vez que un luchador enemigo sea colocado, empujado o entre en un hexágono adyacente a ese líder, inflige 1 punto de daño a ese luchador.\n\n"+
+                "Balas de éter personalizadas (Una vez por partida): Úsala inmediatamente después de elegir un arma a distancia como parte de un ataque. Esa arma tiene +1 de alcance y +1 dado de ataque para ese ataque.\n\n"+
+                "Lluvia de disparos de éter (Una vez por partida): Úsalo inmediatamente después del ataque a distancia de un luchador aliado si no tiene fichas de movimiento o carga. Ese luchador ataca de nuevo con la misma arma. El objetivo de ese ataque debe ser diferente al objetivo del primer ataque y debe estar a 2 hexágonos del primer objetivo.\n\n"+
+                "Según el Código (Una vez por partida): Úsalo en una fase de Poder. Elige un luchador amigo. Empuja a ese luchador hasta 3 hexágonos. Ese empujón debe terminar en una ficha de característica.",
                 "Kharadron Overlords", "thundriks_profiteers_0");
 
         // Bjorgen Thundrik
@@ -1583,7 +1761,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Xandire's Truthseekers ---
         long xandireBandId = insertBandInternal(db, "Xandire's Truthseekers",
-                "Inspire: One of your fighters is taken out of action.",
+                "Inspirar: Después de un paso de poder, si algún luchador amigo (excepto Taros) muere, inspira a cada luchador amigo.\n\n"+
+                "Ojo de raptor: Puedes volver a tirar inmediatamente 1 dado de ataque en una tirada de ataque si el objetivo está en una ficha de rasgo a 2 hexágonos de un Taros amigo.\n\n"+
+                "Golpe del buscador: Usa esto inmediatamente después de un ataque cuerpo a cuerpo exitoso de un luchador amigo si el objetivo estaba en una ficha de rasgo. Da la vuelta a esa ficha de rasgo. Solo puedes usar esta habilidad una vez por ronda de batalla.\n\n"+
+                "Llama de luz (Una vez por partida): Úsala en tu fase de poder si tu líder está en el campo de batalla. Las armas de los luchadores enemigos tienen -1 dado de ataque en el siguiente turno.\n\n"+
+                "Pureza ardiente (Una vez por partida): Úsala inmediatamente después de que tu líder sea asesinado. Elige hasta 2 luchadores amigos y cura a cada uno de ellos, o elige 1 luchador amigo y cúralo dos veces.\n\n"+
+                "Fuerza ardiente (Una vez por partida): Úsala inmediatamente después de que un Dhoraz aliado sea asesinado. Elige hasta 2 luchadores aliados y empuja a cada uno 1 hexágono, o elige 1 luchador aliado y empújalo hasta 2 hexágonos.\n\n"+
+                "Venganza ardiente (Una vez por partida): Úsala inmediatamente después de que un Luxa aliado sea asesinado, antes de retirarlo del campo de batalla. Ese luchador ataca con un arma a distancia (excluyendo las mejoras).",
                 "Stormcast Eternals", "xandires_truthseekers_0");
 
         // Calthia Xandire
@@ -1600,7 +1784,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Zondara's Gravebreakers ---
         long zondaraBandId = insertBandInternal(db, "Zondara's Gravebreakers",
-                "Inspire: Varies (Ferlain upgrades vs Zondara upgrades).",
+                "Inspirar: Inmediatamente después de dar una ficha de Levantado a un luchador aliado, inspira a ese luchador. Inmediatamente después de dar a un luchador aliado destinado su segunda mejora o las siguientes, inspira al otro luchador aliado destinado.\n\n"+
+                "Rompetumbas: Úsalo inmediatamente después de que un esbirro aliado indague. Ese luchador puede desenterrar o un líder aliado puede exhumar.\n\n"+
+                "Destinado: Mientras un luchador aliado destinado sea asesinado, el otro luchador aliado destinado tiene +1 a Mover y sus armas tienen +1 a los dados de Ataque.\n\n"+
+                "Amor eterno: Úsalo en un paso de Poder. Elige 2 luchadores aliados destinados. Cura a 1 de esos luchadores y empuja al otro luchador hasta 3 hexágonos hacia el otro luchador.\n\n"+
+                "Exhumar: Elige un secuaz aliado muerto. Resucita a ese luchador y colócalo en un hexágono adyacente al luchador aliado que lo resucitó. Solo puedes usar esta habilidad si se elige al resolver la habilidad Rompetumbas.\n\n"+
+                "Desenterrar: Roba un número de cartas de poder igual al número de combatientes aliados muertos. Solo puedes usar esta habilidad si se elige al resolver la habilidad Rompetumbas.",
                 "Soulblight Gravelords", "zondaras_gravebreakers_0");
 
         // Zondara Rivenheart
@@ -1620,12 +1809,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Skittershank's Clawpack ---
         long skittershankBandId = insertBandInternal(db, "Skittershank's Clawpack",
-                "Inspire: After an Action step, if an enemy leader is slain or has 3 or more damage tokens, Inspire each friendly fighter. \n" +
-                "Marked for Death: Use this immediately after making an Attack roll for a friendly fighter if the target is an enemy leader. Re-roll 1 Attack dice in that Attack roll. \n" +
-                "Spiketraps and Snares: Immediately after a friendly fighter's successful melee Attack, give the target a barb token. Immediately after an enemy fighter with any barb tokens Moves, inflict 1 damage on that fighter, then remove that fighter's barb tokens. Remove all barb tokens from enemy fighters at the end of the battle round. \n" +
-                "Smoke Bombs (Once per game): Immediately after a friendly fighter's Attack, give each enemy fighter adjacent to the attacker a Stagger token. \n" +
-                "The Jaws Snap (Once per game): Use this in your Power step. Pick an enemy leader in enemy territory. Push that fighter 1 hex. \n" +
-                "Skittering Blur (Once per game): Use this in your Power step. In the next turn, friendly assassins cannot be picked to be the target of Attacks or Ploys.",
+                "Inspirar: Después de una fase de Acción, si un líder enemigo muere o tiene 3 o más fichas de daño, inspira a cada luchador amigo. \n\n" +
+                "Marcado para morir: Úsalo inmediatamente después de realizar una tirada de Ataque para un luchador amigo si el objetivo es un líder enemigo. Vuelve a tirar 1 dado de Ataque en esa tirada de Ataque. \n\n" +
+                "Trampa de puas y lazos: Inmediatamente después de que un luchador amigo realice con éxito un ataque cuerpo a cuerpo, dale al objetivo una ficha de púa. Inmediatamente después de que un luchador enemigo con fichas de púa se mueva, inflige 1 punto de daño a ese luchador y luego retira sus fichas de púa. Retira todas las fichas de púa de los luchadores enemigos al final de la ronda de combate. \n\n" +
+                "Bombas de humo (Una ves por partida): Inmediatamente después del ataque de un luchador aliado, dale una ficha de tambaleo a cada luchador enemigo adyacente al atacante. \n\n" +
+                "Las mandíbulas se cierran (Una vez por partida): Usa esto en tu fase de poder. Elige un líder enemigo en territorio enemigo. Empuja a ese luchador 1 hexágono. \n\n" +
+                "Desenfoque brillante (Una vez por partida): Úsala en tu fase de poder. En el siguiente turno, los asesinos amigos no pueden ser elegidos como objetivo de ataques o ardides.",
                 "Skaven", "skittershanks_clawpack_0");
 
         // Slynk Skittershank
@@ -1645,7 +1834,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // --- Inserción de Hrothgorn's Mantrappers ---
         long hrothgornBandId = insertBandInternal(db, "Hrothgorn's Mantrappers",
-                "Inspire: An enemy fighter adjacent to Hrothgorn is taken out of action.",
+                "Inspirar: Después de que un luchador enemigo sea asesinado por un ataque cuerpo a cuerpo realizado por tu líder, inspira a cada luchador amigo.\n\n"+
+                "Emboscada de nocheEterna: Cuando despliegues un Thrafnir amigo, puedes colocarlo en un hexágono vacío en territorio enemigo que no sea un hexágono de inicio y que no contenga una ficha de rasgo.\n\n"+
+                "Trampas devoradoras: Al comienzo de la primera fase de acción de la primera ronda de combate, coloca una miniatura de trampa amiga en un hexágono vacío en territorio amigo.\n" + //
+                                        "Si un luchador es colocado, empujado o entra en un hexágono que contenga una trampa amiga, inflige 2 puntos de daño a ese luchador y luego retira la trampa del campo de batalla.\n\n"+
+                "Más trampas: Úsalo en tu fase de Poder si no hay trampas amigas en el campo de batalla. Coloca una trampa amiga en un hexágono vacío adyacente a un Gnoblar amigo.\n\n"+
+                "Competencia sorprendente: Usa esto inmediatamente después de que un Gnoblar aliado se mueva si ese luchador está adyacente a una trampa aliada. Retira esa trampa del campo de batalla y colócala en un lugar diferente.",
                 "Destruccion", "hrothgorns_mantrappers_0");
 
         // Hrothgorn
