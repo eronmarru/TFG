@@ -1,56 +1,55 @@
-## UnderworldsTrack TFG
+# UnderworldsTrack
 
-Aplicación Android desarrollada como Trabajo de Fin de Grado para gestionar contenido de **Warhammer Underworlds**.
+Aplicación Android para jugadores de Warhammer Underworlds. Permite consultar bandas y sus luchadores, gestionar mazos personalizados y mazos Rivals, y utilizar un tirador de dados con la iconografía del juego.
 
-La app permite consultar bandas, ver sus miniaturas, gestionar mazos de cartas (propios y de Rivals) y disponer de una utilidad de tirada de dados con iconografía propia del juego.
+## Funcionalidades
 
-### Características principales
+- Explorar bandas por alianza, con imagen del líder y facción correcta.
+- Ver detalle de banda: descripción y galería de luchadores (base/inspirada).
+- Mazos de usuario: crear, listar, ver detalle y eliminar.
+- Mazos Rivals: catálogo predefinido consultable.
+- Tirador de dados:
+  - Ataque y defensa diferenciados.
+  - Tirada por botón o agitando el dispositivo (acelerómetro).
+  - Re-tirada individual tocando cada dado.
+- Notificaciones al seleccionar banda con facción mostrada correctamente.
+- Almacenamiento local en SQLite con datos precargados.
 
-- Listado de bandas con imagen de líder y facción asociada.
-- Vista de detalle de banda con galería de luchadores.
-- Gestor de mazos de usuario (creación, listado y detalle).
-- Listado de mazos Rivals predefinidos.
-- Visualización de cartas con sus imágenes.
-- Tirador de dados de ataque y defensa con probabilidades adaptadas a Underworlds:
-  - Distingue entre dados de Ataque y Defensa.
-  - Permite tiradas por botón o por movimiento (acelerómetro).
-  - Re–tirada individual al pulsar sobre un dado.
-- Almacenamiento local mediante base de datos SQLite con datos iniciales precargados (bandas, luchadores, mazos, cartas).
+## Requisitos
 
-### Requisitos
+- Android Studio (Giraffe o superior recomendado).
+- JDK compatible con la versión de Gradle del proyecto.
+- Dispositivo o emulador Android con API mínima indicada en el módulo `app`.
 
-- Android Studio reciente (Giraffe o superior recomendado).
-- JDK compatible con la versión de Gradle usada por el proyecto.
-- Dispositivo o emulador Android con API mínima según `build.gradle` (consulta el módulo `app`).
+## Instalación y ejecución
 
-### Cómo abrir el proyecto
+```bash
+git clone https://github.com/eronmarru/TFG.git
+cd TFG
+```
 
-1. Clonar el repositorio:
+1. Abrir en Android Studio.
+2. Sincronizar Gradle.
+3. Ejecutar sobre emulador o dispositivo físico.
 
-   ```bash
-   git clone https://github.com/eronmarru/TFG.git
-   cd TFG
-   ```
+## Módulos principales
 
-2. Abrir la carpeta del proyecto en **Android Studio**.
-3. Esperar a que se sincronicen las dependencias de Gradle.
-4. Ejecutar la aplicación:
-   - Selecciona un dispositivo físico o emulador.
-   - Pulsa en **Run** ▶.
+- `DatabaseHelper`: creación y carga de la base de datos SQLite (bandas, luchadores, mazos, cartas).
+- `Bands`, `FactionBandsActivity`, `BandDetailActivity`: navegación y detalle de bandas.
+- `DeckBuilderActivity`, `UserDecksActivity`, `UserDeckDetailActivity`: gestión de mazos de usuario.
+- `RivalDecksListActivity`, `RivalDeckDetailActivity`: navegación de mazos Rivals.
+- `DiceRollerActivity`: tirador de dados con acelerómetro y re-tiradas individuales.
+- `VideosActivity`, `VideoActivity`: reproductor y listado de vídeos informativos.
 
-### Estructura básica
+## Estructura
 
-- `app/src/main/java/com/example/underworldstrack/`
-  - `MainActivity` y actividades de navegación principal.
-  - `DatabaseHelper`: lógica de creación y carga de la base de datos SQLite.
-  - Actividades de bandas, mazos y tirador de dados.
-- `app/src/main/res/layout/`
-  - Diseños XML de las pantallas (bandas, mazos, dados, etc.).
-- `app/src/main/res/drawable/`
-  - Imágenes de bandas, luchadores y caras de dados.
+- `app/src/main/java/com/example/underworldstrack/`: actividades y lógica.
+- `app/src/main/res/layout/`: vistas XML.
+- `app/src/main/res/drawable/`: imágenes de bandas, luchadores, cartas y dados.
+- `AndroidManifest.xml`: declaración de actividades, icono y permisos.
 
-### Notas
+## Notas
 
-- El proyecto está pensado como herramienta de apoyo para jugadores de Warhammer Underworlds, no es una aplicación oficial.
-- Algunas partes del contenido (bandas, cartas, imágenes) pueden ampliarse o ajustarse en futuras versiones.
+- Proyecto no oficial, orientado a uso personal de jugadores.
+- Contenido (bandas, cartas, imágenes) puede ampliarse o ajustarse en versiones futuras.
 
