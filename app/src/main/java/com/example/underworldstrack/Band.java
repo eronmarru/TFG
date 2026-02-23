@@ -70,8 +70,9 @@ public class Band {
                 case "The Gnarlspirit Pack":
                     return "Slaves to Darkness";
                 case "Kamandora's Blades":
-                case "Blood of the Bull":
                     return "Blades of Khorne";
+                case "Blood of the Bull":
+                    return "Helsmiths of Hashut";
                 case "Thorns of the Briar Queen":
                     return "Nighthaunt";
                 case "The Grymwatch":
@@ -80,28 +81,75 @@ public class Band {
                 case "The Exiled Dead":
                     return "Soulblight Gravelords";
                 case "Brethren of the Bolt":
-                case "The Emberwatch":
+                    return "Cities of Sigmar";
+                case "Hexbane's Hunters":
                     return "Cities of Sigmar";
                 case "Cyreni's Razors":
                 case "Elathain's Soulraid":
                     return "Idoneth Deepkin";
                 case "Ylthari's Guardians":
                     return "Sylvaneth";
+                case "Knives of the Crone":
+                    return "Daughters of Khaine";
                 case "Da Kunnin' Krew":
+                    return "Kruleboyz";
                 case "Daggok's Stab-ladz":
+                    return "Kruleboyz";
                 case "Borgit's Beastgrabbaz":
                 case "Zarbag's Gitz":
                 case "Rippa's Snarlfangs":
                 case "Grinkrak's Looncourt":
                     return "Gloomspite Gitz";
+                case "Mollog's Mob":
+                    return "Gloomspite Gitz";
+                case "Blackpowder's Buccaneers":
+                    return "Ogor Mawtribes";
+                case "Hrothgorn's Mantrappers":
+                    return "Ogor Mawtribes";
                 case "Jaws of Itzl":
+                    return "Seraphon";
+                case "Starblood Stalkers":
                     return "Seraphon";
                 case "Zikkit's Tunnelpack":
                     return "Skaven";
+                case "Skittershank's Clawpack":
+                    return "Skaven";
                 case "The Thricefold Discord":
                     return "Hedonites of Slaanesh";
+                case "Ephilim's Pandaemonium":
+                    return "Disciples of Tzeentch";
                 case "Grandfather's Gardeners":
                     return "Maggotkin of Nurgle";
+                case "Khagra's Ravagers":
+                    return "Slaves to Darkness";
+                case "The Emberwatch":
+                    return "Stormcast Eternals";
+                case "Ironsoul's Condemners":
+                    return "Stormcast Eternals";
+                case "The Farstriders":
+                    return "Stormcast Eternals";
+                case "Xandire's Truthseekers":
+                    return "Stormcast Eternals";
+                case "Kainan's Reapers":
+                    return "Ossiarch Bonereapers";
+                case "The Headsmen's Curse":
+                    return "Nighthaunt";
+                case "The Shadeborn":
+                    return "Daughters of Khaine";
+                case "Sepulchral Guard":
+                    return "Soulblight Gravelords";
+                case "Sons of Velmorn":
+                    return "Soulblight Gravelords";
+                case "Zondara's Gravebreakers":
+                    return "Soulblight Gravelords";
+                case "The Skinnerkin":
+                    return "Flesh-eater Courts";
+                case "Morgok's Krushas":
+                    return "Ironjawz";
+                case "Myari's Purifiers":
+                    return "Lumineth Realm-lords";
+                case "Thundrik's Profiteers":
+                    return "Kharadron Overlords";
                 default:
                     return faction;
             }

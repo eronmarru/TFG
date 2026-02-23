@@ -184,15 +184,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // Insertar Bandas
 
 
-        // Insertar Mazos Rivales proporcionados por el usuario
-        // Asumimos que son universales a menos que se indique lo contrario.
-        // El usuario proporcionará las reglas especiales y cartas más adelante.
-        
-        // (Eliminados duplicados vacíos que estaban aquí)
-
         // --- Inserción de The Wurmspat (Band, Fighters, Stats, Weapons) ---
         long wurmspatId = insertBandInternal(db, "The Wurmspat",
-                "Inspirar: Si 3 o más luchadores enemigos están eliminados o heridos, Inspira a cada luchador amigo. Después de que un luchador enemigo con alguna ficha de bilis sea eliminado por un luchador amigo, Inspira a ese luchador.",
+                "Inspirar: Si 3 o más luchadores enemigos están muertos o heridos, Inspira a cada luchador amigo. Después de que un luchador enemigo con alguna ficha de bilis sea eliminado por un luchador amigo, Inspira a ese luchador.\n\n"+
+                "Repungnantemente resistente: Inmediatamente antes de que se le vaya a inflijir daño a un luchador amigo, si la tirada de salvación tuvo algun escudo, reduce el daño de ese ataque en 1\n\n"+
+                "Regalos de abuelo: \n"+
+                        "Hoja de bilis: Cuando un arma con esta habilidad de arma inflinge daño a un luchador enemigo, dale al objetivo un token de bilis\n"+
+                        "Los luchadores enemigos tienen -2 de movimiento, mientras tengan el token de bilis. Retira todos los tokens de bilis de los luchadores enemigos al final de la ronde de batalla\n\n"+
+                        "Avance constante (Una vez por partida): Usa esto en tu paso de poder. Elige hasta 2 luchadores amigos. Empuja a cada uno 1 hexagono\n\n"+
+                        "Repelencia nauseabunda (Una vez por partida): Usa esto en tu paso de poder, las armas cuerpo a cuerpo de los luchadores enemigos tienen -1 dado de ataque en el siguiente turno\n\n"+
+                        "Hojas de putrefacción (Una vez por partida): Usa esto es una fase de poder, las armas cuerpo a cuerpo de los luchadores amigos tienen doloroso ademas de sus otras habilidades de arma en el siguiente turno",
                 "Caos", "the_wurmspat_0");
 
         // Fecula
@@ -203,13 +204,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         // Sepsimus
         insertFighterInternal(db, (int)wurmspatId, "Sepsimus", "the_wurmspat_3");
-
-        // --- Perfiles INSPIRADOS ---
-        // Fecula Inspirada
-
-        // Ghulgoch Inspirado
-
-        // Sepsimus Inspirado
 
         // --- Inserción de Spiteclaw's Swarm (Band) ---
         long spiteclawId = insertBandInternal(db, "Spiteclaw's Swarm",
@@ -2038,10 +2032,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 "Cortes de primera calidad: Inmediatamente después de que un luchador enemigo flanqueado o rodeado sea asesinado, obtén una ficha de muslo. Inmediatamente después de que un chef aliado realice un ataque con éxito, obtén una ficha de muslo. Si el arma de un luchador aliado tiene la runa, tienes acceso a la siguiente habilidad de arma:\n" + //
                                         "Filete: si el ataque tuvo éxito, obtén una ficha de muslo.\n\n"+
                 "Garras afiladas: Úsalo inmediatamente después de que un Carnskyr amigo se mueva. Elige un luchador enemigo en un hexágono por el que haya pasado el Carnskyr y tira un dado de ataque. Con un martillo, inflige 1 punto de daño a ese luchador y obtén una ficha de muslo. Con una espada o un critico, puedes empujar a ese luchador hasta 1 hexágono.\n\n"+
-                "Puedes usar 1 de las siguientes habilidades por turno.\n"+
-                "Prueba de sabor: Úsala inmediatamente después de resolver una habilidad básica para un luchador aliado. Descarta una ficha de muslo y luego inspira a ese luchador.\n"+
-                "¡Este está arruinado, tráeme otro!: Úsalo inmediatamente después de realizar una tirada de ataque para un luchador aliado. Descarta una ficha de muslo y luego vuelve a tirar 1 dado de ataque en esa tirada de ataque.\n"+
-                "¡El rey tiene hambre!: Úsalo inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Descarta una ficha de muslo. Esa arma tiene Doloroso para ese ataque.\n"+
+                "Puedes usar 1 de las siguientes habilidades por turno.\n\n"+
+                "Prueba de sabor: Úsala inmediatamente después de resolver una habilidad básica para un luchador aliado. Descarta una ficha de muslo y luego inspira a ese luchador.\n\n"+
+                "¡Este está arruinado, tráeme otro!: Úsalo inmediatamente después de realizar una tirada de ataque para un luchador aliado. Descarta una ficha de muslo y luego vuelve a tirar 1 dado de ataque en esa tirada de ataque.\n\n"+
+                "¡El rey tiene hambre!: Úsalo inmediatamente después de elegir un arma cuerpo a cuerpo como parte de un ataque. Descarta una ficha de muslo. Esa arma tiene Doloroso para ese ataque.\n\n"+
                 "Mordisco rápido: Úsalo en una fase de poder. Descarta una ficha de muslo y elige a un luchador aliado. Cura a ese luchador.",
                 "Flesh-eater Courts", "the_skinnerkin_0");
 

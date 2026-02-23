@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
@@ -73,6 +74,20 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnStopWifi = findViewById(R.id.btn_stop_wifi);
         btnStopWifi.setOnClickListener(v -> stopService(new Intent(this, WifiService.class)));  // Detiene el servicio WiFi
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            getWindow().getDecorView().setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                            | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
     }
 
     // Temporizador que muestra toast cada 60 segundos (reinicia automáticamente)
