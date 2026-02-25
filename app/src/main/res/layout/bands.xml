@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Layout de selección de Facciones -->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background">
+
+    <!-- Contenedor de botones de facción -->
+    <LinearLayout
+        android:id="@+id/layoutButtons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_volverBoard"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="32dp">
+
+        <Button
+            android:id="@+id/btn_caos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Caos"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btn_muerte"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Muerte"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btn_destruccion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Destrucción"
+            android:layout_marginBottom="16dp"/>
+
+        <Button
+            android:id="@+id/btn_orden"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Orden"/>
+
+    </LinearLayout>
+
+    <!-- Botones de navegación inferior -->
+    <Button
+        android:id="@+id/btn_volverBoard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_weight="1"
+        android:text="Volver a los campos"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+    <Button
+        android:id="@+id/btn_volverPrincipal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:text="Volver a Inicio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.95" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

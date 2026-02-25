@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Manifiesto de la aplicación: define permisos, actividades y configuración general -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.underworldstrack">
+
+    <!-- Permisos requeridos -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/> <!-- Para notificaciones push (Android 13+) -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/> <!-- Para comprobar estado de red (WifiService) -->
+    <uses-permission android:name="android.permission.INTERNET"/> <!-- Para cargar videos/imágenes remotas -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/> <!-- Para ejecutar servicios en primer plano -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" /> <!-- Tipo específico de servicio en primer plano -->
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icon_app"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.UnderworldsTrack">
+
+        <!-- Actividad Principal (Launcher) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <!-- Otras Actividades -->
+        <activity android:name=".Board" android:exported="false"/> <!-- Menú del tablero -->
+        <activity android:name=".Bands" android:exported="false"/> <!-- Selección de Facciones -->
+        <activity android:name=".FactionBandsActivity" android:exported="false"/> <!-- Lista de Bandas por Facción -->
+        <activity android:name=".BandDetailActivity" android:exported="false"/> <!-- Detalle de Banda -->
+        <activity android:name=".DeckBuilderActivity" android:exported="false"/> <!-- Constructor de Mazos -->
+        <activity android:name=".UserDecksActivity" android:exported="false"/> <!-- Lista de Mazos de Usuario -->
+        <activity android:name=".UserDeckDetailActivity" android:exported="false"/> <!-- Detalle de Mazo de Usuario -->
+        <activity android:name=".DiceRollerActivity" android:exported="false"/> <!-- Tirador de Dados -->
+        <activity android:name=".RivalDecksListActivity" android:exported="false"/> <!-- Lista de Mazos Rivales -->
+        <activity android:name=".RivalDeckDetailActivity" android:exported="false"/> <!-- Detalle de Mazo Rival -->
+        <activity android:name=".VideosActivity" android:exported="false"/> <!-- Menú de Videos -->
+        <activity android:name=".VideoActivity" android:exported="false"/> <!-- Reproductor de Video -->
+
+        <!-- Receptores de Broadcast -->
+        <receiver android:name=".AlarmReciver" android:exported="false"/> <!-- Receptor de alarmas programadas -->
+
+        <!-- Servicios -->
+        <service
+            android:name=".WifiService"
+            android:foregroundServiceType="dataSync"
+            android:exported="false"/> <!-- Servicio de monitoreo WiFi -->
+
+    </application>
+</manifest>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+   Reglas de copia de seguridad (Backup).
+   Define qué archivos se deben incluir o excluir en la copia de seguridad automática de Android.
+   Este archivo es ignorado en dispositivos anteriores a la API 31.
+-->
+<full-backup-content>
+    <!--
+   <include domain="sharedpref" path="."/>
+   <exclude domain="sharedpref" path="device.xml"/>
+-->
+</full-backup-content>

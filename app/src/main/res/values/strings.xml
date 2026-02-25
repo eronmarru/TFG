@@ -1,0 +1,4 @@
+<resources>
+    <!-- Nombre de la aplicación -->
+    <string name="app_name">Underworlds track</string>
+</resources>
